@@ -1,58 +1,5 @@
 
 
-                    <div class="col order-3 order-lg-2">
-                        <div class="main-menu">
-                            <nav>
-                                <ul>
-                                    <li class="active"><a href="index.html">HOME</a>
-                                        <ul class="sub-menu">
-                                            <li class="active"><a href="index.html">Home One</a></li>
-                                            <li><a href="index-2.html">Home Two</a></li>
-                                            <li><a href="index-3.html">Home Three</a></li>
-                                            <li><a href="index-box.html">Home Box</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="shop.html">SHOP</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="index.php">Shop</a></li>
-                                            <li><a href="shop-left-sidebar.html">Shop Left Sidebar</a></li>
-                                            <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
-                                            <li><a href="single-product.html">Single Product</a></li>
-                                            <li><a href="single-product-left-sidebar.html">Single Product Left Sidebar</a></li>
-                                            <li><a href="single-product-right-sidebar.html">Single Product Right Sidebar</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">PAGES</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="cart.html">Cart</a></li>
-                                            <li><a href="checkout.html">Checkout</a></li>
-                                            <li><a href="login-register.html">Login & Register</a></li>
-                                            <li><a href="my-account.html">My Account</a></li>
-                                            <li><a href="wishlist.html">Wishlist</a></li>
-                                            <li><a href="404.html">404 Error</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="blog.html">BLOG</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="blog.html">Blog</a></li>
-                                            <li><a href="single-blog.html">Single Blog</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact.html">CONTACT</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-
-                    <!-- Mobile Menu -->
-                    <div class="mobile-menu order-4 d-block d-lg-none col"></div>
-
-                </div>
-            </div>
-        </div><!-- Header BOttom End -->
-
-    </div><!-- Header Section End -->
-
     <!-- Hero Section Start -->
     <div class="hero-section section">
 
