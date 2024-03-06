@@ -25,15 +25,15 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "view/shop.php";
             break;
         case 'detailProduct':
-            if (isset($_GET['id']) && $_GET['id']) {
-                $id = $_GET['id'];
-                $sanpham = loadone_sanpham($id);
-                extract($sanpham);
-                $splienquan = loadall_sanpham_related($category_id, $id);
-                $dsbl = loadall_binhluan($id);
+            // if (isset($_GET['id']) && $_GET['id']) {
+            //     $id = $_GET['id'];
+            //     $sanpham = loadone_sanpham($id);
+            //     extract($sanpham);
+            //     $splienquan = loadall_sanpham_related($category_id, $id);
+            //     $dsbl = loadall_binhluan($id);
         
-                setview_sanpham($id, $view);
-            }
+            //     setview_sanpham($id, $view);
+            // }
             include "view/detailProduct.php";
             break;
 
@@ -50,7 +50,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     $thongbao = "Mật khẩu tối thiểu 6 kí tự";
                 }
             }
-            include "view/taikhoan/register.php";
+            include "view/account/register-login.php";
             break;
         case 'login':
             if (isset($_POST['submit']) && $_POST['submit']) {
@@ -63,8 +63,11 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     $thongbao = "Tài khoản hoặc mật khẩu không đúng";
                 }
             }
-            include "view/login.php";
+            include "view/account/register-login.php";
             break;
+        case 'account':
+            include "view/account/account.php";
+            break;    
         case 'edit_taikhoan':
             if (isset($_POST['submit']) && $_POST['submit']) {
                 $id = $_POST['id'];
@@ -115,6 +118,9 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             }
             // include "view/detailProduct.php";
             break;
+        case "wishlist":
+            include "view/wishlist.php";
+            break;    
         case 'addtocart':
             if (isset($_POST['addtocart']) && ($_POST['addtocart'])) {
                 $id = $_POST['id'];
@@ -140,7 +146,9 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         case 'cart':
             include "view/cart/cart.php";
             break;
-
+            case 'checkout':
+                include "view/cart/checkout.php";
+                break;    
         default:
             include "view/home.php";
             break;

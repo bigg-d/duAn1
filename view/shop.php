@@ -66,7 +66,7 @@
 
                                         <div class="content-left">
 
-                                            <h4 class="title"><a href="single-product.html">Tmart Baby Dress</a></h4>
+                                            <h4 class="title"><a href="index.php?act=detailProduct">Tmart Baby Dress</a></h4>
 
                                             <div class="ratting">
                                                 <i class="fa fa-star"></i>

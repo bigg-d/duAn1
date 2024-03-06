@@ -59,8 +59,8 @@
                             <!-- Header Shop Links Start -->
                             <div class="header-top-right">
 
-                                <p><a href="my-account.html">My Account</a></p>
-                                <p><a href="login-register.html">Register</a><a href="login-register.html">Login</a></p>
+                                <p><a href="index.php?act=account">My Account</a></p>
+                                <p><a href="index.php?act=register">Register</a><a href="index.php?act=login">Login</a></p>
 
                             </div><!-- Header Shop Links End -->
                         </div>
@@ -77,7 +77,7 @@
                         <div class="col mt-15 mb-15">
                             <!-- Logo Start -->
                             <div class="header-logo">
-                                <a href="index.html">
+                                <a href="index.php">
                                     <img src="assets/images/logo.png" alt="Jadusona">
                                 </a>
                             </div><!-- Logo End -->
@@ -100,13 +100,12 @@
                                 </div>
 
                                 <div class="header-wishlist">
-                                    <a href="wishlist.html"><img src="assets/images/icons/wishlist.png" alt="Wishlist">
-                                        <span>02</span></a>
+                                    <a href="index.php?act=wishlist"><img src="assets/images/icons/wishlist.png" alt="Wishlist"></a>
                                 </div>
 
                                 <div class="header-mini-cart">
-                                    <a href="cart.html"><img src="assets/images/icons/cart.png" alt="Cart">
-                                        <span>02($250)</span></a>
+                                    <a href="index.php?act=cart"><img src="assets/images/icons/cart.png" alt="Cart">
+                                        <span>02</span></a>
                                 </div>
 
                             </div><!-- Header Advance Search End -->
@@ -118,22 +117,15 @@
                             <div class="main-menu">
                                 <nav>
                                     <ul>
-                                        <li class="active"><a href="index.html">HOME</a>
-                                            <ul class="sub-menu">
-                                                <li class="active"><a href="index.html">Home One</a></li>
-                                                <li><a href="index-2.html">Home Two</a></li>
-                                                <li><a href="index-3.html">Home Three</a></li>
-                                                <li><a href="index-box.html">Home Box</a></li>
-                                            </ul>
-                                        </li>
+                                        <li class="active"><a href="index.php">HOME</a></li>
                                         <li><a href="index.php?act=shop">SHOP</a></li>
                                         <li><a href="#">PAGES</a>
                                             <ul class="sub-menu">
-                                                <li><a href="cart.html">Cart</a></li>
-                                                <li><a href="checkout.html">Checkout</a></li>
-                                                <li><a href="login-register.html">Login & Register</a></li>
-                                                <li><a href="my-account.html">My Account</a></li>
-                                                <li><a href="wishlist.html">Wishlist</a></li>
+                                                <li><a href="index.php?act=cart">Cart</a></li>
+                                                <li><a href="index.php?act=checkout">Checkout</a></li>
+                                                <li><a href="index.php?act=register">Login & Register</a></li>
+                                                <li><a href="index.php?act=account">My Account</a></li>
+                                                <li><a href="index.php?act=wishlist">Wishlist</a></li>
                                                 <li><a href="404.html">404 Error</a></li>
                                             </ul>
                                         </li>
