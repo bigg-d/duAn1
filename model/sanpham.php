@@ -1,55 +1,55 @@
 <?php
-    function insert_sanpham($tensp, $giasp, $filename, $mota,$iddm){
-        $sql = "insert into products (name, price, img, description, category_id) values('$tensp', '$giasp', '$filename', '$mota','$iddm' )";
+    function insert_sanpham($name, $price, $img, $mota,$iddm){
+        $sql = "insert into sanpham (name, price, img, mota, iddm) values('$name', '$price', '$img', '$mota','$iddm' )";
         pdo_execute($sql);
     }
     function delete_sanpham($id){
-        $sql = "delete from products  where id =". $id;
+        $sql = "delete from sanpham  where id =". $id;
         pdo_query($sql);
     }
     function loadall_sanpham_home(){
-        $sql = "select * from products where 1 order by view desc limit 10";
+        $sql = "select * from sanpham where 1 order by view desc limit 10";
         $listsanpham = pdo_query($sql);
         return $listsanpham;
     }
-    function loadall_sanpham_related($category_id, $id){
-        $sql = "select * from products where category_id = '$category_id' and id <> '$id' order by view desc limit 0,5";
+    function loadall_sanpham_related($iddm, $id){
+        $sql = "select * from sanpham where iddm = '$iddm' and id <> '$id' order by view desc limit 0,5";
         $listsanpham = pdo_query($sql);
         return $listsanpham;
     }
     function loadall_sanpham($kyw,$iddm){
-        $sql = "select * from products where 1";
+        $sql = "select * from sanpham where 1";
         if($kyw != ""){
             $sql.= " and name like '%". $kyw. "%'";
         }
         if($iddm > 0){
-            $sql.= " and category_id = ".$iddm;
+            $sql.= " and iddm = ".$iddm;
         }
         $sql.= " order by id desc";
         $listsanpham = pdo_query($sql);
         return $listsanpham;
     }
     function loadone_sanpham($id){
-        $sql = "select * from products  where id =". $id;
+        $sql = "select * from sanpham  where id =". $id;
         $sp = pdo_query_one($sql);
         return $sp;
     }
-    function update_sanpham($id,$tensp, $giasp, $filename, $mota,$iddm){
-        if($filename !== " "){
+    function update_sanpham($id,$name, $price, $img, $mota,$iddm){
+        if($img !== " "){
             echo 'okkk';
-            echo $filename;
-           $sql = "update products set name = '$tensp', price = '$giasp', img = '$filename', description = '$mota', category_id = '$iddm' where id = '$id'";
+            echo $img;
+           $sql = "update sanpham set name = '$name', price = '$price', img = '$img', description = '$mota', iddm = '$iddm' where id = '$id'";
             pdo_execute($sql);
 
         }else{
 
         }
-        $sql = "update products set name = '$tensp', price = '$giasp', description = '$mota', category_id = '$iddm' where id = '$id'";
+        $sql = "update sanpham set name = '$name', price = '$price', description = '$mota', iddm = '$iddm' where id = '$id'";
         pdo_execute($sql);
     }
     function setview_sanpham($id, $view){
         $newview = $view + 1;
-        $sql = "update products set view = '$newview' where id= '$id'";
+        $sql = "update sanpham set view = '$newview' where id= '$id'";
         pdo_query($sql);
     }
 

@@ -28,6 +28,7 @@
                                     <tr>
                                         <th class="pro-thumbnail">Image</th>
                                         <th class="pro-title">Product</th>
+                                        <th>Color</th>
                                         <th class="pro-price">Price</th>
                                         <th class="pro-quantity">Quantity</th>
                                         <th class="pro-subtotal">Total</th>
@@ -38,6 +39,7 @@
                                     <tr>
                                         <td class="pro-thumbnail"><a href="#"><img src="assets/images/product/product-1.jpg" alt="" /></a></td>
                                         <td class="pro-title"><a href="#">Tmart Baby Dress</a></td>
+                                        <td>red</td>
                                         <td class="pro-price"><span class="amount">$25</span></td>
                                         <td class="pro-quantity"><div class="pro-qty"><input type="text" value="1"></div></td>
                                         <td class="pro-subtotal">$25</td>
