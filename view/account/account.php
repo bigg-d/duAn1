@@ -3,7 +3,6 @@
         <div class="container">
             <div class="row">
                 <div class="page-banner-content col">
-
                     <h1>My Account</h1>
                     <ul class="page-breadcrumb">
                         <li><a href="index.html">Home</a></li>
@@ -37,7 +36,7 @@
 
 						<a href="#account-info" data-bs-toggle="tab"><i class="fa fa-user"></i> Account Details</a>
 
-						<a href="login-register.html"><i class="fa fa-sign-out"></i> Logout</a>
+						<a href="index.php?act=logout"><i class="fa fa-sign-out"></i> Logout</a>
 					</div>
 				</div>
 				<!-- My Account Tab Menu End -->
@@ -51,7 +50,11 @@
 								<h3>Dashboard</h3>
 
 								<div class="welcome">
-									<p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Tuntuni !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>
+									<p>Hello, <strong><?php
+										if(isset($user)){
+											echo $user;
+										}
+									?></strong></p>
 								</div>
 
 								<p class="mb-0">From your account dashboard. you can easily check &amp; view your

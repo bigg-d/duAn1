@@ -23,11 +23,11 @@
                 <div class="col-lg-4 col-12 mb-40">
                     <div class="login-register-form-wrap">
                         <h3>Login</h3>
-                        <form action="index.php?act=login" class="mb-30">
+                        <form action="index.php?act=login" class="mb-30" method="post">
                             <div class="row">
-                                <div class="col-12 mb-15"><input type="text" placeholder="Email"></div>
-                                <div class="col-12 mb-15"><input type="password" placeholder="Password"></div>
-                                <div class="col-12"><input type="submit" value="Login"></div>
+                                <div class="col-12 mb-15"><input name="email" type="text" placeholder="Email"></div>
+                                <div class="col-12 mb-15"><input name="password" type="password" placeholder="Password"></div>
+                                <div class="col-12"><input name="submit" type="submit" value="Login"></div>
                             </div>
                         </form>
                         <h4>You can also login with...</h4>
@@ -50,12 +50,20 @@
                         <h3>Register</h3>
                         <form action="index.php?act=register" method="post">
                             <div class="row">
-                                <div class="col-md-6 col-12 mb-15"><input name="name" type="text" placeholder="Your Name"></div>
+                                <div class="col-md-6 col-12 mb-15"><input name="firstname" type="text" placeholder="Your First Name"></div>
+                                <div class="col-md-6 col-12 mb-15"><input name="lastname" type="text" placeholder="Your Last Name"></div>
+                                <div class="col-md-6 col-12 mb-15"><input name="username" type="text" placeholder="Your Display Name"></div> 
                                 <div class="col-md-6 col-12 mb-15"><input name="email" type="email" placeholder="Email"></div>
                                 <div class="col-md-6 col-12 mb-15"><input name="password" type="password" placeholder="Password"></div>
                                 <!-- <div class="col-md-6 col-12 mb-15"><input type="password" placeholder="Confirm Password"></div> -->
                                 <div class="col-md-6 col-12"><input name="submit" type="submit" value="Register"></div>
-                                <p><?=$thongbao?></p>
+                                <p>
+                                    <?php 
+                                        if(isset($thongbao)){
+                                            echo $thongbao;
+                                        }
+                                    ?>
+                                </p>
                             </div>
                         </form>
                     </div>

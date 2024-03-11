@@ -60,7 +60,14 @@
                             <div class="header-top-right">
 
                                 <p><a href="index.php?act=account">My Account</a></p>
-                                <p><a href="index.php?act=register">Register</a><a href="index.php?act=login">Login</a></p>
+                                <?php 
+                                if(isset($_SESSION['user'])){
+                                    echo '<p>Hi, '.$_SESSION['user']['username']. '</p>';
+                                } else{
+                                    echo '<p><a href="index.php?act=register">Register</a><a href="index.php?act=login">Login</a></p>';
+                                } 
+                                ?>
+                                
 
                             </div><!-- Header Shop Links End -->
                         </div>

@@ -1,5 +1,8 @@
 <?php
-
+    ob_start();
+    session_start();
+    include "./model/pdo.php";
+    include "./model/taikhoan.php";
 
 include "view/header.php";
 if (isset($_GET['act']) && ($_GET['act'] != "")) {
@@ -39,12 +42,14 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
 
         case 'register':
             if (isset($_POST['submit']) && $_POST['submit']) {
-                $name = $_POST['name'];
+                $username = $_POST['username'];
+                $firstname = $_POST['firstname'];
+                $lastname = $_POST['lastname'];
                 $password = $_POST['password'];
                 $email = $_POST['email'];
                     
                 if(strlen($password) >= 6){
-                    insert_taikhoan($name, $email, $password);
+                    insert_taikhoan( $firstname, $lastname, $username, $email, $password);
                     $thongbao = "ĐĂNG KÍ THÀNH CÔNG";
                 } else{
                     $thongbao = "Mật khẩu tối thiểu 6 kí tự";
@@ -59,6 +64,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $checkuser = checkuser($email, $password);
                 if (is_array($checkuser)) {
                     $_SESSION['user'] = $checkuser;
+                    header('location: index.php?act=account');
                 } else {
                     $thongbao = "Tài khoản hoặc mật khẩu không đúng";
                 }
@@ -66,18 +72,25 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "view/account/register-login.php";
             break;
         case 'account':
+            if(isset($_SESSION['user']) && $_SESSION['user']){
+                $user = $_SESSION['user']['username'];
+            } else{
+                
+            }
             include "view/account/account.php";
             break;    
         case 'edit_taikhoan':
             if (isset($_POST['submit']) && $_POST['submit']) {
                 $id = $_POST['id'];
-                $user = $_POST['name'];
+                $username = $_POST['username'];
+                $firstname = $_POST['firstname'];
+                $lastname = $_POST['lastname'];
                 $email = $_POST['email'];
                 $address = $_POST['address'];
                 $phone = $_POST['phone'];
                 $password = $_POST['password'];
 
-                update_user($id, $user, $password, $email, $address, $phone);
+                update_user($id,$username,$firstname,$lastname, $password, $email, $address,$phone);
                 unset($_SESSION['user']);
 
                 header('location: index.php?act=login');
@@ -87,8 +100,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         case 'logout':
             unset($_SESSION['user']);
             // setcookie('remember', null, -1);
-
-            include "view/login.php";
+            include "view/account/register-login.php";
             break;
 
         case 'quenmk':
