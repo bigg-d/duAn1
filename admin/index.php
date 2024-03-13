@@ -56,6 +56,20 @@ if (isset($_GET['act'])) {
         case 'addsp':
             //kiem tra ng dung co click vao nut add
             if (isset($_POST['themmoi']) && $_POST['themmoi']) {
+
+                foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
+                    var_dump($_FILES['images']);
+                    $filename = $_FILES['images']['name'][$key];
+                    $targetPath = $targetDirectory . $filename;
+                
+                    // Di chuyển và lưu trữ ảnh vào thư mục đích
+                    if (move_uploaded_file($tmp_name, $targetPath)) {
+                        echo "Upload thành công: " . $filename . "<br>";
+                    } else {
+                        echo "Upload thất bại: " . $filename . "<br>";
+                    }
+                }
+
                 $iddm = $_POST['iddm'];
                 $tensp = $_POST['tensp'];
                 echo $tensp;
@@ -70,7 +84,7 @@ if (isset($_GET['act'])) {
                     echo "Sorry, there was an error uploading your file.";
                 }
 
-                insert_sanpham($tensp, $giasp, $filename, $mota, $iddm);
+                insert_sanpham($tensp, $giasp, $filename, $images, $mota, $iddm);
                 $thongbao = "them thnah cong";
             }
             $listdanhmuc = loadall_danhmuc();

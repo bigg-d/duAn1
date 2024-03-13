@@ -29,6 +29,10 @@
             <input type="file" name="hinh" required>
           </div>
           <div class="row_mb20">
+            Anh phu <br>
+            <input type="file" name="images[]" multiple required>
+          </div>
+          <div class="row_mb20">
             MO ta san pham <br>
             <textarea name="mota" cols="30" rows="10" required></textarea>
           </div>
