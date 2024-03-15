@@ -56,20 +56,6 @@ if (isset($_GET['act'])) {
         case 'addsp':
             //kiem tra ng dung co click vao nut add
             if (isset($_POST['themmoi']) && $_POST['themmoi']) {
-
-                foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
-                    var_dump($_FILES['images']);
-                    $filename = $_FILES['images']['name'][$key];
-                    $targetPath = $targetDirectory . $filename;
-                
-                    // Di chuyển và lưu trữ ảnh vào thư mục đích
-                    if (move_uploaded_file($tmp_name, $targetPath)) {
-                        echo "Upload thành công: " . $filename . "<br>";
-                    } else {
-                        echo "Upload thất bại: " . $filename . "<br>";
-                    }
-                }
-
                 $iddm = $_POST['iddm'];
                 $tensp = $_POST['tensp'];
                 echo $tensp;
@@ -78,13 +64,31 @@ if (isset($_GET['act'])) {
                 $filename = $_FILES["hinh"]["name"];
                 $target_dir = "../upload/";
                 $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+
+                
+                $images = [];
+                // Lặp qua từng file được tải lên
+                foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
+                    $filename = $_FILES['images']['name'][$key];
+                    $targetPath = $target_dir . $filename;
+                    echo $filename;
+                    // Di chuyển và lưu trữ ảnh vào thư mục đích
+                    if (move_uploaded_file($tmp_name, $targetPath)) {
+                        array_push($images, $filename);
+                        echo "Upload thành công: " . $filename . "<br>";
+                    } else {
+                        echo "Upload thất bại: " . $filename . "<br>";
+                    }
+                }
+                $filenames = join(",", $images);
+                echo $filenames;
                 if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                     // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
                 } else {
                     echo "Sorry, there was an error uploading your file.";
                 }
 
-                insert_sanpham($tensp, $giasp, $filename, $images, $mota, $iddm);
+                insert_sanpham($tensp, $giasp, $filename, $filenames, $mota, $iddm);
                 $thongbao = "them thnah cong";
             }
             $listdanhmuc = loadall_danhmuc();
@@ -128,22 +132,23 @@ if (isset($_GET['act'])) {
                 $oldfilename = $_POST['hinh'];
 
                 var_dump($filename);
-                
+
 
                 $target_dir = "../upload/";
                 // $target_file = $target_dir . basename($filename["name"]);
                 // if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                 //     // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
                 //     $thongbao = "them thnah cong";
-                
+
                 // } else {
                 //     // echo "Sorry, there was an error uploading your file.";
                 // }
-                if($filename["size"] > 0){
+                if ($filename["size"] > 0) {
                     $oldfilename = $filename["name"];
                     $target_file = $target_dir . $oldfilename;
                     move_uploaded_file($filename["tmp_name"], $target_file);
-                };
+                }
+                ;
                 echo $oldfilename;
                 update_sanpham($id, $tensp, $giasp, $oldfilename, $mota, $iddm);
             }
@@ -153,9 +158,9 @@ if (isset($_GET['act'])) {
             break;
 
 
-            
+
         case 'dskh':
-            $listuser = loadall_users();
+            $listuser = loadall_taikhoan();
             include "taikhoan/list.php";
             break;
         case 'dsbl':

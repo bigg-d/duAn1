@@ -74,6 +74,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         case 'account':
             if(isset($_SESSION['user']) && $_SESSION['user']){
                 $user = $_SESSION['user']['username'];
+                $role = $_SESSION['user']['role'];
             } else{
                 
             }

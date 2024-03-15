@@ -60,6 +60,18 @@
 								<p class="mb-0">From your account dashboard. you can easily check &amp; view your
 									recent orders, manage your shipping and billing addresses and edit your
 									password and account details.</p>
+								<?php
+									if($role === 1){
+										echo "<a style=\"background-Color:#ff708a;border: 1px solid #eeeeee;
+										border-bottom: none;
+										margin-top:40px;
+										color: #333333;
+										font-weight: 600;
+										font-size: 12px;
+										padding: 15px 15px 13px;
+										text-transform: uppercase;\" href=\"admin copy/index.php\" >Go to admin</a>";
+									}
+								?>	
 							</div>
 						</div>
 						<!-- Single Tab Content End -->

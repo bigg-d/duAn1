@@ -6198,6 +6198,10 @@ img.mfp-img {
   border: 1px solid #eeeeee;
   padding: 30px;
 }
+.myaccount-content  #btn{
+  background-color: #ff708a;
+  color: #ffffff;
+}
 @media only screen and (max-width: 479px) {
   .myaccount-content {
     padding: 20px 15px;
