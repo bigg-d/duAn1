@@ -7,7 +7,12 @@
           $nameProduct = $name;
           $priceProduct = floatval($price);
           $imgProduct = $img;
-          $imagesProduct = explode(",",$images);
+          // kiem tra xem co anh chi tiet khong
+          if($images !== ' '){
+            $imagesProduct = explode(",",$images);
+          }else {
+            $imagesProduct ="";
+          }
           $motaProduct = $mota;
           
           $hinhpath="../upload/".$imgProduct;
@@ -35,6 +40,7 @@
         <?=$hinh?>
         <label class="label_addsp" for="">Hình</label>
         <input class="ten_addsp" type="file" name="hinh" />
+        <input class="ten_addsp" type="hidden" name="hinh" value="<?=$imgProduct?>" />
       </div>
 
       <div class="block_form d-f f-d">
@@ -42,14 +48,18 @@
         <div style="display:flex; gap:10px">
           <?php
             foreach ($imagesProduct as $key => $image) {
-              echo "
-              <img src='../upload/".$image."'  width='60'>";
-              # code...
+              if(empty($imagesProduct)){
+                echo "Chưa có ảnh nào được tải lên";
+              } else{
+                echo "
+                <img src='../upload/".$image."'  width='60'>";
+              }
             }
             
             ?>
         </div>
-        <input class="ten_addsp" type="file" name="images[]" />
+        <input class="ten_addsp" type="file" name="images[]" multiple/>
+        <input class="ten_addsp" type="hidden" name="images" value="<?=$images?>" />
       </div>
 
       <div class="block_form d-f f-d"> 
@@ -68,7 +78,7 @@
                 foreach($listdanhmuc as $danhmuc){
                 extract($danhmuc);
                 if($iddm==$iddm) $s="selected"; else $s="";
-                echo ' <option value="'.$id.'" '.$s.'>'.$tendanhmuc.'</option>';
+                echo ' <option value="'.$iddm.'" '.$s.'>'.$tendanhmuc.'</option>';
               }
             ?>
 

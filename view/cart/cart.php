@@ -1,3 +1,6 @@
+<?php 
+    // session_start();
+?>
 <!-- Page Banner Section Start -->
 <div class="page-banner-section section" style="background-image: url(assets/images/hero/hero-1.jpg)">
         <div class="container">
@@ -28,39 +31,38 @@
                                     <tr>
                                         <th class="pro-thumbnail">Image</th>
                                         <th class="pro-title">Product</th>
-                                        <th>Color</th>
                                         <th class="pro-price">Price</th>
                                         <th class="pro-quantity">Quantity</th>
                                         <th class="pro-subtotal">Total</th>
                                         <th class="pro-remove">Remove</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="mycart">
+                                    <?php 
+                                    
+                                    foreach ($_SESSION['mycart'] as $key => $product) {
+                                        echo '<pre>';
+                                        // var_dump($_SESSION['mycart']);
+                                        echo '</pre>';
+                                        
+                                    ?>
                                     <tr>
-                                        <td class="pro-thumbnail"><a href="#"><img src="assets/images/product/product-1.jpg" alt="" /></a></td>
-                                        <td class="pro-title"><a href="#">Tmart Baby Dress</a></td>
-                                        <td>red</td>
-                                        <td class="pro-price"><span class="amount">$25</span></td>
-                                        <td class="pro-quantity"><div class="pro-qty"><input type="text" value="1"></div></td>
-                                        <td class="pro-subtotal">$25</td>
-                                        <td class="pro-remove"><a href="#">×</a></td>
+                                        <td class="pro-thumbnail"><a href="#"><img src="./upload/<?=$product[2]?>" alt="" /></a></td>
+                                        <td class="pro-title"><a href="#"><?=$product[1]?></a></td>
+                                        <td class="pro-price"><span id="amount" class="amount"><?=$product[3]?></span></td>
+                                        <td class="pro-quantity"><div class="pro-qty"><input onchange="updateTotal(this)" type="number" min='1' value="1"></div></td>
+                                        <td id="total" class="pro-subtotal">$<?php echo number_format(($product[3] / 26000),1)?></td>
+                                        <td class="pro-remove"><a href="index.php?act=deletecart&idcart=<?=$key?>">×</a></td>
                                     </tr>
-                                    <tr>
-                                        <td class="pro-thumbnail"><a href="#"><img src="assets/images/product/product-2.jpg" alt="" /></a></td>
-                                        <td class="pro-title"><a href="#">Jumpsuit Outfits</a></td>
-                                        <td class="pro-price"><span class="amount">$09</span></td>
-                                        <td class="pro-quantity"><div class="pro-qty"><input type="text" value="1"></div></td>
-                                        <td class="pro-subtotal">$09</td>
-                                        <td class="pro-remove"><a href="#">×</a></td>
-                                    </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-7 col-12 mb-40">
                         <div class="cart-buttons mb-30">
-                            <input type="submit" value="Update Cart" />
-                            <a href="#">Continue Shopping</a>
+                            <a style="color:white" href="index.php?act=deletecart">Delete All</a>
+                            <a href="index.php?act=shop">Continue Shopping</a>
                         </div>
                         <div class="cart-coupon">
                             <h4>Coupon</h4>

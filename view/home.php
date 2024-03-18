@@ -1,5 +1,9 @@
 
+<?php
+include "./model/sanpham.php";
 
+    $products = loadall_sanpham_home();
+?>
     <!-- Hero Section Start -->
     <div class="hero-section section">
 
@@ -97,382 +101,62 @@
             </div>
 
             <div class="row mbn-40">
+                <?php
+                    foreach ($products as $key => $product) {
+                        
+                    
+                ?> 
+                    <form action="index.php?act=addtocart" method="post" enctype="multipart/form-data" class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
 
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
+                        <div class="product-item">
+                            <div class="product-inner">
 
-                    <div class="product-item">
-                        <div class="product-inner">
-
-                            <div class="image">
-                                <img src="assets/images/product/product-1.jpg" alt="Image">
-
-                                <div class="image-overlay">
-                                    <div class="action-buttons">
-                                        <button>add to cart</button>
-                                        <button>add to wishlist</button>
+                                <div class="image">
+                                    <img src="./upload/<?php echo $product['img']?>" alt="Image">
+                                    <input name="img" type="hidden" value="<?php echo $product['img']?>">
+                                    <input type="hidden" name="id" value="<?php echo $product['id']?>">
+                                    <div class="image-overlay">
+                                        <div class="action-buttons">
+                                            <input onclick="return alert('Đã có trong giỏ hàng')" type="submit" name="addtocart" value="add to cart">
+                                            <input type="button" name="addtowishlist" value="add to wishlist">
+                                            <!-- <button>add to cart</button>
+                                            <button>add to wishlist</button> -->
+                                        </div>
                                     </div>
+
+                                </div>
+
+                                <div class="content">
+
+                                    <div class="content-left">
+
+                                        <h4 class="title"><a onclick="()=>{ alert('Đã thêm sản phẩm vào giỏ hàng')}" href="index.php?act=detailProduct"><?=$product['name']?></a></h4>
+                                        <input name="name" type="hidden" value="<?php echo $product['name']?>">
+                                        <div class="ratting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+
+                                        <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>
+                                        <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>
+
+                                    </div>
+
+                                    <div class="content-right">
+                                        <span class="price">$<?php echo number_format(($product['price'] / 26000), 1)?></span>
+                                        <input name="price" type="hidden" value="<?php echo $product['price']?>">
+                                    </div>
+
                                 </div>
 
                             </div>
-
-                            <div class="content">
-
-                                <div class="content-left">
-
-                                    <h4 class="title"><a href="single-product.html">Tmart Baby Dress</a></h4>
-
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-half-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-
-                                    <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>
-                                    <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>
-
-                                </div>
-
-                                <div class="content-right">
-                                    <span class="price">$25</span>
-                                </div>
-
-                            </div>
-
                         </div>
-                    </div>
 
-                </div>
-
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
-
-                    <div class="product-item">
-                        <div class="product-inner">
-
-                            <div class="image">
-                                <img src="assets/images/product/product-2.jpg" alt="Image">
-
-                                <div class="image-overlay">
-                                    <div class="action-buttons">
-                                        <button>add to cart</button>
-                                        <button>add to wishlist</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="content">
-
-                                <div class="content-left">
-
-                                    <h4 class="title"><a href="single-product.html">Jumpsuit Outfits</a></h4>
-
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-
-                                    <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>
-                                    <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>
-
-                                </div>
-
-                                <div class="content-right">
-                                    <span class="price">$09</span>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
-
-                    <div class="product-item">
-                        <div class="product-inner">
-
-                            <div class="image">
-                                <img src="assets/images/product/product-3.jpg" alt="Image">
-
-                                <div class="image-overlay">
-                                    <div class="action-buttons">
-                                        <button>add to cart</button>
-                                        <button>add to wishlist</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="content">
-
-                                <div class="content-left">
-
-                                    <h4 class="title"><a href="single-product.html">Smart Shirt</a></h4>
-
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-
-                                    <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>
-                                    <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>
-
-                                </div>
-
-                                <div class="content-right">
-                                    <span class="price">$18</span>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
-
-                    <div class="product-item">
-                        <div class="product-inner">
-
-                            <div class="image">
-                                <img src="assets/images/product/product-4.jpg" alt="Image">
-
-                                <div class="image-overlay">
-                                    <div class="action-buttons">
-                                        <button>add to cart</button>
-                                        <button>add to wishlist</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="content">
-
-                                <div class="content-left">
-
-                                    <h4 class="title"><a href="single-product.html">Kids Shoe</a></h4>
-
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-half-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-
-                                    <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>
-                                    <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>
-
-                                </div>
-
-                                <div class="content-right">
-                                    <span class="price">$15</span>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
-
-                    <div class="product-item">
-                        <div class="product-inner">
-
-                            <div class="image">
-                                <img src="assets/images/product/product-5.jpg" alt="Image">
-
-                                <div class="image-overlay">
-                                    <div class="action-buttons">
-                                        <button>add to cart</button>
-                                        <button>add to wishlist</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="content">
-
-                                <div class="content-left">
-
-                                    <h4 class="title"><a href="single-product.html"> Bowknot Bodysuit</a></h4>
-
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-half-o"></i>
-                                    </div>
-
-                                    <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>
-                                    <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>
-
-                                </div>
-
-                                <div class="content-right">
-                                    <span class="price">$12</span>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
-
-                    <div class="product-item">
-                        <div class="product-inner">
-
-                            <div class="image">
-                                <img src="assets/images/product/product-6.jpg" alt="Image">
-
-                                <div class="image-overlay">
-                                    <div class="action-buttons">
-                                        <button>add to cart</button>
-                                        <button>add to wishlist</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="content">
-
-                                <div class="content-left">
-
-                                    <h4 class="title"><a href="single-product.html">Striped T-Shirt</a></h4>
-
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-
-                                    <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>
-                                    <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>
-
-                                </div>
-
-                                <div class="content-right">
-                                    <span class="price">$12</span>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
-
-                    <div class="product-item">
-                        <div class="product-inner">
-
-                            <div class="image">
-                                <img src="assets/images/product/product-7.jpg" alt="Image">
-
-                                <div class="image-overlay">
-                                    <div class="action-buttons">
-                                        <button>add to cart</button>
-                                        <button>add to wishlist</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="content">
-
-                                <div class="content-left">
-
-                                    <h4 class="title"><a href="single-product.html">Kislen Jak Tops</a></h4>
-
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-
-                                    <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>
-                                    <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>
-
-                                </div>
-
-                                <div class="content-right">
-                                    <span class="price">$29</span>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
-
-                    <div class="product-item">
-                        <div class="product-inner">
-
-                            <div class="image">
-                                <img src="assets/images/product/product-8.jpg" alt="Image">
-
-                                <div class="image-overlay">
-                                    <div class="action-buttons">
-                                        <button>add to cart</button>
-                                        <button>add to wishlist</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="content">
-
-                                <div class="content-left">
-
-                                    <h4 class="title"><a href="single-product.html">Lattic Shirt</a></h4>
-
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-
-                                    <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>
-                                    <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>
-
-                                </div>
-
-                                <div class="content-right">
-                                    <span class="price">$08</span>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
+                    </form>
+                <?php }?>
 
             </div>
 

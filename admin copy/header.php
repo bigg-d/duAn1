@@ -25,20 +25,11 @@
   <body>
     <div class="container d-f w-100">
       <div class="side-bar " style="height: 200vh" >
-        <div class="shop_name block">
-          <div class="image">
-            <a href="../index.php">
-
-              <img src="../upload/img/logo/logo.jpg" alt="" />
-            </a>
-          </div>
-          <span>Tea plus</span>
-        </div>
         <div class="team_name block">
           <div class="image">
             <img src="../upload/img/product/ts3.jpg" alt="" />
           </div>
-          <span>Tea plus</span>
+          <span>Jadusona</span>
         </div>
         <div class="admin-search-sideBar block">
           <form action="" class="d-f w-100">

@@ -1,5 +1,4 @@
 <main class="w-100 d-f f-d">
-
   <h3>Danh sách sản phẩm</h3>
   <div class="search_list-product-admin w-100">
     <form action="index.php?act=listsp" class="d-f form-search" method="post">
@@ -9,7 +8,7 @@
         <?php
         foreach ($listdanhmuc as $danhmuc) {
           extract($danhmuc);
-          echo ' <option value="' . $id . '">' . $name . '</option>';
+          echo ' <option value="' . $iddm . '">' . $tendanhmuc . '</option>';
         }
         ?>
       </select>
@@ -22,18 +21,20 @@
       <thead>
         <th style="width:40px">Check</th>
         <th>ID</th>
-        <th>Tên sản phẩm</th>
-        <th>Giá</th>
+        <th style="width:200px">Tên sản phẩm</th>
+        <th style="width:100px">Giá</th>
         <th>Ảnh</th>
         <th style="width:400px">ẢNh chi tiết</th>
-        <th>Mô tả</th>
+        <th style="width:400px">Mô tả</th>
 
-        <th>Danh mục</th>
-        <th>Tạo mới</th>
+        <th style="width:150px">Danh mục</th>
+        <th style="width:120px">Tạo mới</th>
       </thead>
       <tbody class="tbody">
         <!-- php -->
         <?php foreach ($listsanpham as $sanpham) {
+          $danhmuc = loadone_danhmuc($iddm);
+
           extract($sanpham);
           $anhchitiet = explode(",", $images);
           $suasp = "index.php?act=suasp&id=" . $id;
@@ -62,7 +63,7 @@
           echo '<ul>
                   </td>
           <td class="td_sp">' . $mota . '</td>
-                                <td class="td_sp">' . $iddm . '</td>
+                                <td class="td_sp">' . $danhmuc['tendanhmuc'] . '</td>
                                 <td class="td_sp"> 
                                   <a class="url-edit" href="' . $suasp . '">
                                     <i class="fa-solid fa-pen-to-square"></i>

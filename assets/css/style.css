@@ -39,7 +39,11 @@
 html, body {
   height: 100%;
 }
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 body {
   background-color: #ffffff;
   line-height: 24px;
@@ -153,7 +157,7 @@ ul {
 /* Addition media query */
 @media (min-width: 1200px) {
   .container {
-    max-width: 1200px;
+    max-width: 1440px;
     padding-left: calc(var(--bs-gutter-x) * .625);
     padding-right: calc(var(--bs-gutter-x) * .625);
   }
@@ -3315,7 +3319,7 @@ img.mfp-img {
       -ms-flex-direction: column;
           flex-direction: column;
 }
-.product-item .product-inner .image .image-overlay .action-buttons button {
+.product-item .product-inner .image .image-overlay .action-buttons input {
   clear: both;
   width: 160px;
   height: 45px;
@@ -3330,11 +3334,11 @@ img.mfp-img {
   font-size: 14px;
   font-weight: 700;
 }
-.product-item .product-inner .image .image-overlay .action-buttons button:first-child {
+.product-item .product-inner .image .image-overlay .action-buttons input:first-child {
   background-color: #ffffff;
   color: #323132;
 }
-.product-item .product-inner .image .image-overlay .action-buttons button:hover {
+.product-item .product-inner .image .image-overlay .action-buttons input:hover {
   background-color: #ff708a;
   border-color: #ff708a;
   color: #ffffff;

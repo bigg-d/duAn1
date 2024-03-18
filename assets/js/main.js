@@ -460,21 +460,55 @@ $('#price-amount').val( '$' + $('#price-range').slider( 'values', 0 ) +
 $('.pro-qty').prepend('<span class="dec qtybtn"><i class="ti-minus"></i></span>');
 $('.pro-qty').append('<span class="inc qtybtn"><i class="ti-plus"></i></span>');
 $('.qtybtn').on('click', function() {
-	var $button = $(this);
-	var oldValue = $button.parent().find('input').val();
-	if ($button.hasClass('inc')) {
-	  var newVal = parseFloat(oldValue) + 1;
-	} else {
-	   // Don't allow decrementing below zero
-	  if (oldValue > 0) {
-		var newVal = parseFloat(oldValue) - 1;
-		} else {
-		newVal = 0;
-	  }
-	  }
-	$button.parent().find('input').val(newVal);
-});  
-    
+    var $button = $(this);
+    var $input = $button.parent().find('input');
+    var oldValue = parseFloat($input.val());
+
+    if ($button.hasClass('inc')) {
+        var newVal = oldValue + 1;
+    } else {
+        // Don't allow decrementing below zero
+        if (oldValue > 1) {
+            var newVal = oldValue - 1;
+        } else {
+            newVal = 1;
+        }
+    }
+
+    $input.val(newVal);
+    updateTotal($input);
+});
+
+function updateTotal(input) {
+    var row = $(input).closest("tr");
+    var price = parseFloat(row.find(".pro-price .amount").text());
+    var quantity = parseInt($(input).val());
+    var total = price * quantity;
+    row.find(".pro-subtotal").text(total.toFixed(2));
+
+    updateProductTotal(row);
+    updateGrandTotal();
+}
+
+function updateProductTotal(row) {
+    var price = parseFloat(row.find(".pro-price .amount").text());
+    var quantity = parseInt(row.find(".pro-quantity input").val());
+    var total = price * quantity;
+    row.find(".pro-subtotal").text(total.toFixed(2));
+}
+
+function updateGrandTotal() {
+    var rows = $('tbody tr');
+    var grandTotal = 0;
+    rows.each(function() {
+        var total = parseFloat($(this).find(".pro-subtotal").text());
+        grandTotal += total;
+    });
+
+    // Update grand total
+    $('#grand-total').text(grandTotal.toFixed(2));
+}
+   
 /*----- 
 	Shipping Form Toggle
 --------------------------------*/ 
