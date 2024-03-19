@@ -1,4 +1,11 @@
  <!-- Page Banner Section Start -->
+ <style>
+
+    .form_register span{
+        color: red; 
+        margin-left: 20px;
+    }
+ </style>
  <div class="page-banner-section section" style="background-image: url(assets/images/hero/hero-1.jpg)">
         <div class="container">
             <div class="row">
@@ -23,9 +30,10 @@
                 <div class="col-lg-4 col-12 mb-40">
                     <div class="login-register-form-wrap">
                         <h3>Login</h3>
-                        <form action="index.php?act=login" class="mb-30" method="post">
+                        <form  action="index.php?act=login" class="mb-30 form_register" method="post">
                             <div class="row">
-                                <div class="col-12 mb-15"><input name="email" type="text" placeholder="Email"></div>
+                                <div class="col-12 mb-15"><input name="email" value="<?php echo isset($email) ? $email : "" ?>" type="text" placeholder="Email"></div>
+                                <span><?php echo isset($loi_dn) ? $loi_dn : ""; ?></span>
                                 <div class="col-12 mb-15"><input name="password" type="password" placeholder="Password"></div>
                                 <div class="col-12"><input name="submit" type="submit" value="Login"></div>
                             </div>
@@ -46,24 +54,22 @@
                 </div>
 
                 <div class="col-lg-6 col-12 mb-40 ms-auto">
-                    <div class="login-register-form-wrap">
+                    <div class="login-register-form-wrap" >
                         <h3>Register</h3>
-                        <form action="index.php?act=register" method="post">
+                        <form class="form_register" action="index.php?act=register" method="post">
                             <div class="row">
-                                <div class="col-md-6 col-12 mb-15"><input name="firstname" type="text" placeholder="Your First Name"></div>
-                                <div class="col-md-6 col-12 mb-15"><input name="lastname" type="text" placeholder="Your Last Name"></div>
-                                <div class="col-md-6 col-12 mb-15"><input name="username" type="text" placeholder="Your Display Name"></div> 
-                                <div class="col-md-6 col-12 mb-15"><input name="email" type="email" placeholder="Email"></div>
-                                <div class="col-md-6 col-12 mb-15"><input name="password" type="password" placeholder="Password"></div>
-                                <!-- <div class="col-md-6 col-12 mb-15"><input type="password" placeholder="Confirm Password"></div> -->
+                                <div class="col-md-6 col-12 mb-15"><input name="firstname" value="<?php echo isset($firstname) ? $firstname : "" ?>" type="text" placeholder="Your First Name"></div>
+                                <span ><?php echo isset($loiten1) ? $loiten1 : ""; ?></span>
+                                <div class="col-md-6 col-12 mb-15"><input name="lastname" value="<?php echo isset($lastname) ? $lastname : "" ?>" type="text" placeholder="Your Last Name"></div>
+                                <span><?php echo isset($loiten2) ? $loiten2 : ""; ?></span>
+                                <div class="col-md-6 col-12 mb-15"><input name="username" type="text" value="<?php echo isset($username) ? $username : "" ?>" placeholder="Your Display Name"></div> 
+                                <span><?php echo isset($loiten3) ? $loiten3 : ""; ?></span>
+                                <div class="col-md-6 col-12 mb-15"><input name="email" type="email"  value="<?php echo isset($email) ? $email : "" ?>" placeholder="Email"></div>
+                                <span><?php echo isset($loiemail) ? $loiemail : ""; ?></span>
+                                <div class="col-md-6 col-12 mb-15"><input name="password" type="password" value="<?php echo isset($password) ? $password : "" ?>" placeholder="Password"></div>
+                                <span><?php echo isset($loimk1) ? $loimk1 : ""; ?></span>
+                                <div class="col-md-6 col-12 mb-15"><input type="password" name="confirm" placeholder="Confirm Password"></div><span><?php echo isset($loimk2) ? $loimk2 : ""; ?></span>
                                 <div class="col-md-6 col-12"><input name="submit" type="submit" value="Register"></div>
-                                <p>
-                                    <?php 
-                                        if(isset($thongbao)){
-                                            echo $thongbao;
-                                        }
-                                    ?>
-                                </p>
                             </div>
                         </form>
                     </div>

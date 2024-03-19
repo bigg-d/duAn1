@@ -1,10 +1,12 @@
 <?php
-    ob_start();
-    session_start();
+ob_start();
+session_start();
+
     include "./model/pdo.php";
     include "./model/taikhoan.php";
 
 include "view/header.php";
+
 if (isset($_GET['act']) && ($_GET['act'] != "")) {
     $act = $_GET['act'];
     switch ($act) {
@@ -41,32 +43,86 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             break;
 
         case 'register':
-            if (isset($_POST['submit']) && $_POST['submit']) {
+            if (isset($_POST['submit']) && $_POST['submit']){
                 $username = $_POST['username'];
                 $firstname = $_POST['firstname'];
                 $lastname = $_POST['lastname'];
                 $password = $_POST['password'];
+                $confirm =$_POST['confirm'];
                 $email = $_POST['email'];
-                    
-                if(strlen($password) >= 6){
-                    insert_taikhoan( $firstname, $lastname, $username, $email, $password);
-                    $thongbao = "ĐĂNG KÍ THÀNH CÔNG";
-                } else{
-                    $thongbao = "Mật khẩu tối thiểu 6 kí tự";
+                $checkemail = checkemail($email);
+                /*                    */
+                if(empty($firstname)){
+                    $loiten1 ='Không được bỏ trống !';
                 }
+                else{
+                    
+                }
+                if(empty($lastname)){
+                    $loiten2 ='Không được bỏ trống !';
+                }
+                if(empty($username)){
+                    $loiten3 ='Không được bỏ trống !';
+                }
+                else if (strlen($username) >= 6 && strlen($username) <= 16){
+
+                }
+                else{
+                    $loiten3= 'Tên phải >=6 && <=16';
+                }
+                if(empty($email)){
+                    $loiemail = 'Không được bỏ trống !';
+                }
+                else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                }
+                
+                else if (is_array($checkemail)) {
+                    $loiemail = "Email không tồn tại";
+                }
+                if(empty($password)){
+                    $loimk1 = 'Không được bỏ trống !';
+                }
+                else if (strlen($password)< 8){
+                    $loimk1 = "Mật khẩu có ít nhất 8 ký tự !";
+                }
+                else if(!preg_match('/[A-Z]/',$password)){
+                    $loimk1 = "Mật khẩu phải có chữ in hoa";
+                }
+                else if(!preg_match('/[0-9]/',$password)){
+                    $loimk1 = "Mật khẩu phải có số";
+                }
+                else if(!preg_match('/[@#$%^&*]/',$password)){
+                    $loimk1 = "Mật khẩu phải có ký tự đặc biệt";
+                }
+                if(empty($confirm)){
+                    $loimk2 = 'Không được bỏ trống !';
+                }
+                else if($password == $confirm){
+                }
+                else {
+                    $loimk2 ='Mật khẩu không khớp';
+                }
+                if(!isset($loiten1)  && !isset($loiten2)&& !isset($loiten3)&& !isset($loiemail)&& !isset($loimk1)&& !isset($loimk2)){
+                    $sql = "INSERT INTO `taikhoan`(`firstname`, `lastname`, `username`, `pass`, `email`) VALUES 
+                                                 ('$firstname','$lastname','$username',md5('$password'),'$email') ";
+                    pdo_execute($sql);
+                    header('Location: index.php?act=login');
+                }
+                /*                    */
             }
             include "view/account/register-login.php";
             break;
         case 'login':
-            if (isset($_POST['submit']) && $_POST['submit']) {
-                $password = $_POST['password'];
+            if (isset($_POST['submit']) && $_POST['submit']){
+                $password = md5($_POST['password']);
                 $email = $_POST['email'];
                 $checkuser = checkuser($email, $password);
-                if (is_array($checkuser)) {
+                
+                if (is_array($checkuser)){
                     $_SESSION['user'] = $checkuser;
                     header('location: index.php?act=account');
                 } else {
-                    $thongbao = "Tài khoản hoặc mật khẩu không đúng";
+                    $loi_dn = "Tài khoản hoặc mật khẩu không đúng !";
                 }
             }
             include "view/account/register-login.php";
