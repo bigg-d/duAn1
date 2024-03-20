@@ -64,11 +64,11 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 if(empty($username)){
                     $loiten3 ='Không được bỏ trống !';
                 }
-                else if (strlen($username) >= 6 && strlen($username) <= 16){
+                else if (strlen($username) >= 6 && strlen($username) <= 24){
 
                 }
                 else{
-                    $loiten3= 'Tên phải >=6 && <=16';
+                    $loiten3= 'Tên phải >= 6 && <= 24';
                 }
                 if(empty($email)){
                     $loiemail = 'Không được bỏ trống !';
@@ -77,7 +77,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 }
                 
                 else if (is_array($checkemail)) {
-                    $loiemail = "Email không tồn tại";
+                    $loiemail = "Email không đã được đăng ký";
                 }
                 if(empty($password)){
                     $loimk1 = 'Không được bỏ trống !';
