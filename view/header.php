@@ -63,7 +63,7 @@
                                 <?php 
                                 if(isset($_SESSION['user'])){
                                     echo '<p>Hi, '.$_SESSION['user']['username']. '</p>';
-                                } else{
+                                }else{
                                     echo '<p><a href="index.php?act=register">Register</a><a href="index.php?act=login">Login</a></p>';
                                 } 
                                 ?>

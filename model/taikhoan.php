@@ -32,5 +32,4 @@
         $user = pdo_query($sql);
         return $user;
     }
-    
 ?>

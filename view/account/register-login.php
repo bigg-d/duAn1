@@ -30,6 +30,7 @@
                 <div class="col-lg-4 col-12 mb-40">
                     <div class="login-register-form-wrap">
                         <h3>Login</h3>
+                        
                         <form  action="index.php?act=login" class="mb-30 form_register" method="post">
                             <div class="row">
                                 <div class="col-12 mb-15"><input name="email" value="<?php echo isset($email) ? $email : "" ?>" type="text" placeholder="Email"></div>

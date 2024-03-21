@@ -106,6 +106,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     $sql = "INSERT INTO `taikhoan`(`firstname`, `lastname`, `username`, `pass`, `email`) VALUES 
                                                  ('$firstname','$lastname','$username',md5('$password'),'$email') ";
                     pdo_execute($sql);
+                    
                     header('Location: index.php?act=login');
                 }
                 /*                    */
@@ -131,10 +132,10 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             if(isset($_SESSION['user']) && $_SESSION['user']){
                 $user = $_SESSION['user']['username'];
                 $role = $_SESSION['user']['role'];
+                include "view/account/account.php";
             } else{
-                
+                include "view/account/register-login.php";
             }
-            include "view/account/account.php";
             break;    
         case 'edit_taikhoan':
             if (isset($_POST['submit']) && $_POST['submit']) {
@@ -156,8 +157,9 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             break;
         case 'logout':
             unset($_SESSION['user']);
-            // setcookie('remember', null, -1);
             include "view/account/register-login.php";
+            // setcookie('remember', null, -1);
+            
             break;
 
         case 'quenmk':

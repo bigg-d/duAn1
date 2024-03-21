@@ -22,7 +22,7 @@ include "header.php";
 if (isset ($_GET['act'])) {
     $act = $_GET['act'];
     $products = loadall_sanpham_home();
-    var_dump($products);
+    // var_dump($products);
 
     switch ($act) {
         case 'adddm':
