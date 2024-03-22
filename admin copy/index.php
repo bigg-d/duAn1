@@ -4,7 +4,7 @@ ob_start();
 // if(isset($_SESSION['user'])&&($_SESSION['user']['role']==1)){
 include "../model/pdo.php";
 include "../model/danhmuc.php";
-include "../model/sanpham.php";
+include_once "../model/sanpham.php";
 include "../model/binhluan.php";
 include "../model/taikhoan.php";
 // include "../model/cart.php";
@@ -22,7 +22,6 @@ include "header.php";
 if (isset ($_GET['act'])) {
     $act = $_GET['act'];
     $products = loadall_sanpham_home();
-    // var_dump($products);
 
     switch ($act) {
         case 'adddm':
@@ -169,8 +168,7 @@ if (isset ($_GET['act'])) {
                     $images = join(",", $images);
                 } else {
                     $images = $old_images;
-                    echo 'coanhcu';
-                    echo 'anh cu '. $images;
+                    
                 }
 
 

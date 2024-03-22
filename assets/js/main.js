@@ -484,31 +484,35 @@ function updateTotal(input) {
     var price = parseFloat(row.find(".pro-price .amount").text());
     var quantity = parseInt($(input).val());
     var total = price * quantity;
-    row.find(".pro-subtotal").text(total.toFixed(2));
+    row.find(".pro-subtotal").text(total.toFixed(1));
 
-    updateProductTotal(row);
+    // updateProductTotal(row);
     updateGrandTotal();
 }
 
-function updateProductTotal(row) {
-    var price = parseFloat(row.find(".pro-price .amount").text());
-    var quantity = parseInt(row.find(".pro-quantity input").val());
-    var total = price * quantity;
-    row.find(".pro-subtotal").text(total.toFixed(2));
-}
+// function updateProductTotal(row) {
+//     var price = parseFloat(row.find(".pro-price .amount").text());
+//     var quantity = parseInt(row.find(".pro-quantity input").val());
+//     var total = ((price * quantity) /26000);
+//     const formatedTotal = '$' + total.toFixed(2)
+//     row.find(".pro-subtotal").text(formatedTotal);
+// }
 
 function updateGrandTotal() {
-    var rows = $('tbody tr');
+    var rows = $('tbody#mycart tr');
     var grandTotal = 0;
     rows.each(function() {
         var total = parseFloat($(this).find(".pro-subtotal").text());
         grandTotal += total;
     });
-
+     const formatedTotal =  '$' + grandTotal.toFixed(2);
     // Update grand total
-    $('#grand-total').text(grandTotal.toFixed(2));
+    $('#grand-total').text(formatedTotal);
+    $('#grand-subTotal').text(formatedTotal);
 }
-   
+$(document).ready(function() {
+    updateGrandTotal();
+  });
 /*----- 
 	Shipping Form Toggle
 --------------------------------*/ 

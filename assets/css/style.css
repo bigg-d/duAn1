@@ -36,6 +36,65 @@
           box-sizing: border-box;
 }
 
+
+svg{
+  float: left;
+}
+.row-cols-2{
+  width: 50%;
+}
+.rol-md-7{
+  padding: 0;
+  width: 50%;
+}
+.box-left{
+  padding: 0;
+  width: 63%;
+  float: left;
+  margin-right: 2%;
+  
+}
+.buil{
+  width: 35%;
+  padding: 20px 30px;
+  background-color: rgba(255, 255, 255, 0.753);
+  margin-bottom: 80px;
+
+}
+.buil_sp{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: .5px  solid gray ;
+  line-height: 5vw;
+}
+.buil_sp p{
+  margin: 0;
+}
+.mg-t{
+  margin-top: 80px ;
+
+}
+.buil_sp img{
+  padding: 10px 0;
+}
+.buil3{
+  width: 100%;
+  border: .5px solid gray;
+  padding: 3%;
+  margin-top:3.5%;
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-bottom: 80px;
+}
+.thongtinmua1{
+  width: 100%;
+}
+.thongtinmua{
+  width: 100%;
+}
+
+
 html, body {
   height: 100%;
 }
@@ -3334,6 +3393,21 @@ img.mfp-img {
   font-size: 14px;
   font-weight: 700;
 }
+.product-item .product-inner .image .image-overlay .action-buttons .outofstock {
+  clear: both;
+  width: 160px;
+  height: 45px;
+  margin: 9px auto;
+  border: 1px solid #ffffff;
+  background-color: rgb(206, 75, 75);
+  text-transform: uppercase;
+  font-family: "Dosis", sans-serif;
+  color: #ffffff;
+  padding: 10px 15px;
+  line-height: 23px;
+  font-size: 14px;
+  font-weight: 700;
+}
 .product-item .product-inner .image .image-overlay .action-buttons input:first-child {
   background-color: #ffffff;
   color: #323132;
@@ -4655,7 +4729,7 @@ img.mfp-img {
   padding: 0;
   text-transform: uppercase;
 }
-.cart-total .proceed-to-checkout a {
+.cart-total .proceed-to-checkout input {
   background-color: #1a161e;
   border: medium none;
   color: #fff;
@@ -4668,7 +4742,7 @@ img.mfp-img {
   border-radius: 50px;
   text-transform: uppercase;
 }
-.cart-total .proceed-to-checkout a:hover {
+.cart-total .proceed-to-checkout input:hover {
   background-color: #ff708a;
 }
 
@@ -4828,8 +4902,15 @@ img.mfp-img {
   color: #333333;
   font-size: 14px;
   line-height: 23px;
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 16px;
+  border-bottom: 1px solid #666666;
+
+}
+.checkout-cart-total ul li:last-child{
+  border-bottom: none;
 }
 .checkout-cart-total ul li span {
   color: #1a161e;
@@ -4851,7 +4932,6 @@ img.mfp-img {
   line-height: 30px;
   color: #505050;
   padding: 10px 0;
-  border-bottom: 1px solid #666666;
   margin: 0;
 }
 .checkout-cart-total p span {

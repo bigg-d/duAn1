@@ -61,7 +61,7 @@
 
                                 <p><a href="index.php?act=account">My Account</a></p>
                                 <?php 
-                                if(isset($_SESSION['user'])){
+                                if(isset($_SESSION['user']['username'])){
                                     echo '<p>Hi, '.$_SESSION['user']['username']. '</p>';
                                 }else{
                                     echo '<p><a href="index.php?act=register">Register</a><a href="index.php?act=login">Login</a></p>';

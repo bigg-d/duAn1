@@ -55,8 +55,8 @@
 
                                         <div class="image-overlay">
                                             <div class="action-buttons">
-                                                <button>add to cart</button>
-                                                <button>add to wishlist</button>
+                                                <input type="button" name="addtocart" value="add to cart">
+                                                <input type="button" name="addtowishlist" value="add to wishlist">
                                             </div>
                                         </div>
 

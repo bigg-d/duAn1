@@ -4,6 +4,10 @@ session_start();
 
     include "./model/pdo.php";
     include "./model/taikhoan.php";
+    include_once "./model/sanpham.php";
+    include_once "./model/checkout.php";
+
+    include_once "fuc.php";
 
 include "view/header.php";
 
@@ -30,15 +34,15 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             include "view/shop.php";
             break;
         case 'detailProduct':
-            // if (isset($_GET['id']) && $_GET['id']) {
-            //     $id = $_GET['id'];
-            //     $sanpham = loadone_sanpham($id);
-            //     extract($sanpham);
-            //     $splienquan = loadall_sanpham_related($category_id, $id);
-            //     $dsbl = loadall_binhluan($id);
+            if (isset($_GET['id']) && $_GET['id']) {
+                $id = $_GET['id'];
+                $sanpham = loadone_sanpham($id);
+                extract($sanpham);
+                $splienquan = loadall_sanpham_related($iddm, $id);
+                // $dsbl = loadall_binhluan($id);
         
-            //     setview_sanpham($id, $view);
-            // }
+                setview_sanpham($id, $view);
+            }
             include "view/detailProduct.php";
             break;
 
@@ -216,25 +220,89 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             break;
         case 'addtocart':
             if (isset($_POST['addtocart']) && ($_POST['addtocart'])) {
-                $id = $_POST['id'];
                 $name = $_POST['name'];
+                $id = $_POST['id'];
                 $img = $_POST['img'];
                 $price = $_POST['price'];
-                $soluong = 1;
-                $ttien = $soluong * intval($price);
-                $spadd = [$id, $name, $img, $price, $soluong, $ttien];
+                $stock_quantity = $_POST['stock_quantity'];
+                
                 if (!isset($_SESSION['mycart'])) {
                     $_SESSION['mycart'] = [];
                 }
-                array_push($_SESSION['mycart'], $spadd);
+
+                // kiem tra san pham ton tai trong gio hang
+                if (findElementInArray($_SESSION['mycart'], $id)) {
+                    foreach ($_SESSION['mycart'] as $key => $product) {
+                        if($product[0] === $id){
+                            echo "<script>alert('Đã có trong giỏ hàng');</script>";
+                        }
+                    }
+                    echo "Phần tử '$id' được tìm thấy trong mảng hai chiều.";
+                } else {
+                    //kiem tra so luong san pham
+                    if(isset($_POST['quantity'])){
+                        $soluong = $_POST['quantity'];
+                    } else{
+                        $soluong = 1;
+                    }
+                    echo "<script>alert('Đã thêm vào trong giỏ hàng');</script>";
+                    $ttien = $soluong * intval($price);
+                    $productAdd = [$id, $name, $img, $price, $soluong, $ttien];
+                    array_push($_SESSION['mycart'], $productAdd);
+                }
             }
             // include "view/cart/cart.php";
             include "view/home.php";
 
             break;
             case 'checkout':
+                if(isset($_POST['submit'])){
+                    if(isset($_POST['isUseCurrentAddress'])){
+                        $recipient_name = $_POST['currentFirstName'] . $_POST['currentLastName'];
+                        $recipient_address = $_POST['currentAddress'];
+                        $recipient_email = $_POST['currentEmail'];
+                        $recipient_phone = $_POST['currentPhone'];
+                    } else{
+                        $recipient_name = $_POST['firstName'] . $_POST['lastName'];
+                        $recipient_address = $_POST['address'];
+                        $recipient_email = $_POST['email'];
+                        $recipient_phone = $_POST['phone'];
+                    }
+                    $idUser = $_SESSION['user']['id'];
+
+                    $currenDate = date('Y-m-d H:i:s');
+                    $grandTotal = $_POST['grandTotal'];
+                    $payment_method = $_POST['payment-method'];
+                    $orderId = insert_bill($idUser, $recipient_name, $recipient_email, $recipient_phone, $recipient_address, $payment_method, $currenDate, $grandTotal);
+                    foreach ($_SESSION['mycart'] as $key => $product) {
+                        insert_detail_bill($orderId, intval($product[0]), $product[4]);
+                    }
+                    unset($_SESSION['mycart']);
+
+                    header("location: index.php?act=checkout_success");
+                }
                 include "view/cart/checkout.php";
-                break;    
+                break;
+            case 'order':
+                if(isset( $_POST["submit"])){
+                    $ids = $_POST['id'];
+                    $prices = $_POST['price'];
+                    $quantities = $_POST['quantity'];
+                    
+                    $grandTotal = 0;
+                    foreach ($_SESSION['mycart'] as $key => $product) {
+                        $grandTotal += ($prices[$key] * $quantities[$key]);
+                        $_SESSION['mycart'][$key][4] = $quantities[$key];
+                    };
+                }
+                if(isset($_SESSION['user'])){
+                    $user = $_SESSION['user'];
+                }
+                include "view/cart/checkout.php";
+                break;  
+            case 'checkout_success':
+                include "view/camon.php";
+                break;          
         default:
             include "view/home.php";
             break;
