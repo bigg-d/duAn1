@@ -30,7 +30,6 @@
                         extract($binhluan);
                         $taikhoan = loadone_taikhoan($iduser);
                         $sanpham = loadone_sanpham($idproduct);
-                        var_dump($taikhoan);
                         echo '<tr>
                                 <td><input type="checkbox" name="" id=""></td>
                                 <td>' . $id . '</td>

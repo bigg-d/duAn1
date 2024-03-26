@@ -20,7 +20,7 @@
 	<div class="container">
 
 		<!-- Checkout Form s-->
-		<form action="index.php?act=checkout" method="post" class="checkout-form">
+		<form action="index.php?act=checkout" method="post" class="checkout-form" enctype="multipart/form-data">
 			<div class="row row-50 mbn-40">
 
 				<div class="col-lg-7">
@@ -33,49 +33,39 @@
 
 							<div class="col-md-6 col-12 mb-5">
 								<label>First Name*</label>
-								<input type="text" name="firstName" id="first-name" placeholder="First Name">
+								<input type="text" name="firstName" id="first-name" value='<?=isset($recipient_name) ? $recipient_name : ''?>' placeholder="First Name">
 								<input type="hidden" name="currentFirstName" id="currentFirstName" value="<?=$user['firstname'] ? $user['firstname']: ''?>">
+								<p id="first-name_err" style="color:red"><?=isset($firstname_err) ? $firstname_err : '' ?></p>
 							</div>
 
 							<div class="col-md-6 col-12 mb-5">
 								<label>Last Name*</label>
-								<input type="text" name="lastName" id="last-name" placeholder="Last Name">
+								<input type="text" name="lastName" id="last-name" placeholder="Last Name" value="<?= isset($recipient_lastname) ? $recipient_lastname : ''?>">
 								<input type="hidden" name="currentLastName" id="currentLastName" value="<?=$user['lastname'] ? $user['lastname'] : ''?>">
+								<p id="last-name_err" style="color:red"><?=isset($lastname_err) ? $lastname_err : '' ?></p>
 							</div>
 
 							<div class="col-md-6 col-12 mb-5">
 								<label>Email Address*</label>
-								<input type="email" name="email" id="email" placeholder="Email Address">
+								<input type="email" name="email" id="email" placeholder="Email Address" value='<?=isset($recipient_email) ? $recipient_email : ''?>' >
 								<input type="hidden" name="currentEmail" id="currentEmail" value="<?=$user['email'] ? $user['email'] : ""?>">
+								<p id="email_err" style="color:red"><?=isset($email_err) ? $email_err : '' ?></p>
+
 							</div>
 
 							<div class="col-md-6 col-12 mb-5">
 								<label>Phone no*</label>
-								<input type="text" name="phone" id="phone" placeholder="Phone number">
-								<input type="hidden" name="currentPhone" id="currentPhone" value="<?=$user['phone'] ? $user['phone'] : "Vui lòng bổ sung số điện thoại"?>">
+								<input type="text" name="phone" id="phone" placeholder="Phone number" value='<?=isset($recipient_phone) ? $recipient_phone : ''?>'>
+								<input type="hidden" name="currentPhone" id="currentPhone" value="<?=$user['phone'] ? $user['phone'] : ""?>">
+								<p id="phone_err" style="color:red"><?=isset($phone_err) ? $phone_err : '' ?></p>
 							</div>
 
 
 							<div class="col-12 mb-5">
 								<label>Address*</label>
-								<input type="text" id="address" name="address" placeholder="Address">
-								<input type="hidden" name="currentAddress" id="currentAddress" value="<?=$user['address'] ? $user['address']: 'Vui lòng bổ sung địa chỉ'?>">
-							</div>
-
-							<div class="col-md-6 col-12 mb-5">
-								<label>Country*</label>
-								<select class="nice-select">
-									<option>Bangladesh</option>
-									<option>China</option>
-									<option>country</option>
-									<option>India</option>
-									<option>Japan</option>
-								</select>
-							</div>
-
-							<div class="col-md-6 col-12 mb-5">
-								<label>Town/City*</label>
-								<input type="text" placeholder="Town/City">
+								<input type="text" id="address" name="address" placeholder="Address" value='<?=isset($recipient_address) ? $recipient_address : ''?>'>
+								<input type="hidden" name="currentAddress" id="currentAddress" value="<?=$user['address'] ? $user['address']: ''?>">
+								<p id="address_err" style="color:red"><?=isset($address_err) ? $address_err : '' ?></p>
 							</div>
 
 							<div class="col-12 mb-5">
@@ -83,10 +73,7 @@
 									<input name="isUseCurrentAddress" type="checkbox" id="current_address">
 									<label for="current_address">Use current address</label>
 								</div>
-								<div class="check-box mb-15">
-									<input type="checkbox" id="shiping_address" data-shipping>
-									<label for="shiping_address">Ship to Different Address</label>
-								</div>
+								
 							</div>
 
 						</div>
@@ -108,16 +95,16 @@
 								<h4>Product <span>Total</span></h4>
 
 								<ul>
-									<?php foreach ($ids as $key => $id) {
-										$product = loadone_sanpham($id);
+									<?php foreach ($_SESSION['mycart'] as $key => $item) {
+										$product = loadone_sanpham($item[0]);
 										?>
 										<li>
 											<p style="width:350px">
-												<?= $product['name'] ?> X <?= $quantities[$key] ?>
+												<?= $product['name'] ?> X <?= $item[4] ?>
 											</p>
 
 											<span>$
-												<?= ($quantities[$key] * $prices[$key]) ?>
+												<?= number_format(($item[4] * $item[3]) / 26000, 1) ?>
 											</span>
 										</li>
 									<?php } ?>
@@ -125,15 +112,14 @@
 
 								<p>Sub Total
 									<span>$
-										<?php echo $grandTotal;
-										?>
+										<?=$_SESSION['grandTotal']?>
 									</span>
-									<input type="hidden" name="grandTotal" value="<?=$grandTotal?>">
+									<input type="hidden" name="grandTotal" value="<?=$_SESSION['grandTotal']?>">
 								</p>
 								<p>Shipping Fee <span>$00.00</span></p>
 
 								<h4>Grand Total <span>$
-										<?php echo $grandTotal?>
+										<?=$_SESSION['grandTotal']?>
 									</span></h4>
 
 							</div>
@@ -162,6 +148,9 @@
 									<p data-method="cash">Please send a Check to Store name with Store Street, Store
 										Town, Store State, Store Postcode, Store Country.</p>
 								</div>
+								<p id="payments_err" style="color:red"><?=isset($payments_err) ? $payments_err : '' ?></p>
+
+								
 							</div>
 							<input style="background-color:black; color:white" type="submit" class="place-order" value="Place order" name="submit">
 

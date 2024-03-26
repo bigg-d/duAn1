@@ -17,11 +17,11 @@
 
 <!-- Page Section Start -->
 <div class="page-section section section-padding">
-	<form class="container" action='index.php?act=addtocart' method="POST" >
+	<div class="container">
 		<div class="row row-30 mbn-50">
 
 			<div class="col-12">
-				<div class="row row-20 mb-10">
+				<form class="row row-20 mb-10" action='index.php?act=addtocart' method="POST">
 
 					<div class="col-lg-6 col-12 mb-40">
 
@@ -65,7 +65,7 @@
 
 								<div class="head-right">
 									<span class="price">$
-										<?= number_format(($sanpham['price'] / 26000), 1)?>
+										<?= number_format(($sanpham['price'] / 26000), 1) ?>
 									</span>
 									<input type="hidden" name="price" value="<?= $sanpham['price'] ?>">
 								</div>
@@ -80,7 +80,7 @@
 							<span class="availability">Availability: <span>
 									<?= $sanpham['stock_quantity'] > 0 ? 'In Stock' : 'Out Of Stock' ?>
 								</span></span>
-							<input type="hidden" name="stock_quantity" value="<?=$sanpham['stock_quantity']?>">	
+							<input type="hidden" name="stock_quantity" value="<?= $sanpham['stock_quantity'] ?>">
 
 							<div class="quantity-colors">
 
@@ -132,7 +132,7 @@
 						</div>
 					</div>
 
-				</div>
+				</form>
 
 				<div class="row mb-50">
 					<!-- Nav tabs -->
@@ -173,7 +173,108 @@
 							</table>
 						</div>
 						<div class="pro-info-tab tab-pane" id="reviews">
-							<a href="#">Be the first to write your review!</a>
+							<!-- <a href="#">Be the first to write your review!</a> -->
+							<div id="review_container">
+								<h2 style="font-size: 30px;
+	line-height: 1;
+	font-weight: 700;
+	margin: 0;
+	letter-spacing: 0.25px;
+	margin-top: -3px">Customer Reviews</h2>
+								<hr>
+								<?php
+								if (isset($_SESSION['user'])) {
+									echo '<form style="margin-bottom:24px" action="index.php?act=binhluan" method="post">
+        <input type="hidden" name="idpro" value="' . $sanpham['id'] . '">
+        <div class="spr-form-review-title">
+            <label class="spr-form-label" for="review_title_1382563151985">Review Title</label> <br />
+            <input class="spr-form-input spr-form-input-text" id="review_title_1382563151985" type="text" name="title" value="" placeholder="Give your review a title" required>
+        </div>
+        <div class="spr-form-review-body">
+            <label class="spr-form-label" for="review_body_1382563151985">Body of Review
+                <span role="status" aria-live="polite" aria-atomic="true">
+                    <span class="spr-form-review-body-charactersremaining">(1500)</span>
+                    <span class="visuallyhidden">characters remaining</span>
+                </span>
+            </label>
+            <div class="spr-form-input">
+                <textarea class="spr-form-input spr-form-input-textarea" id="review_body_1382563151985" data-product-id="1382563151985" name="content" rows="10" placeholder="Write your comments here" required></textarea>
+                <script>
+                    function sprUpdateCount(e) {
+                        var $el = SPR.$(e.currentTarget);
+                        SPR.$(".spr-form-review-body-charactersremaining").html("(" + (1500 - $el.val().length) + ")");
+                    }
+                    SPR.$("textarea[data-product-id=1382563151985]").keyup(sprUpdateCount).trigger("keyup");
+                </script>
+            </div>
+        </div>
+        <input type="submit" name="guibinhluan" id="sendBtn" value="Send Your Review">
+        <hr>
+    </form>';
+								} else {
+									echo '<a href="index.php?act=login">Login To Review</a>';
+								}
+								?>
+								<!-- <form style="margin-bottom:24px" action="index.php?act=binhluan" method="post">
+									<input type="hidden" name="idpro" value="<?= $sanpham['id'] ?>">
+									<div class="spr-form-review-title">
+										<label class="spr-form-label" for="review_title_1382563151985">Review
+											Title</label> <br />
+										<input class="spr-form-input spr-form-input-text "
+											id="review_title_1382563151985" type="text" name="title" value=""
+											placeholder="Give your review a title" required>
+									</div>
+									<div class="spr-form-review-body">
+										<label class="spr-form-label" for="review_body_1382563151985">
+											Body of Review
+											<span role="status" aria-live="polite" aria-atomic="true">
+												<span class="spr-form-review-body-charactersremaining">(1500)</span>
+												<span class="visuallyhidden">characters remaining</span>
+											</span>
+										</label>
+										<div class="spr-form-input">
+											<textarea class="spr-form-input spr-form-input-textarea "
+												id="review_body_1382563151985" data-product-id="1382563151985"
+												name="content" rows="10"
+												placeholder="Write your comments here" required></textarea>
+											<script>
+												function sprUpdateCount(e) {
+													var $el = SPR.$(e.currentTarget);
+													SPR.$(".spr-form-review-body-charactersremaining").html('(' + (1500 - $el.val().length) + ')');
+												}
+												SPR.$("textarea[data-product-id=1382563151985]").keyup(sprUpdateCount).trigger("keyup");
+											</script>
+										</div>
+									</div>
+
+									<input type="submit" name="guibinhluan" id="sendBtn" value="Send Your Review">
+									<hr>
+								</form> -->
+								<ul id="dsbl">
+									<?php foreach ($dsbl as $key => $bl) {
+										$user = loadone_taikhoan($bl['iduser']);
+										?>
+
+										<li>
+											<h3 style="margin-bottom:4px">
+												<?= $bl['title'] ?>
+											</h3>
+											<div style="display:flex; gap:6px">
+												<h4 style="display:inline-block;font-style:italic; font-weight:600">
+													<?= $user[0]['username'] ?>
+												</h4> on
+												<span style="font-weight:600; ">
+													<?= $bl['ngaybinhluan'] ?>
+												</span>
+											</div>
+											<p style="color:gray">
+												<?= $bl['noidung'] ?>
+											</p>
+										</li>
+										<hr>
+									<?php } ?>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -181,7 +282,7 @@
 			</div>
 
 		</div>
-	</form>
+	</div>
 </div><!-- Page Section End -->
 
 <!-- Related Product Section Start -->
@@ -195,13 +296,13 @@
 		<div class="related-product-slider related-product-slider-1 slick-space p-0">
 			<?php foreach ($splienquan as $key => $sanpham) { ?>
 				<div class="slick-slide">
-	
+
 					<div class="product-item">
 						<div class="product-inner">
-	
+
 							<div class="image">
-								<img src="upload/<?=$sanpham['img']?>" alt="">
-	
+								<img src="upload/<?= $sanpham['img'] ?>" alt="">
+
 								<div class="image-overlay">
 									<div class="action-buttons">
 										<?php if ($sanpham['stock_quantity'] > 0): ?>
@@ -213,15 +314,17 @@
 											<div class="outofstock">Hết hàng</div>
 										<?php endif; ?>
 									</div>
-	
+
 								</div>
-	
+
 								<div class="content">
-	
+
 									<div class="content-left">
-	
-										<h4 class="title"><a href="single-product.html"><?=$sanpham['name']?></a></h4>
-	
+
+										<h4 class="title"><a href="index.php?act=detailProduct&id=<?= $sanpham['id'] ?>">
+												<?= $sanpham['name'] ?>
+											</a></h4>
+
 										<div class="ratting">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
@@ -229,31 +332,33 @@
 											<i class="fa fa-star-half-o"></i>
 											<i class="fa fa-star-o"></i>
 										</div>
-	
+
 										<!-- <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span>
 										</h5>
 										<h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span
 												style="background-color: #0271bc"></span><span
 												style="background-color: #efc87c"></span><span
 												style="background-color: #00c183"></span></h5> -->
-	
+
 									</div>
-	
+
 									<div class="content-right">
-										<span class="price">$<?= number_format(($sanpham['price'] / 26000), 1)?></span>
+										<span class="price">$
+											<?= number_format(($sanpham['price'] / 26000), 1) ?>
+										</span>
 									</div>
-	
+
 								</div>
-	
+
 							</div>
 						</div>
-	
+
 					</div>
-	
-	
-	
-	
-	
+
+
+
+
+
 				</div>
 			<?php } ?>
 		</div>

@@ -2,7 +2,14 @@
           <h3>Thêm tài khoản</h3>
           <div class="search_list-product-admin w-100 d-f jf-c">
             <form action="index.php?act=addtk" class="general-form" method="post" enctype="multipart/form-data">
-             
+            <div class="block_form d-f f-d">
+                <label for=""> TÊN </label>
+                <input type="text" placeholder="Tên đăng nhập" name="firstname" >
+              </div>
+              <div class="block_form d-f f-d">
+                <label for=""> TÊN ĐỆM  </label>
+                <input type="text" placeholder="Tên đăng nhập" name="lastname" >
+              </div>
               <div class="block_form d-f f-d">
                 <label for=""> TÊN ĐĂNG NHẬP  </label>
                 <input type="text" placeholder="Tên đăng nhập" name="tentk" >
@@ -15,10 +22,10 @@
                 <label for="">Email</label>
                 <input type="text" placeholder="Email" name="email">
               </div>
-              <div class="block_form d-f g-10 al-c">
+              <!-- <div class="block_form d-f g-10 al-c">
                 <label class="label_addsp" for="">Avatar</label>
                 <input class="ten_addsp" type="file" name="hinh" /> 
-              </div>
+              </div> -->
               <div class="block_form d-f g-10 al-c">
                <input type="submit" value="Thêm Mới" class="submit-general-form" name="themmoi">
                <input type="reset" value="Hủy" class="cancel-general-form" >

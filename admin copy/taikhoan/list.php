@@ -34,7 +34,7 @@
                         extract($taikhoan);
                         $suatk="index.php?act=suatk&id=".$id;
                         $xoatk="index.php?act=xoatk&id=".$id;
-                        $img = "../upload/" .$avatar;
+                        // $img = "../upload/" .$avatar;
                         $address = isset($address) ? $address : "null";
                         $tel = isset($tel) ? $tel : "null";
                      ?>
@@ -46,7 +46,7 @@
                                     <img style="width:40px;" src="<?= $img ?> " alt="">
                                   </div>
                                 </td>
-                                <td style="width:140px;"> <?= $user ?>  </td>
+                                <td style="width:140px;"> <?= $username ?>  </td>
                                 <td> <?= $pass ?>  </td>
                                 <td> <?= $email ?>  </td>
                                 <td style="width:180px;"> <?= $address ?>  </td>

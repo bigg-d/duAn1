@@ -3,6 +3,7 @@
   <div class="search_list-product-admin w-100">
     <form action="index.php?act=listsp" class="d-f form-search" method="post">
       <input type="text" placeholder="Tìm kiếm theo tên sản phẩm..." class="input-search" name="kyw" />
+      <input type="hidden" name="page" value="1">
       <select name="iddm">
         <option value="0" selected>Tất cả</option>
         <?php
@@ -33,9 +34,9 @@
       <tbody class="tbody">
         <!-- php -->
         <?php foreach ($listsanpham as $sanpham) {
-          $danhmuc = loadone_danhmuc($iddm);
 
           extract($sanpham);
+          $danhmuc = loadone_danhmuc($iddm);
           $anhchitiet = explode(",", $images);
           $suasp = "index.php?act=suasp&id=" . $id;
           $xoasp = "index.php?act=xoasp&id=" . $id;
@@ -87,12 +88,12 @@
   <button class="pagination-button" id="prev-button" title="Previous page" aria-label="Previous page">
     &lt;
   </button>
-
+  
   <div id="pagination-numbers">
   </div>
-
+  
   <button class="pagination-button" id="next-button" title="Next page" aria-label="Next page">
     &gt;
   </button>
 </nav>
-<script src="../JavaScript/admin/pagination.js"></script>
+<script src="../assets/js/admin/pagination.js"></script>

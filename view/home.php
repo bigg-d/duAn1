@@ -655,21 +655,3 @@ $products = loadall_sanpham_home();
     </div>
 </div><!-- Blog Section End -->
 
-<!-- <script>
-    const addtocartBtns = document.querySelectorAll('.addtocartBtn');
-
-    addtocartBtns.forEach((addtocartBtn) => {
-        addtocartBtn.addEventListener('click', (event) => {
-            event.preventDefault();
-            const form = addtocartBtn.closest('form');
-            const isLogin = form.querySelector('.isLogin');
-            console.log(isLogin)
-            if (isLogin.value === 'false' || isLogin.value == null) {
-                alert('Vui lòng đăng nhập để mua hàng');
-            } else {
-                alert('Đã Thêm vào giỏ hàng');
-                form.submit();
-            }
-        });
-    });
-</script> -->

@@ -1,7 +1,6 @@
 <?php
     if(is_array($taikhoan)){
-        extract($taikhoan);
-        // var_dump($taikhoan);
+        var_dump($taikhoan);
       } 
    
 ?>
@@ -12,26 +11,26 @@
              
               <div class="block_form d-f f-d">
                 <label for=""> TÊN ĐĂNG NHẬP  </label>
-                <input type="text" placeholder="Tên Đang Nhập" name="tentk"  value="<?=$user?>"> 
+                <input type="text" placeholder="Tên Đang Nhập" name="tentk"  value="<?=$taikhoan[0]['username']?>"> 
               </div>
               <div class="block_form d-f f-d">
                 <label for="">MẬT KHẨU</label>
-                <input type="password" placeholder="MẬT KHẨU" name="matkhau" value="<?=$pass?>">
+                <input type="password" placeholder="MẬT KHẨU" name="matkhau" value="<?=$$taikhoan[0]['password']?>">
               </div>
               <div class="block_form d-f f-d">
                 <label for="">EMAIL</label>
-                <input type="text" placeholder="Email" name="email" value="<?=$email?>">
+                <input type="text" placeholder="Email" name="email" value="<?=$taikhoan[0]['email']?>">
               </div>
               <div class="block_form d-f f-d">
                 <label for="">ĐỊA CHỈ	</label>
-                <input type="text" placeholder="Địa Chỉ" name="diachi" value="<?=$address?>">
+                <input type="text" placeholder="Địa Chỉ" name="diachi" value="<?=$taikhoan[0]['address']?>">
               </div><div class="block_form d-f f-d">
                 <label for="">Điện Thoại</label>
-                <input type="text" placeholder="Điên Thoại" name="dienthoai" value="<?=$tel?>">
+                <input type="text" placeholder="Điên Thoại" name="dienthoai" value="<?=$taikhoan[0]['phone']?>">
               </div>
               <div class="block_form d-f f-d">
-                <label for="">Vai Trò</label>
-                <input type="text" placeholder="Vai Trò" name="vaitro" value="<?=$role?>">
+                <label for="">Quyền</label>
+                <input type="text" placeholder="Vai Trò" name="vaitro" value="<?=$taikhoan[0]['role']?>">
               </div>
             
               <div class="block_form d-f g-10 al-c">

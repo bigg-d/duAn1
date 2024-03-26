@@ -4406,7 +4406,7 @@ img.mfp-img {
 .pro-info-tab p:last-child {
   margin: 0;
 }
-.pro-info-tab a {
+.pro-info-tab input#sendBtn {
   background-color: #282828;
   border: 0 none;
   color: #fff;
@@ -4417,7 +4417,62 @@ img.mfp-img {
   padding: 10px 15px;
   text-shadow: none;
   text-transform: uppercase;
+
 }
+
+.pro-info-tab #review_container{
+  border: 1px solid gray;
+  padding: 20px;
+
+}
+.pro-info-tab #review_container > a{
+  background-color: #282828;
+  border: 0 none;
+  color: #fff;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 400;
+  margin: 0;
+  padding: 10px 15px;
+  text-shadow: none;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.pro-info-tab #review_container #dsbl{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.pro-info-tab #review_container #dsbl li{
+  width: 50%;
+  margin-bottom: 24px;
+}
+.pro-info-tab #review_container #dsbl li h3{
+  line-height: 1;
+	font-weight: 700;
+	margin: 0;
+	letter-spacing: 0.25px;
+	margin-top: -3px
+}
+.pro-info-tab #review_container .spr-form-review-title{
+  margin-bottom: 24px;
+}
+.pro-info-tab #review_container label{
+  display: inline-block;
+    margin-bottom: 0.5rem
+}
+.pro-info-tab #review_container .spr-form-review-title input{
+  padding:6px 16px;
+  display: block;
+  width: 100%;
+  border: 1px solid gray;
+}
+.pro-info-tab #review_container textarea{
+  width: 100%;
+  padding:6px 16px;
+
+}
+
 
 .table-data-sheet {
   background: #fff none repeat scroll 0 0;

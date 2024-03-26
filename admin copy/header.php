@@ -154,7 +154,7 @@
 
               <ul class="sub-menu">
                 <li>
-                  <a href="index.php?act=listsp">
+                  <a href="index.php?act=listsp&page=1">
                     <div>
                       <i class="fa-regular fa-circle"></i>
                       <span>Quản lý sản phẩm</span>
@@ -267,7 +267,7 @@
                 <i class="fa-solid fa-bars"></i>
               </div>
               <div class="left-menu-bar">Home</div>
-              <div class="left-menu-bar">Contact</div>
+              <a href="/duAn1/index.php" class="left-menu-bar">Về trang khách</a>
             </div>
           </div>
         </header>

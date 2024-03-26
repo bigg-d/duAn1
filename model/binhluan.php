@@ -1,6 +1,6 @@
 <?php
-    function insert_binhluan($noidung, $iduser, $idpro, $ngaybinhluan){
-        $sql = "insert into binhluan (noidung, userid, idproduct, ngaybinhluan) values('$noidung', '$iduser', '$idpro', '$ngaybinhluan')";
+    function insert_binhluan($title,$noidung, $iduser, $idpro, $ngaybinhluan){
+        $sql = "insert into binhluan (title,noidung, iduser, idproduct, ngaybinhluan) values('$title','$noidung', '$iduser', '$idpro', '$ngaybinhluan')";
         pdo_execute($sql);
     }
     // function delete_binhluan($id){

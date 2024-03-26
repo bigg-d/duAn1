@@ -1,6 +1,6 @@
 const paginationNumbers = document.getElementById("pagination-numbers");
-const paginatedList = document.querySelector(".tbody");
-const listItems = paginatedList.querySelectorAll(".trItem");
+// const paginatedList = document.querySelector(".tbody");
+const listItems = document.querySelectorAll(".item");
 const nextButton = document.getElementById("next-button");
 const prevButton = document.getElementById("prev-button");
 
@@ -9,9 +9,12 @@ const pageCount = Math.ceil(listItems.length / paginationLimit);
 let currentPage;
 
 const appendPageNumber = (index) => {
-  const pageNumber = document.createElement("button");
+  const pageNumber = document.createElement("li");
+  const pageLink = document.createElement("a");
+
   pageNumber.className = "pagination-number";
-  pageNumber.innerHTML = index;
+  pageNumber.appendChild(pageLink);
+  pageLink.innerHTML = index;
   pageNumber.setAttribute("page-index", index);
   pageNumber.setAttribute("aria-label", "Page " + index);
   paginationNumbers.appendChild(pageNumber);
@@ -43,6 +46,7 @@ const setCurrentPage = (pageNum) => {
 
   listItems.forEach((item, index) => {
     item.classList.add("hiddenPagin");
+    item.classList.add("mb-0");
     if (index >= prevRange && index < currRange) {
       item.classList.remove("hiddenPagin");
     }

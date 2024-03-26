@@ -17,6 +17,25 @@
         $listsanpham = pdo_query($sql);
         return $listsanpham;
     }
+    function loadall_sanpham_popular(){
+        $sql = "select * from sanpham order by view desc limit 3";
+        $listsanpham = pdo_query($sql);
+        return $listsanpham;
+    }
+    // function loadall_sanpham($kyw,$iddm, $items_per_page, $current_page ){
+    //     $sql = "select * from sanpham where 1";
+    //     if($kyw != ""){
+    //         $sql.= " and name like '%". $kyw. "%'";
+    //     }
+    //     if($iddm > 0){
+    //         $sql.= " and iddm = ".$iddm;
+    //         $_SESSION['currentCategoryId'] = $iddm;
+    //     }
+    //     $offset = ($current_page - 1) * $items_per_page;
+    //     $sql.= " order by id desc limit ".  $items_per_page  ." offset ".$offset ;
+    //     $listsanpham = pdo_query($sql);
+    //     return $listsanpham;
+    // }
     function loadall_sanpham($kyw,$iddm){
         $sql = "select * from sanpham where 1";
         if($kyw != ""){
@@ -28,6 +47,26 @@
         $sql.= " order by id desc";
         $listsanpham = pdo_query($sql);
         return $listsanpham;
+    }
+    function loadall_sanpham_shop($kyw,$iddm,$page=1){
+        $sql = "select * from sanpham where 1";
+        if($kyw != ""){
+            $sql.= " and name like '%". $kyw. "%'";
+        }
+        if($iddm > 0){
+            $sql.= " and iddm = ".$iddm;
+        }
+        $sql.= " order by id desc";
+        $listsanpham = pdo_query($sql);
+        return $listsanpham;
+    }
+    function tong_sanpham($iddm = null ){
+        $sql= "SELECT COUNT(*) FROM sanpham where 1";
+        if($iddm !== null){
+            $sql .= " and iddm = " . $iddm;
+        };
+        $count = pdo_query($sql);
+        return $count;
     }
     function loadone_sanpham($id){
         $sql = "select * from sanpham  where id =". $id;
