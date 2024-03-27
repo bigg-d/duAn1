@@ -1,48 +1,72 @@
-<div class="row">
-      <div class="row_header">
-        <p>Danh Sách Khách hàng</p>
-      </div>
-      <div class="row">
-        <div class="row_nb10 fomdsloai">
-          <table>
-            <tr>
-              <th>Mã Khách Hàng</th>
-              <th>Tên Đăng nhập</th>
-              <th>Mật khẩu</th>
-              <th>Email</th>
-              <th>Địa Chỉ</th>
-              <th>Điện Thoại</th>
-              <th>Quyền</th>
-              <th>Chức năng</th>
-            </tr>
-            <?php
-                foreach ($listuser as $user) {
-                    extract($user);
-                    $suatk = "index.php?act=suatk&id=". $id ;
-                    $xoatk = "index.php?act=xoatk&id=". $id ;
-                    echo '
-                            <tr>
-                            <td>' .$id. '</td>
-                            <td>' .$user.'</td>
-                            <td>' .$password.'</td>
-                            <td>' .$email.'</td>
-                            <td>' .$address.'</td>
-                            <td>' .$phone.'</td>
-                            <td>' .$role.'</td>
-                            <td>
-                                <a href= "'.$suatk.'"><input type="button" value="Sửa"></a> 
-                                <a href="'.$xoatk.'"><input type="button" value="Xóa"></td></a>
-                        </tr>';
-                }
-            ?>
-            
-          </table>
-        </div>
-        <!-- <div class="row_mb21">
-          <input type="button" value="Chọn tất cả">
-          <input type="button" value="Bỏ chọn tất cả">
-          <input type="button" name="" id="" value="xóa các mục đã chọn">
-          <a href="index.php?act=adddm"><input type="button" value="Nhập thêm"></a>
-        </div> -->
-      </div>
-    </div>
+<main class="w-100 d-f f-d">
+          <h3>Quản Lý Tài Khoản</h3>
+          <div class="search_list-product-admin w-100">
+          <form action="index.php?act=dskh" method="POST" class="d-f form-search">
+              <input
+                type="text"
+                placeholder="Tìm kiếm theo ID tài khoản..."
+                class="input-search"
+                name="iduser"
+              />
+              <select name="role">
+                <option value="" selected>Tất cả</option>
+                <option value="0">User</option>
+                <option value="1">Admin</option>
+              </select>
+              <input
+                type="submit"
+                class="submit-search-form"
+                value="Tìm kiếm"
+                name="findAccSubmit"
+              />
+            </form>  
+            <form action="" class="d-f " >
+                <table class="w-100 table_bill-admin">
+                    <thead>  
+                        <th>Check</th>                      
+                        <th>ID</th>
+                        <th>Tên</th>
+                        <th>Tên Đệm</th>
+                        <th>Tên đăng nhập</th>
+                        <th>Mật khẩu</th>
+                        <th>Email</th>
+                        <th>Địa chỉ</th>
+                        <th>Điện thoại</th>
+                        <th>Vai trò</th>
+                        <th>Chức Năng </th>
+
+                    </thead>
+                    <?php foreach ($listtaikhoan as $taikhoan) {
+                        extract($taikhoan);
+                        $suatk="index.php?act=suatk&id=".$id;
+                        $xoatk="index.php?act=xoatk&id=".$id;
+                        // $img = "../upload/" .$avatar;
+                        $address = isset($address) ? $address : "null";
+                        $tel = isset($tel) ? $tel : "null";
+                     ?>
+                        <tr>
+                                <td><input type="checkbox"></td>                        
+                                <td style="width:40px;"> <?= $id ?> </td>
+                                <td style="width:140px;"> <?= $firstname ?>  </td>
+                                <td style="width:140px;"> <?= $lastname ?>  </td>
+                                <td style="width:140px;"> <?= $username ?>  </td>
+                                <td> <?= $pass ?>  </td>
+                                <td> <?= $email ?>  </td>
+                                <td style="width:180px;"> <?= ($address == null) ? $address : 'Chưa cập nhật địa chỉ' ?>  </td>
+                                <td> <?= ($tel == null) ? $tel : "Chưa cập nhật SĐT" ?>  </td>
+                                <td> <?= ($role == 0) ? 'User' : "Admin"  ?>  </td>
+                                <td> 
+                                  <a class="url-edit" href="<?= $suatk ?>">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                  </a> 
+                                  <a  class="url-delete" href="<?= $xoatk ?>" onclick='return confirm("Delete entry?")'>
+                                    <i class="fa-solid fa-trash"></i>
+                                  </a> 
+                                </td>
+                            </tr>
+                   <?php } ?>
+                  </table>
+            </form>
+                 
+          </div>
+        </main>

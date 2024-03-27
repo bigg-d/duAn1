@@ -3,7 +3,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="page-banner-content col">
-
+				<?php
+					var_dump($_SESSION['user'])
+				?>
 				<h1>Checkout</h1>
 				<ul class="page-breadcrumb">
 					<li><a href="index.php">Home</a></li>
@@ -34,21 +36,21 @@
 							<div class="col-md-6 col-12 mb-5">
 								<label>First Name*</label>
 								<input type="text" name="firstName" id="first-name" value='<?=isset($recipient_name) ? $recipient_name : ''?>' placeholder="First Name">
-								<input type="hidden" name="currentFirstName" id="currentFirstName" value="<?=$user['firstname'] ? $user['firstname']: ''?>">
+								<input type="hidden" name="currentFirstName" id="currentFirstName" value="<?=isset($_SESSION['user']['firstname']) ? $_SESSION['user']['firstname']: ''?>">
 								<p id="first-name_err" style="color:red"><?=isset($firstname_err) ? $firstname_err : '' ?></p>
 							</div>
 
 							<div class="col-md-6 col-12 mb-5">
 								<label>Last Name*</label>
 								<input type="text" name="lastName" id="last-name" placeholder="Last Name" value="<?= isset($recipient_lastname) ? $recipient_lastname : ''?>">
-								<input type="hidden" name="currentLastName" id="currentLastName" value="<?=$user['lastname'] ? $user['lastname'] : ''?>">
+								<input type="hidden" name="currentLastName" id="currentLastName" value="<?=$_SESSION['user']['lastname'] ? $_SESSION['user']['lastname'] : ''?>">
 								<p id="last-name_err" style="color:red"><?=isset($lastname_err) ? $lastname_err : '' ?></p>
 							</div>
 
 							<div class="col-md-6 col-12 mb-5">
 								<label>Email Address*</label>
 								<input type="email" name="email" id="email" placeholder="Email Address" value='<?=isset($recipient_email) ? $recipient_email : ''?>' >
-								<input type="hidden" name="currentEmail" id="currentEmail" value="<?=$user['email'] ? $user['email'] : ""?>">
+								<input type="hidden" name="currentEmail" id="currentEmail" value="<?=$_SESSION['user']['email'] ? $_SESSION['user']['email'] : ""?>">
 								<p id="email_err" style="color:red"><?=isset($email_err) ? $email_err : '' ?></p>
 
 							</div>
@@ -56,7 +58,7 @@
 							<div class="col-md-6 col-12 mb-5">
 								<label>Phone no*</label>
 								<input type="text" name="phone" id="phone" placeholder="Phone number" value='<?=isset($recipient_phone) ? $recipient_phone : ''?>'>
-								<input type="hidden" name="currentPhone" id="currentPhone" value="<?=$user['phone'] ? $user['phone'] : ""?>">
+								<input type="hidden" name="currentPhone" id="currentPhone" value="<?=$_SESSION['user']['phone'] ? $_SESSION['user']['phone'] : ""?>">
 								<p id="phone_err" style="color:red"><?=isset($phone_err) ? $phone_err : '' ?></p>
 							</div>
 
@@ -64,7 +66,7 @@
 							<div class="col-12 mb-5">
 								<label>Address*</label>
 								<input type="text" id="address" name="address" placeholder="Address" value='<?=isset($recipient_address) ? $recipient_address : ''?>'>
-								<input type="hidden" name="currentAddress" id="currentAddress" value="<?=$user['address'] ? $user['address']: ''?>">
+								<input type="hidden" name="currentAddress" id="currentAddress" value="<?=$_SESSION['user']['address'] ? $_SESSION['user']['address']: ''?>">
 								<p id="address_err" style="color:red"><?=isset($address_err) ? $address_err : '' ?></p>
 							</div>
 

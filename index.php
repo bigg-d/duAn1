@@ -1,13 +1,14 @@
 <?php
 ob_start();
 session_start();
-
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 include "./model/pdo.php";
 include "./model/taikhoan.php";
 include_once "./model/sanpham.php";
 include_once "./model/danhmuc.php";
 include_once "./model/checkout.php";
 include_once "./model/binhluan.php";
+include_once "./model/cart.php";
 
 include_once "fuc.php";
 
@@ -41,7 +42,7 @@ if (isset ($_GET['act']) && ($_GET['act'] != "")) {
                 $sanpham = loadone_sanpham($id);
                 extract($sanpham);
                 $splienquan = loadall_sanpham_related($iddm, $id);
-                $dsbl = loadall_binhluan($id);
+                $dsbl = loadall_binhluan_detailProduct($id);
 
                 setview_sanpham($id, $view);
             }
@@ -98,10 +99,11 @@ if (isset ($_GET['act']) && ($_GET['act'] != "")) {
                 }
                 if (!isset ($loiten1) && !isset ($loiten2) && !isset ($loiten3) && !isset ($loiemail) && !isset ($loimk1) && !isset ($loimk2)) {
                     $sql = "INSERT INTO `taikhoan`(`firstname`, `lastname`, `username`, `pass`, `email`) VALUES 
-                                                 ('$firstname','$lastname','$username',md5('$password'),'$email') ";
+                                                 ('$firstname','$lastname','$username','$password','$email') ";
                     pdo_execute($sql);
 
                     header('Location: index.php?act=login');
+                    $thongbao= "Đăng kí thành công";
                 }
                 /*                    */
             }
@@ -109,7 +111,7 @@ if (isset ($_GET['act']) && ($_GET['act'] != "")) {
             break;
         case 'login':
             if (isset ($_POST['submit']) && $_POST['submit']) {
-                $password = md5($_POST['password']);
+                $password = $_POST['password'];
                 $email = $_POST['email'];
                 $checkuser = checkuser($email, $password);
 
@@ -131,24 +133,24 @@ if (isset ($_GET['act']) && ($_GET['act'] != "")) {
                 include "view/account/register-login.php";
             }
             break;
-        case 'edit_taikhoan':
-            if (isset ($_POST['submit']) && $_POST['submit']) {
-                $id = $_POST['id'];
-                $username = $_POST['username'];
-                $firstname = $_POST['firstname'];
-                $lastname = $_POST['lastname'];
-                $email = $_POST['email'];
-                $address = $_POST['address'];
-                $phone = $_POST['phone'];
-                $password = $_POST['password'];
+        // case 'edit_taikhoan':
+        //     if (isset ($_POST['submit']) && $_POST['submit']) {
+        //         $id = $_POST['id'];
+        //         $username = $_POST['username'];
+        //         $firstname = $_POST['firstname'];
+        //         $lastname = $_POST['lastname'];
+        //         $email = $_POST['email'];
+        //         $address = $_POST['address'];
+        //         $phone = $_POST['phone'];
+        //         $password = $_POST['password'];
 
-                update_user($id, $username, $firstname, $lastname, $password, $email, $address, $phone);
-                unset($_SESSION['user']);
+        //         update_user($id, $username, $firstname, $lastname, $password, $email, $address, $phone);
+        //         unset($_SESSION['user']);
 
-                header('location: index.php?act=login');
-            }
-            include "view/taikhoan/edit_taikhoan.php";
-            break;
+        //         header('location: index.php?act=login');
+        //     }
+        //     include "view/taikhoan/edit_taikhoan.php";
+        //     break;
         case 'logout':
             unset($_SESSION['user']);
             include "view/account/register-login.php";
@@ -229,7 +231,6 @@ if (isset ($_GET['act']) && ($_GET['act'] != "")) {
                                 echo "<script>alert('Đã có trong giỏ hàng');</script>";
                             }
                         }
-                        echo "Phần tử '$id' được tìm thấy trong mảng hai chiều.";
                     } else {
                         //kiem tra so luong san pham
                         if (isset ($_POST['quantity'])) {
@@ -240,7 +241,22 @@ if (isset ($_GET['act']) && ($_GET['act'] != "")) {
                         echo "<script>alert('Đã thêm vào trong giỏ hàng');</script>";
                         $ttien = $soluong * intval($price);
                         $productAdd = [$id, $name, $img, $price, $soluong, $ttien];
+                        $lastModifiedDate = date('Y-m-d H:i:s');
+
+                        // kiem tra xem gio hang cua user da ton tai chua
+                        $listcart = loadall_cart();
+                        // var_dump($listcart);
+                        if(findCartId($listcart, $_SESSION['user']['id'])){
+                            $cartId = get_cartId($_SESSION['user']['id']);
+                            update_cart($cartId[0]['id'],date('Y-m-d H:i:s'));
+                            insert_cartItem($cartId[0]['id'], $id, $name, $img, $price, $soluong, $ttien);
+
+                        } else{
+                            $cartId = insert_cart($_SESSION['user']['id'], $lastModifiedDate);
+                            insert_cartItem($cartId, $id, $name, $img, $price, $soluong, $ttien);
+                        }
                         array_push($_SESSION['mycart'], $productAdd);
+                        
                     }
                 } else {
                     echo "<script>alert('Vui lòng đăng nhập để mua hàng');</script>";
@@ -256,8 +272,8 @@ if (isset ($_GET['act']) && ($_GET['act'] != "")) {
             if (isset ($_POST['submit'])) {
                 
 
-                if (empty ($firstname_err) && empty ($email_err) && empty ($phone_err) && empty ($address_err) && empty ($payments_err)) {
-                }
+                // if (empty ($firstname_err) && empty ($email_err) && empty ($phone_err) && empty ($address_err) && empty ($payments_err)) {
+                // }
                 if (isset ($_POST['isUseCurrentAddress'])) {
                     $recipient_name = $_POST['currentFirstName'];
                     $recipient_lastname = $_POST['currentLastName'];
@@ -327,9 +343,7 @@ if (isset ($_GET['act']) && ($_GET['act'] != "")) {
                 }
                 ;
             }
-            if (isset ($_SESSION['user'])) {
-                $user = $_SESSION['user'];
-            }
+            
             include "view/cart/checkout.php";
             break;
         case 'checkout_success':

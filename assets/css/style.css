@@ -4444,8 +4444,9 @@ img.mfp-img {
   flex-wrap: wrap;
 }
 .pro-info-tab #review_container #dsbl li{
-  width: 50%;
+  width: 45%;
   margin-bottom: 24px;
+
 }
 .pro-info-tab #review_container #dsbl li h3{
   line-height: 1;

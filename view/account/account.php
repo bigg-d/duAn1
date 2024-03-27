@@ -69,7 +69,7 @@
 										font-weight: 600;
 										font-size: 12px;
 										padding: 15px 15px 13px;
-										text-transform: uppercase;\" href=\"admin copy/index.php\" >Go to admin</a>";
+										text-transform: uppercase;\" href=\"admin/index.php\" >Go to admin</a>";
 									}
 								?>	
 							</div>

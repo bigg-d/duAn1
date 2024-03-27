@@ -81,6 +81,11 @@
                                 </div>
                                 <div class="col-md-6 col-12"><input name="submit" type="submit" value="Register"></div>
                             </div>
+                            <?php
+                                if(isset($thongbao)){
+                                    echo "<span style='color:green'>".  $thongbao . "</span>";
+                                }
+                            ?>
                         </form>
                     </div>
                 </div>

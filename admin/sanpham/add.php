@@ -1,51 +1,70 @@
-<div class="row">
-      <div class="row_header">
-        <p>Thêm mới san pham</p>
+<!-- Form tạo sản phẩm mới -->
+<main class="w-100 d-f f-d">
+  <h3>Thêm sản phẩm</h3>
+
+  <div class="search_list-product-admin w-100 d-f jf-c">
+
+
+    <form class="general-form" action="index.php?act=addsp" method="post" enctype="multipart/form-data">
+
+
+
+      <div class="block_form d-f f-d">
+        <label class="label_addsp" for="">Tên sản phẩm</label>
+        <input class="ten_addsp" placeholder="Tên sản phẩm" type="text" name="tensp" />
       </div>
-      <div class="row">
-        <form action="index.php?act=addsp" method="post" enctype = multipart/form-data>
-          <div class="row_mb20">
-            Danh muc san pham <br>
-            <select name="iddm" id="">
-              <?php
-                foreach ($listdanhmuc as $danhmuc) {
-                  extract($danhmuc);
-                  echo'<option value="'.$iddm.'">'.$tendanhmuc.'</option>';
-                }
-              ?>
-              
-            </select>
-          </div>
-          <div class="row_mb20">
-            Tên san pham <br>
-            <input type="text" name="tensp" required>
-          </div>
-          <div class="row_mb20">
-            Gia san pham <br>
-            <input type="text" name="giasp" required>
-          </div>
-          <div class="row_mb20">
-            Anh san pham <br>
-            <input type="file" name="hinh" required>
-          </div>
-          <div class="row_mb20">
-            Anh phu <br>
-            <input type="file" name="images[]" multiple required>
-          </div>
-          <div class="row_mb20">
-            MO ta san pham <br>
-            <textarea name="mota" cols="30" rows="10" required></textarea>
-          </div>
-          <div class="row_mb21">
-            <input type="submit" name="themmoi" value="Thêm mới ">
-            <input type="reset" value="Nhập lại">
-            <a href="index.php?act=listsp"><input type="button" value="Danh sách"></a>
-            <?php
-                if(isset($thongbao)&&($thongbao!=""))echo $thongbao;
-                
-            ?>
-          </div>
-        </form>
+
+      <div class="block_form d-f f-d">
+        <label class="label_addsp" for="">Giá</label>
+        <input class="ten_addsp" type="text" name="giasp" placeholder="Giá sản phẩm" />
       </div>
-    </div>
+
+      <div class="block_form d-f f-d">
+        <label class="label_addsp" for="">Hình</label>
+        <input class="ten_addsp" type="file" name="hinh" />
+      </div>
+      <div class="block_form d-f f-d">
+        <label class="label_addsp" for="">Hình chi tiết</label>
+        <input class="ten_addsp" type="file" name="images[]" multiple/>
+      </div>
+
+      <div class="block_form d-f f-d">
+        <label class="label_addsp" for="">Mô tả</label>
+        <textarea name="mota" id="" cols="30" rows="5"></textarea>
+      </div>
+
+
+
+      
+
+      <div class="block_form d-f f-d">
+
+        <label for=""> Danh mục </label>
+        <select name="iddm">
+          <?php
+          foreach ($listdanhmuc as $danhmuc) {
+            extract($danhmuc);
+            echo '<option value="' . $iddm . '">' . $tendanhmuc . '</option>';
+          }
+          ?>
+
+        </select>
+
+      </div>
+
+      <div class="block_form d-f g-10 al-c">
+        <input class="submit-general-form" type="submit" name="themmoi" value="THÊM MỚI">
+        <input class="input_addsp" type="reset" value="NHẬP LẠI">
+        <a href="index.php?act=listsp" style="display:block;border-radius: 4px;padding: 8px 15px;color:var(--white )" class=" cancel-general-form" >Danh sách</a>
+      </div>
+      <div class="block_form d-f f-d" style="color:green">
+      <?php
+      if (isset($thongbao) && ($thongbao != "")) echo $thongbao;
+      ?>
+      </div>
+    </form>
+
   </div>
+
+
+</main>

@@ -7,10 +7,16 @@
     //     $sql = "delete from binhluan where id=". $id;
     //     pdo_query($sql);
     // }
-    function loadall_binhluan($idpro){
-        $sql = "select * from binhluan where 1";
-        if($idpro > 0) $sql.= " and  idproduct = '$idpro'";
-        $sql.= " order by id desc";
+    function loadall_binhluan($idToChoose, $inputValue){
+        $sql = "select * from binhluan";
+        if($idToChoose !== '' && $inputValue !== ''){
+            $sql =  "select * from binhluan where " .$idToChoose. "='" .$inputValue. "'";
+        }
+        $listbl=pdo_query($sql);
+        return $listbl;
+    }
+    function loadall_binhluan_detailProduct($id){
+        $sql = "select * from binhluan where idproduct = '$id'";
         $listbl=pdo_query($sql);
         return $listbl;
     }

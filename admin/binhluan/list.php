@@ -1,42 +1,54 @@
-<div class="row">
-      <div class="row_header">
-        <p>Danh Sách Bình Luận</p>
-      </div>
-      <div class="row">
-        <div class="row_nb10 fomdsloai">
-          <table>
-            <tr>
-              <th>ID</th>
-              <th>Nội dung</th>
-              <th>Mã người dùng</th>
-              <th>Mã sản phẩm</th>
-              <th>Ngày</th>
-              
-              <th>Chức năng</th>
-            </tr>
-            <?php
-                foreach ($dsbl as $binhluan) {
-                    extract($binhluan);
-                    $xoabl = "index.php?act=xoabl&id=". $id ;
-                    echo '
-                            <tr>
-                            <td>' .$id. '</td>
-                            <td>' .$content.'</td>
-                            <td>' .$user_id.'</td>
-                            <td>' .$id_product.'</td>
-                            <td>' .$time.'</td>
-                            <td>
-                                <a href="'.$xoabl.'"><input type="button" value="Xóa"></td></a>
-                        </tr>';
-                }
-            ?>
-            
-          </table>
-        </div>
-        <!-- <div class="row_mb21">
-          <input type="button" value="Chọn tất cả">
-          <input type="button" value="Bỏ chọn tất cả">
-          <input type="button" name="" id="" value="xóa các mục đã chọn">
-        </div> -->
-      </div>
-    </div>
+<main class="w-100 d-f f-d">
+          <h3 style="margin: 10px 0px;">Quản Lý Bình Luận</h3>
+          <div class="search_list-product-admin w-100">
+          <form action="index.php?act=dsbl" method="POST" style="margin-bottom: 5px;" class="d-f form-search" >
+              <input
+                type="text"
+                placeholder="Tìm kiếm theo ID"
+                class="input-search"
+                name="inputValue"
+              />
+              <select name="idToChoose" id="">
+                <option value="">Tất cả</option>
+                <option value="iduser">Id khách hàng</option>
+                <option value="idproduct">Id sản phẩm</option>
+              </select>
+              <input
+                type="submit"
+                class="submit-search-form"
+                value="Tìm kiếm"
+                name="findCommentSubmit"
+              />
+            </form>  
+            <form action="" class="d-f ">
+                <table class="w-100 table_bill-admin" border="1">
+                    <thead>  
+                       <th> Check </th>
+                        <th> ID </th>
+                        <th> Nội dung</th>
+                        <th> Khách hàng</th>
+                        <th>Sản phẩm</th>
+                        <th>  Ngày bình luận</th>
+
+                    </thead>
+                    <?php foreach ($listbinhluan as $binhluan) {
+                        extract($binhluan);
+                        $taikhoan = loadone_taikhoan($iduser);
+                        $sanpham = loadone_sanpham($idproduct);
+                        echo '<tr>
+                                <td><input type="checkbox" name="" id=""></td>
+                                <td>' . $id . '</td>
+                                <td style="width:300px"> ' . $noidung . '</td>
+                                <td>' . $taikhoan[0]['username'] . '</td>
+                                <td style="display:flex"> <img src="../upload/'. $sanpham['img'].'"style="width:100px"/>'
+                                                                  
+                                 . $sanpham['name'] . '</td>
+                                <td style="width:100px">' . $ngaybinhluan . '</td>
+                            </tr>';
+                    }
+                    ?>
+                  </table>
+            </form>
+                 
+          </div>
+        </main>

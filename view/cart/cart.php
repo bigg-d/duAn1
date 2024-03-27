@@ -1,12 +1,14 @@
 <?php
-    
+    // echo "<pre>";
+    // var_dump($_SESSION['mycart']);
+    // echo "</pre>";
 ?>
 <!-- Page Banner Section Start -->
 <div class="page-banner-section section" style="background-image: url(assets/images/hero/hero-1.jpg)">
     <div class="container">
         <div class="row">
             <div class="page-banner-content col">
-
+            
                 <h1>Cart</h1>
                 <ul class="page-breadcrumb">
                     <li><a href="index.php">Home</a></li>
@@ -85,7 +87,7 @@ $emptyCart = '<h1 style="font-size: 36px;
                                                             onload="updateTotal(this)" type="number" min='1' value="<?=isset($product[4]) ? $product[4] : 1 ?>"></div>
                                                 </td>
                                                 <td id="total" class="pro-subtotal">
-                                                    <?= number_format(($product[5] / 26000), 1)  ?>
+                                                    <?= number_format(($product[5] / 26000) * $product[4], 1)   ?>
                                                 </td>
                                                 <td class="pro-remove"><a href="index.php?act=deletecart&idcart=<?= $key ?>">×</a>
                                                 </td>

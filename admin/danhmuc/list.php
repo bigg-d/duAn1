@@ -1,40 +1,45 @@
-<div class="row">
-      <div class="row_header">
-        <p>Danh Sách loại hàng</p>
-      </div>
-      <div class="row">
-        <div class="row_nb10 fomdsloai">
-          <table>
-            <tr>
-              <th></th>
-              <th>Mã Loại</th>
-              <th>Tên Loại</th>
-              <th></th>
-            </tr>
-            <?php
-                foreach ($listdanhmuc as $danhmuc) {
-                    extract($danhmuc);
-                    $suadm = "index.php?act=suadm&id=". $category_id ;
-                    $xoadm = "index.php?act=xoadm&id=". $category_id ;
-                    echo '
-                            <tr>
-                            <td><input type="checkbox"></td>
-                            <td>' .$category_id. '</td>
-                            <td>' .$category_name.'</td>
-                            <td>
-                                <a href= "'.$suadm.'"><input type="button" value="Sửa"></a> 
-                                <a href="'.$xoadm.'"><input type="button" value="Xóa"></td></a>
-                        </tr>';
-                }
-            ?>
-            
-          </table>
-        </div>
-        <div class="row_mb21">
-          <input type="button" value="Chọn tất cả">
-          <input type="button" value="Bỏ chọn tất cả">
-          <input type="button" name="" id="" value="xóa các mục đã chọn">
-          <a href="index.php?act=adddm"><input type="button" value="Nhập thêm"></a>
-        </div>
-      </div>
-    </div>
+<main class="w-100 d-f f-d">
+          <h3>Quản Lý Loại Hàng</h3>
+          <div class="search_list-product-admin w-100">
+          <form action="index.php?act=listdm" method="POST" class="d-f form-search">
+              <input
+                type="text"
+                placeholder="Tìm kiếm theo mã danh mục..."
+                class="input-search"
+                name="findCate"
+              />
+              <input
+                type="submit"
+                class="submit-search-form"
+                value="Tìm kiếm"
+                name="SubmitFindCate"
+              />
+            </form>  
+            <form action="" class="d-f ">
+                <table class="w-100 table">
+                    <thead>  
+                       <th> <h1> Mã Loại </h1></th>
+                        <th> <h1>Tên Loại </h1></th>
+                        <th> <h1> Chức Năng</h1></th>
+
+                    </thead>
+                             <!-- php -->
+                    <?php 
+                    foreach ($listdanhmuc as $danhmuc) {
+                        extract($danhmuc);
+                        $suadm="index.php?act=suadm&id=".$iddm;
+                        $xoadm="index.php?act=xoadm&id=".$iddm;
+                        echo '<tr>
+                                <td>' . $iddm . '</td>
+                                <td>' . $tendanhmuc . '</td>
+                                <td> 
+                                <a class="url-edit" href="'. $suadm.'"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a class="url-delete" href="'. $xoadm.'"><i class="fa-solid fa-trash"></i></a></td>
+                            </tr>';
+                    }
+                    ?>
+                  </table>
+            </form>
+                 
+          </div>
+        </main>

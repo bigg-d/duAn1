@@ -477,6 +477,7 @@ $('.qtybtn').on('click', function() {
 
     $input.val(newVal);
     updateTotal($input);
+
 });
 
 function updateTotal(input) {

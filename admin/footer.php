@@ -1,3 +1,6 @@
+    </div>
+    </div>
 
-</body>
+    <script src="../assets/js/admin/admin.js"></script>
+  </body>
 </html>
