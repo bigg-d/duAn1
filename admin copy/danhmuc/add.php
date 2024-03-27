@@ -11,17 +11,12 @@
                 <label for=""> Tên Loại </label>
                 <input type="text" placeholder="Tên loại" name="tenloai">
               </div>
+              <span class="span-red-mg-10"><?php echo isset($thongbao)? $thongbao : '' ?></span>
               <div class="block_form d-f g-10 al-c">
-               <input type="submit" value="Thêm Mới" class="submit-general-form" name="themmoi">
-               <input type="reset" value="Hủy" class="cancel-general-form" >
-               <!-- <a href="index.php?act=lisdm"><input type="button" value="Danh Mục"></a> -->
+                <input  type="submit" value="Thêm Mới" class="submit-general-form" name="themmoi">
+               <a  href="index.php?act=listdm"><input style="padding:10px 15px; border: 1px #c2c2c2 solid; outline:none;border-radius:4px" type="button" value="Danh Sách" class="submit-general-form" name="" ></a>
+               <input type="reset" value="Hủy" class="cancel-general-form">
               </div>
-              <?php 
-                        if(isset($thongbao)&&($thongbao)){
-                            echo $thongbao;
-                        }
-                        
-                    ?>
             </form>
           </div>
 </main>

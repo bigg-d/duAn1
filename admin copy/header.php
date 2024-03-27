@@ -21,6 +21,15 @@
     <link rel="stylesheet" href="../assets/css/admin/taikhoan.css" />
     <link rel="stylesheet" href="../assets/css/admin/pagin.css" />
     <title>Admin</title>
+    <style>
+      .span-red-mg-10{
+        color: red;
+        margin: 10px;
+      }
+      .color-red{
+        color: red;
+      }
+    </style>
   </head>
   <body>
     <div class="container d-f w-100">

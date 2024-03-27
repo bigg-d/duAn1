@@ -27,7 +27,7 @@ $emptyCart = '<h1 style="font-size: 36px;
 <div class="page-section section section-padding">
     <div class="container">
 
-    <?php var_dump($_SESSION['mycart'])?>
+    
 
         <?php if (!isset ($_SESSION['mycart']) || empty ($_SESSION['mycart'])) { ?>
             <h1 style="font-size: 36px;

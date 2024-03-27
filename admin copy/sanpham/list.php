@@ -68,7 +68,7 @@
                                   <a class="url-edit" href="' . $suasp . '">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                   </a> 
-                                  <a class="url-delete" href="' . $xoasp . '">
+                                  <a onclick="return confirm(`Bạn có muốn xóa ?`)" class="url-delete" href="' . $xoasp . '">
                                     <i class="fa-solid fa-trash"></i>
                                   </a> 
                                 </td>

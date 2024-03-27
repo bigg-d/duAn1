@@ -34,7 +34,7 @@
                                 <td>' . $tendanhmuc . '</td>
                                 <td> 
                                 <a class="url-edit" href="'. $suadm.'"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <a class="url-delete" href="'. $xoadm.'"><i class="fa-solid fa-trash"></i></a></td>
+                                <a onclick ="return confirm(`Bạn có muốn xóa nó ?`)" class="url-delete" href="'. $xoadm.'"><i class="fa-solid fa-trash"></i></a></td>
                             </tr>';
                     }
                     ?>

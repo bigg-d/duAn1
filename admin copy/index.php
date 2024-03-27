@@ -18,7 +18,7 @@ include "header.php";
 // $count_product = count_product();
 // $count_taikhoan = count_taikhoan();
 // $sum_total_cash = loadall_bill_by_day();
-
+$iddm ='';
 if (isset ($_GET['act'])) {
     $act = $_GET['act'];
     $products = loadall_sanpham_home();
@@ -28,8 +28,13 @@ if (isset ($_GET['act'])) {
             //kiem tra ng dung co click vao nut add
             if (isset ($_POST['themmoi']) && $_POST['themmoi']) {
                 $tenloai = $_POST['tenloai'];
-                insert_danhmuc($tenloai);
-                $thongbao = "them thnah cong";
+                if(empty($tenloai)){
+                    $thongbao='Vui lòng nhập tên loại.';
+                }
+                else{
+                    insert_danhmuc($tenloai);
+                    $thongbao = "them thnah cong";
+                }
             }
             include "danhmuc/add.php";
             break;
@@ -75,34 +80,53 @@ if (isset ($_GET['act'])) {
                 $filename = $_FILES["hinh"]["name"];
                 $target_dir = "../upload/";
                 $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
-
-
+                
+                if(empty($tensp)){
+                    $error_ten = 'Không được bỏ trống !';
+                }
+                elseif(strlen($tensp) > 255){
+                    $error_ten ='Tên quá dài';
+                }
+                if(empty($giasp)){
+                    $error_gia = 'Không được bỏ trống !';
+                }elseif(strlen($giasp) > 10){$error_gia='Giá phải <= 10';}
+                if(empty($mota)){
+                    $error_mota = 'Vui lòng nhập mô tả';
+                }
                 $images = [];
                 // Lặp qua từng file được tải lên
+                
+                if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+
+                } else {
+                    $error_img_1 ='Vui Lòng chọn file ảnh';
+                }
                 foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
                     $filename = $_FILES['images']['name'][$key];
                     $targetPath = $target_dir . $filename;
-                    echo $filename;
+                    // echo $filename;
                     // Di chuyển và lưu trữ ảnh vào thư mục đích
                     if (move_uploaded_file($tmp_name, $targetPath)) {
                         array_push($images, $filename);
                     }
+                    else{
+                        $error_img_2 ='Vui Lòng chọn file ảnh';
+                    }
+                    
+                    
                 }
                 $filenames = join(",", $images);
-                echo $filenames;
-                if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-                    // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-                } else {
-                    echo "Sorry, there was an error uploading your file.";
+                if(!isset($error_ten) && !isset($error_mota) && !isset($error_gia) && !isset($error_img_1) && !isset($error_img_2) ){
+                    insert_sanpham($tensp, $giasp, $filename, $filenames, $mota, $iddm);
+                    $thongbao = "Thêm Thành Công.";
                 }
 
-                insert_sanpham($tensp, $giasp, $filename, $filenames, $mota, $iddm);
-                $thongbao = "them thnah cong";
             }
             $listdanhmuc = loadall_danhmuc();
             include "sanpham/add.php";
             break;
         case 'listsp':
+            
             if (isset ($_POST['listok']) && $_POST['listok']) {
                 $kyw = $_POST['kyw'];
                 $iddm = $_POST['iddm'];
