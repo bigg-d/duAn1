@@ -26,4 +26,13 @@
         return false;
     }
 
+    function findItemInCart($array, $productId) {
+        foreach ($array as $item) {
+            if ($item['product_id'] === $productId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 ?>

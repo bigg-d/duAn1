@@ -57,16 +57,16 @@
 
 							<div class="col-md-6 col-12 mb-5">
 								<label>Phone no*</label>
-								<input type="text" name="phone" id="phone" placeholder="Phone number" value='<?=isset($recipient_phone) ? $recipient_phone : ''?>'>
-								<input type="hidden" name="currentPhone" id="currentPhone" value="<?=$_SESSION['user']['phone'] ? $_SESSION['user']['phone'] : ""?>">
+								<input type="text" name="phone" id="phone" placeholder="Phone number" value='<?=isset($recipient_phone) && $recipient_phone?>'>
+								<input type="hidden" name="currentPhone" id="currentPhone" value="<?=$_SESSION['user']['phone'] && $_SESSION['user']['phone'] ?>">
 								<p id="phone_err" style="color:red"><?=isset($phone_err) ? $phone_err : '' ?></p>
 							</div>
 
 
 							<div class="col-12 mb-5">
 								<label>Address*</label>
-								<input type="text" id="address" name="address" placeholder="Address" value='<?=isset($recipient_address) ? $recipient_address : ''?>'>
-								<input type="hidden" name="currentAddress" id="currentAddress" value="<?=$_SESSION['user']['address'] ? $_SESSION['user']['address']: ''?>">
+								<input type="text" id="address" name="address" placeholder="Address" value='<?=isset($recipient_address) && $recipient_address?>'>
+								<input type="hidden" name="currentAddress" id="currentAddress" value="<?=$_SESSION['user']['address'] && $_SESSION['user']['address']?>">
 								<p id="address_err" style="color:red"><?=isset($address_err) ? $address_err : '' ?></p>
 							</div>
 
@@ -97,16 +97,16 @@
 								<h4>Product <span>Total</span></h4>
 
 								<ul>
-									<?php foreach ($_SESSION['mycart'] as $key => $item) {
-										$product = loadone_sanpham($item[0]);
+									<?php foreach ($cartItems as $key => $item) {
+										$product = loadone_sanpham($item['product_id']);
 										?>
 										<li>
 											<p style="width:350px">
-												<?= $product['name'] ?> X <?= $item[4] ?>
+												<?= $product['name'] ?> X <?= $item['quantity'] ?>
 											</p>
 
 											<span>$
-												<?= number_format(($item[4] * $item[3]) / 26000, 1) ?>
+												<?= number_format(($item["product_price"] * $item['quantity']) / 26000, 1) ?>
 											</span>
 										</li>
 									<?php } ?>
@@ -114,14 +114,14 @@
 
 								<p>Sub Total
 									<span>$
-										<?=$_SESSION['grandTotal']?>
+										<?=number_format($grandTotal/26000,1)?>
 									</span>
-									<input type="hidden" name="grandTotal" value="<?=$_SESSION['grandTotal']?>">
+									<input type="hidden" name="grandTotal" value="<?=number_format($grandTotal/26000,1)?>">
 								</p>
 								<p>Shipping Fee <span>$00.00</span></p>
 
 								<h4>Grand Total <span>$
-										<?=$_SESSION['grandTotal']?>
+										<?=number_format($grandTotal/26000,1)?>
 									</span></h4>
 
 							</div>

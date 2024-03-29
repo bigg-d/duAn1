@@ -4689,7 +4689,23 @@ img.mfp-img {
 .cart-buttons input:hover, .cart-buttons a:hover {
   background-color: #ff708a;
 }
-
+#rightSection a#updateCartBtn{
+  /* width: 50%; */
+  background-color: #1a161e;
+  border: medium none;
+  border-radius: 50px;
+  color: #ffffff;
+  display: block;
+  float: left;
+  font-size: 14px;
+  font-weight: 600;
+  height: 40px;
+  line-height: 24px;
+  margin-bottom: 10px;
+  margin-right: 15px;
+  padding: 8px 25px;
+  text-transform: uppercase;
+}
 /*-- Cart Coupon --*/
 .cart-coupon {
   overflow: hidden;

@@ -79,9 +79,11 @@ $popular_products = loadall_sanpham_popular();
                                         <div class="content-left">
 
                                             <h4 class="title"><a onclick="()=>{ alert('Đã thêm sản phẩm vào giỏ hàng')}"
-                                            href="index.php?act=detailProduct&id=<?=$product['id']?>">
-                                            <?= $product['name'] ?>
-                                        </a></h4>
+                                                    href="index.php?act=detailProduct&id=<?= $product['id'] ?>">
+                                                    <?= $product['name'] ?>
+                                                </a></h4>
+                                    <input name="name" type="hidden" value="<?php echo $product['name'] ?>">
+                                                
 
                                             <div class="ratting">
                                                 <i class="fa fa-star"></i>
@@ -105,6 +107,8 @@ $popular_products = loadall_sanpham_popular();
                                                 <?= number_format(($product['price'] / 26000), 1) ?>
                                             </span>
                                         </div>
+                                    <input name="price" type="hidden" value="<?php echo $product['price'] ?>">
+
 
                                     </div>
 

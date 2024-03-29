@@ -23,6 +23,18 @@
         $sql = "INSERT INTO cart_item(cart_id, product_id, product_name, product_img, product_price, quantity, total_price) VALUES ('$cart_id', '$product_id','$product_name', '$product_img', '$product_price', '$quantity', '$total_price')";
         pdo_execute($sql);
     }
+    function get_all_cartItem($cart_id){
+        $sql = "select * from cart_item where cart_id = '$cart_id'";
+        $cartItems = pdo_query($sql);
+        return $cartItems;
+    }
+    function delete_cartItem($cartItemId){
+        if($cartItemId !== ''){
+            $sql = "delete from cart_item where id ='$cartItemId'";
+        }
+        $sql = "delete from cart_item";
+        pdo_execute($sql);
+    }
     
     function loadall_thongke(){
         $sql = "SELECT categories.category_id AS madm, categories.category_name AS tendm, COUNT(products.id) AS countsp, MIN(products.price) AS minprice, MAX(products.price) AS maxprice, AVG(products.price) AS avgprice ";
