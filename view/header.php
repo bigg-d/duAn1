@@ -24,7 +24,7 @@
 
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="assets/css/plugins.css">
-
+`
     <!-- Helper CSS -->
     <link rel="stylesheet" href="assets/css/helper.css">
 

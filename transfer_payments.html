@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/fontawesome-free-6.5.1-web/css/all.css">
+</head>
+<style>
+    body{
+        height: 97vh;
+        background: rgba(128, 128, 128, 0.215); 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+    }
+    .body-pay{
+        width: 70%;
+        height: 80vh;
+        background-color: #ffffff;
+        position: absolute;
+        display: flex;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .body-pay ul{
+        list-style: none;
+        padding: 0 20px;
+        line-height: 25px;
+        
+    }
+    .body-pay ul li{
+        font-size: 1.2vw; 
+        color: #ffffff;
+        margin: 30px 0;
+    }
+    .body-pay ul li p{
+        margin: 10px 0 ;
+    }
+    .pay-left{
+        width: 30%;
+        background-color:#0054a5;
+        height: 78vh;
+    }
+    .pay-right{
+        background-color: #ffffff;
+        width: 70%;
+        height: 78vh;
+        
+    }
+    .back-pay{
+        width: 100%;
+        height: 44px;
+    }
+    .logo-mb{
+        display: flex;
+        justify-content:space-between;
+        margin: 25px;
+    }
+</style>
+<body>
+   <div class="body-pay">
+        <div  class="pay-left">
+            <ul>
+                <li>
+                    <p>Đơn hàng hết hạn sau</p>
+                    <p>00:00:00</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-house"></i>  Nhà Cung Cấp
+                    <p>Shop</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-money-bill"></i>  Số Tiền
+                    <p>3002Đ</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-circle-info"></i>  Thông  Tin
+                    <p>Thanh Toán</p>
+                    <p>STK:</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-table"></i>  Mã Đơn Hàng
+                    <p>10</p>
+                </li>
+                <li>
+                    <button class="back-pay"><i class="fa-solid fa-arrow-left"></i>  Quay Lại</button>
+                </li>
+            </ul>
+
+        </div>
+        <div class="pay-right">
+            <div class="logo-mb">
+                <img src="assets/images/Logo_MB_new.png" width="180px" alt="">
+                <img src="assets/images/Logo_MB_new.png" width="180px" alt="">
+            </div><hr>
+            <div align="center" class="Qr-mb"><br>
+                <strong style="font-size: 22px;">Quét mã để thanh toán</strong><br>
+                <img src="assets/images/Qr-pay.png" width="280px" alt="">
+            </div>
+            <p style="margin-top: 60px; margin-left: 25px;">*Sau khi chuyển khoản chờ ngân hàng xác nhận xác nhận</p>
+        </div>
+   </div>
+   
+        
+</body>
+</html>
