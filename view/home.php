@@ -14,8 +14,8 @@ $products = loadall_sanpham_home();
             <!-- Hero Content -->
             <div class="hero-content">
 
-                <h1>Get 35% off <br>Latest Baby Product</h1>
-                <a href="#">SHOP NOW</a>
+                <h1>New Arrival<br>Latest Baby Product</h1>
+                <a href="index.php?act=shop">SHOP NOW</a>
             </div>
 
         </div><!-- Hero Item End -->
@@ -26,8 +26,8 @@ $products = loadall_sanpham_home();
             <!-- Hero Content -->
             <div class="hero-content">
 
-                <h1>Get 35% off <br>Latest Baby Product</h1>
-                <a href="#">SHOP NOW</a>
+                <h1>New Arrival<br>Latest Baby Product</h1>
+                <a href="index.php?act=shop">SHOP NOW</a>
 
             </div>
 
@@ -48,8 +48,8 @@ $products = loadall_sanpham_home();
                     <a href="#" class="image"><img src="assets/images/banner/banner-1.jpg" alt="Banner Image"></a>
 
                     <div class="content">
-                        <h1>New Arrival <br>Baby’s Shoe <br>GET 30% OFF</h1>
-                        <a href="#" data-hover="SHOP NOW">SHOP NOW</a>
+                        <h1>New Arrival <br>Baby’s Shoe <br></h1>
+                        <a href="index.php?act=shop&iddm=1" data-hover="SHOP NOW">SHOP NOW</a>
                     </div>
 
                 </div>
@@ -64,7 +64,7 @@ $products = loadall_sanpham_home();
                         <h1>New Toy’s for your Baby</h1>
                     </div>
 
-                    <span class="banner-offer">25% off</span>
+                    <span class="banner-offer">New Arrival</span>
 
                 </a>
             </div>
@@ -76,7 +76,7 @@ $products = loadall_sanpham_home();
 
                     <div class="content">
                         <h1>Trendy <br>Collections</h1>
-                        <a href="#" data-hover="SHOP NOW">SHOP NOW</a>
+                        <a href="index.php?act=shop" data-hover="SHOP NOW">SHOP NOW</a>
                     </div>
 
                 </div>
@@ -177,7 +177,7 @@ $products = loadall_sanpham_home();
 </div><!-- Product Section End -->
 
 <!-- Banner Section Start -->
-<div class="banner-section section section-padding pt-0 fix">
+<!-- <div class="banner-section section section-padding pt-0 fix">
     <div class="row row-5 mbn-10">
 
         <div class="col-lg-4 col-md-6 col-12 mb-10">
@@ -229,10 +229,11 @@ $products = loadall_sanpham_home();
         </div>
 
     </div>
-</div><!-- Banner Section End -->
+</div> -->
+<!-- Banner Section End -->
 
 <!-- Product Section Start -->
-<div class="product-section section section-padding pt-0">
+<!-- <div class="product-section section section-padding pt-0">
     <div class="container">
         <div class="row mbn-40">
 
@@ -492,10 +493,11 @@ $products = loadall_sanpham_home();
 
         </div>
     </div>
-</div><!-- Product Section End -->
+</div> -->
+<!-- Product Section End -->
 
 <!-- Feature Section Start -->
-<div class="feature-section bg-theme-two section section-padding fix"
+<!-- <div class="feature-section bg-theme-two section section-padding fix"
     style="background-image: url(assets/images/pattern/pattern-dot.png);">
     <div class="container">
         <div class="feature-wrap row justify-content-between mbn-30">
@@ -538,10 +540,11 @@ $products = loadall_sanpham_home();
 
         </div>
     </div>
-</div><!-- Feature Section End -->
+</div> -->
+<!-- Feature Section End -->
 
 <!-- Blog Section Start -->
-<div class="blog-section section section-padding">
+<!-- <div class="blog-section section section-padding">
     <div class="container">
         <div class="row mbn-40">
 
@@ -653,5 +656,6 @@ $products = loadall_sanpham_home();
 
         </div>
     </div>
-</div><!-- Blog Section End -->
+</div> -->
+<!-- Blog Section End -->
 

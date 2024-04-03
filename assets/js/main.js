@@ -455,7 +455,7 @@ $('#price-amount').val( '$' + $('#price-range').slider( 'values', 0 ) +
    '  -  $' + $('#price-range').slider('values', 1 ) ); 
     
 /*----- 
-	Quantity
+	Quantity cart
 --------------------------------*/
 $('.pro-qty').prepend('<span class="dec qtybtn"><i class="ti-minus"></i></span>');
 $('.pro-qty').append('<span class="inc qtybtn"><i class="ti-plus"></i></span>');
@@ -463,9 +463,16 @@ $('.qtybtn').on('click', function() {
     var $button = $(this);
     var $input = $button.parent().find('input');
     var oldValue = parseFloat($input.val());
-
+    var stock_quantity = $input.siblings('.stock_quantity').text();
+    var queryAct = $(location).prop('search');
+    var textErr = $button.parent().siblings('strong')
+    console.log(stock_quantity);
+    console.log(textErr.text());
+    // console.log(stock_quantity[0].in);
+    
     if ($button.hasClass('inc')) {
         var newVal = oldValue + 1;
+
     } else {
         // Don't allow decrementing below zero
         if (oldValue > 1) {
@@ -474,11 +481,21 @@ $('.qtybtn').on('click', function() {
             newVal = 1;
         }
     }
-
-    $input.val(newVal);
+    if(queryAct == '?act=cart'){
+        if(newVal > stock_quantity){
+            // alert(`Số lượng tối đa ${stock_quantity}`);
+            textErr.css('display', 'block')
+        } else{
+            $input.val(newVal);
+            textErr.css('display', 'none')
+        }
+    }else{
+        $input.val(newVal);
+    }
     updateTotal($input);
 
 });
+
 
 function updateTotal(input) {
     var row = $(input).closest("tr");
@@ -539,3 +556,113 @@ $('[name="payment-method"]').on('click', function(){
     
    
 })(jQuery);	
+
+
+///binking checckout
+const containOverlayProductDetail = document.querySelector(
+    ".contain-overlay-product-detail"
+  );
+  
+  const closeShow = document.querySelector(".close_show");
+  const closeText = document.querySelector(".button-back-pay");
+  const credit = document.querySelectorAll("input[name='credit']");
+  const buttonPayBack = document.querySelector(".button-back-pay");
+  
+  let isClose = false;
+  let clearTimer ;
+  var timerId;
+  const arrInforPay = ["Đang chờ quét mã","Đang xác nhận","Đã chuyển khoản thành công"];
+  
+  if(credit.length != 0 ){
+  
+  credit[0].addEventListener("click", () => {
+      isClose = true;
+      if (isClose) {
+        containOverlayProductDetail.style.display = "flex";
+        handlePayMoney(isClose);
+        var fiveMinutes = 60 * 10,
+        display = document.querySelector('.timeRestPay');
+        startTimer(fiveMinutes, display);
+  
+      }  
+      
+    });
+  
+  }
+  // ----------------------------Đóng mở menu--------------------------------
+  if(closeShow){
+    closeShow.addEventListener("click", () => {
+      isClose = false;
+      
+      clearInterval(clearTimer);
+      clearInterval(timerId);
+      const processingPay = document.querySelector(".processing-pay");
+      const loadingPayIcon = document.querySelector(".loading-pay-icon");
+      loadingPayIcon.classList.add("loading-pay-icon-ani");
+      buttonPayBack.style.display = "none"  ;
+      processingPay.innerHTML = arrInforPay[0];
+      if (!isClose) {
+        containOverlayProductDetail.style.display = "none"; 
+      }
+    });
+  
+  
+    closeText.addEventListener("click", () => {
+      const loadingPayIcon = document.querySelector(".loading-pay-icon");
+      loadingPayIcon.classList.add("loading-pay-icon-ani");
+      buttonPayBack.style.display = "none"  ;  
+      isClose = false;  
+      if (!isClose) {
+        containOverlayProductDetail.style.display = "none";
+      }
+    });
+  
+  }
+  
+  
+  function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        clearTimer = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+  
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+  
+        display.textContent = minutes + ":" + seconds;
+  
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+  }
+  
+  
+  
+  function handlePayMoney(isCLose){
+    
+   let pay = -1;
+   const processingPay = document.querySelector(".processing-pay");
+   const loadingPayIcon = document.querySelector(".loading-pay-icon.loading-pay-icon-ani");
+   if(isCLose){
+   function getInforPay(){
+    pay++;
+    if(pay >= arrInforPay.length - 1 ){
+      clearInterval(timerId);
+    }
+    if(pay == 2){
+      loadingPayIcon.classList.remove("loading-pay-icon-ani");
+      buttonPayBack.style.display = 'block';
+    }
+    processingPay.innerHTML = arrInforPay[pay];
+   }
+   
+    timerId = setInterval(()=>{
+    getInforPay();
+   },3000);   
+  }
+  }
+  
+  
+  
+  

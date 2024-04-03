@@ -34,9 +34,16 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             } else {
                 $kyw = "";
             }
+            if(isset($_POST["min_price"]) && isset($_POST["max_price"])){
+                $min = $_POST['min_price'] *26000;
+                $max = $_POST['max_price'] * 26000;
+            }else{
+                $min = '';
+                $max = '';
+            }
 
 
-            $listsanpham = loadall_sanpham($kyw, $iddm);
+            $listsanpham = loadall_sanpham($kyw, $iddm, $min, $max);
 
             $listdanhmuc = loadall_danhmuc();
             include "view/shop.php";
@@ -133,6 +140,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             if (isset($_SESSION['user']) && $_SESSION['user']) {
                 $user = $_SESSION['user']['username'];
                 $role = $_SESSION['user']['role'];
+                $orders = loadall_bill($_SESSION['user']['id']);
                 include "view/account/account.php";
             } else {
                 include "view/account/register-login.php";
@@ -194,105 +202,80 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         case "wishlist":
             include "view/wishlist.php";
             break;
-        case 'cart':
-            // if (isset($_POST['addtocart']) && ($_POST['addtocart'])) {
-            //     $id = $_POST['id'];
-            //     $name = $_POST['name'];
-            //     $img = $_POST['img'];
-            //     $price = $_POST['price'];
-            //     $soluong = 1;
-            //     $ttien = $soluong * intval($price);
-            //     $spadd = [$id, $name, $img, $price, $soluong, $ttien];
-            //     array_push($_SESSION['mycart'], $spadd);
-
-            // }
-            include 'view/cart/cart.php';
-            break;
         case 'deletecart':
-            if (isset($_GET['idcart'])) {
-                $cartId = get_cartId($_SESSION['user']['id']);
-                delete_cartItem($_GET['idcart']);
+            $cartId = get_cartId($_SESSION['user']['id']);
+            if (isset($_GET['id'])) {
+                delete_cartItem($cartId[0]['id'], $_GET['id'],);
                 update_cart($cartId[0]['id'], date('Y-m-d H:i:s'));
             } else {
-                delete_cartItem('');
+                delete_cartItem($cartId[0]['id'], '');
             }
             header("Location:index.php?act=cart");
             break;
+        case "cart":
+            include "view/cart/cart.php";
+            break;    
         case 'addtocart':
             if (isset($_POST['addtocart']) && ($_POST['addtocart'])) {
-                if (isset($_SESSION['user'])) {
-                    $name = $_POST['name'];
-                    $id = $_POST['id'];
-                    $img = $_POST['img'];
-                    $price = $_POST['price'];
-                    $stock_quantity = $_POST['stock_quantity'];
-
-                    // if (!isset ($_SESSION['mycart'])) {
-                    //     $_SESSION['mycart'] = [];
-                    // }
-
-                    // // kiem tra san pham ton tai trong gio hang
-                    // if (findElementInArray($_SESSION['mycart'], $id)) {
-                    //     foreach ($_SESSION['mycart'] as $key => $product) {
-                    //         if ($product[0] === $id) {
-                    //             echo "<script>alert('Đã có trong giỏ hàng');</script>";
-                    //         }
-                    //     }
-                    // } else {
-                    //     //kiem tra so luong san pham
-                    //     if (isset ($_POST['quantity'])) {
-                    //         $soluong = $_POST['quantity'];
-                    //     } else {
-                    //         $soluong = 1;
-                    //     }
-                    //     echo "<script>alert('Đã thêm vào trong giỏ hàng');</script>";
-                    //     $ttien = $soluong * intval($price);
-                    //     $productAdd = [$id, $name, $img, $price, $soluong, $ttien];
-                    $lastModifiedDate = date('Y-m-d H:i:s');
-
-                    // kiem tra xem gio hang cua user da ton tai chua
-                    $listcart = loadall_cart();
-                    if (findCartId($listcart, $_SESSION['user']['id'])) {
-                        $cartId = get_cartId($_SESSION['user']['id']);
-                        $cartItems = get_all_cartItem($cartId[0]['id']);
-                        if (findItemInCart($cartItems, intval($id))) {
-                            echo "<script>alert('Đã có trong giỏ hàng');</script>";
-                        } else {
-                            if (isset($_POST['quantity'])) {
-                                $soluong = $_POST['quantity'];
+                $id = $_POST['id'];
+                $soluong = isset($_POST['quantity']) ? $_POST['quantity'] : 1;
+                $stock_quantity = $_POST['stock_quantity'];
+                if($soluong <= $stock_quantity){
+                    if (isset($_SESSION['user'])) {
+                        $name = $_POST['name'];
+                        $img = $_POST['img'];
+                        $price = $_POST['price'];
+                        $lastModifiedDate = date('Y-m-d H:i:s');
+                        // kiem tra xem gio hang cua user da ton tai chua
+                        $listcart = loadall_cart();
+                        if (findCartId($listcart, $_SESSION['user']['id'])) {
+                            $cartId = get_cartId($_SESSION['user']['id']);
+                            $cartItems = get_all_cartItem($cartId[0]['id']);
+                            if (findItemInCart($cartItems, intval($id))) {
+                                echo "<script>alert('Đã có trong giỏ hàng');</script>";
                             } else {
-                                $soluong = 1;
+                                if (isset($_POST['quantity'])) {
+                                    // $soluong = $_POST['quantity'];
+                                } else {
+                                    $soluong = 1;
+                                }
+                                echo "<script>alert('Đã thêm vào trong giỏ hàng');</script>";
+                                $ttien = $soluong * intval($price);
+                                insert_cartItem($cartId[0]['id'], $id, $name, $img, $price, $soluong, $ttien);
+                                update_cart($cartId[0]['id'], date('Y-m-d H:i:s'));
                             }
-                            echo "<script>alert('Đã thêm vào trong giỏ hàng');</script>";
-                            $ttien = $soluong * intval($price);
-                            insert_cartItem($cartId[0]['id'], $id, $name, $img, $price, $soluong, $ttien);
-                            update_cart($cartId[0]['id'], date('Y-m-d H:i:s'));
+    
+                        } else {
+                            $cartId = insert_cart($_SESSION['user']['id'], $lastModifiedDate);
+                            var_dump($cartId);
+                            $cartItems = get_all_cartItem($cartId);
+                            if (findElementInArray($cartItems, $id)) {
+                                echo "<script>alert('Đã có trong giỏ hàng');</script>";
+                            } else {
+                                // if (isset($_POST['quantity'])) {
+                                //     $soluong = $_POST['quantity'];
+                                // } else {
+                                //     $soluong = 1;
+                                // }
+                                echo "<script>alert('Đã thêm vào trong giỏ hàng');</script>";
+                                $ttien = $soluong * intval($price);
+                                insert_cartItem($cartId, $id, $name, $img, $price, $soluong, $ttien);
+                                update_cart($cartId, date('Y-m-d H:i:s'));
+                            }
+                            // insert_cartItem($cartId, $id, $name, $img, $price, $soluong, $ttien);
                         }
-
+    
+                        // }
                     } else {
-                        $cartId = insert_cart($_SESSION['user']['id'], $lastModifiedDate);
-                        var_dump($cartId);
-                        $cartItems = get_all_cartItem($cartId);
-                        if (findElementInArray($cartItems, $id)) {
-                            echo "<script>alert('Đã có trong giỏ hàng');</script>";
-                        } else {
-                            if (isset($_POST['quantity'])) {
-                                $soluong = $_POST['quantity'];
-                            } else {
-                                $soluong = 1;
-                            }
-                            echo "<script>alert('Đã thêm vào trong giỏ hàng');</script>";
-                            $ttien = $soluong * intval($price);
-                            insert_cartItem($cartId, $id, $name, $img, $price, $soluong, $ttien);
-                            update_cart($cartId, date('Y-m-d H:i:s'));
-                        }
-                        // insert_cartItem($cartId, $id, $name, $img, $price, $soluong, $ttien);
+                        echo "<script>alert('Vui lòng đăng nhập để mua hàng');</script>";
+                        header("location:index.php?act=login");
                     }
-
-                    // }
-                } else {
-                    echo "<script>alert('Vui lòng đăng nhập để mua hàng');</script>";
-                    header("location:index.php?act=login");
+                } else{
+                    echo "
+                    <script>
+                        alert('Số lượng còn lại trong kho: $stock_quantity');
+                        window.location.href = 'index.php?act=detailProduct&id=$id';
+                    </script>";
                 }
 
             }
@@ -340,60 +323,80 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 if (empty($payment_method)) {
                     $payments_err = "Vui lòng chọn phương thức thanh toán";
                 }
-
+               
                 if (empty($firstname_err) && empty($address_err) && empty($email_err) && empty($phone_err) && empty($payments_err)) {
                     $idUser = $_SESSION['user']['id'];
                     $currentDate = date('Y-m-d H:i:s');
                     $grandTotal = $_POST['grandTotal'];
+                    $shippingFee = $_POST['shippingFee'];
+                    echo $shippingFee;
 
-                    $orderId = insert_bill($idUser, $recipient_name . ' ' . $recipient_lastname, $recipient_email, $recipient_phone, $recipient_address, $payment_method, $currentDate, $grandTotal);
+                    $orderId = insert_bill($idUser, $recipient_name . ' ' . $recipient_lastname, $recipient_email, $recipient_phone, $recipient_address, $payment_method, $currentDate, $grandTotal, $shippingFee);
 
                     foreach ($cartItems as $key => $product) {
                         insert_detail_bill($orderId, $product['product_id'], $product['quantity']);
                     }
                     unset($_SESSION['mycart']);
 
-                    header("location: index.php?act=checkout_success");
+                    delete_cartItem($cartId[0]['id'],'');
+                    header("location: index.php?act=checkout_success&orderId=$orderId");
                     exit;
-                }else{
-                    $grandTotal = 0;
-                    foreach ($cartItems as $key => $product) {
-                        $grandTotal += $product[''];
-                        # code...
-                    }
                 }
                 
             }
             include "view/cart/checkout.php";
             break;
         case 'order':
-            
             if (isset($_POST["submit"])) {
+                $quantities = $_POST['quantity'];
+                $prices = $_POST['price'];
                 $cartId = get_cartId($_SESSION['user']['id']);
                 $cartItems = get_all_cartItem($cartId[0]['id']);
-
+                var_dump($prices);
                 $ids = $_POST['id'];
-                $prices = $_POST['price'];
-                $quantities = $_POST['quantity'];
+                if($_POST['submit'] === 'Proceed to Checkout'){
+                    include "view/cart/checkout.php";
+                }else{ 
+                    //update cart
+                    foreach ($ids as $key => $id) {
+                        update_cartItems($cartItems[$key]['id'],$cartId[0]['id'],$quantities[$key], ($quantities[$key] * $prices[$key]) * 26000);
+                    }
+                    update_cart($cartId[0]['id'],date('Y-m-d H:i:s'));
 
-                $grandTotal = 0;
-                foreach ($cartItems as $key => $item) {
-                    $grandTotal += ($item['product_price'] * $item['quantity']);
-                };
-                
-                
+                    include "view/cart/cart.php";
+                }
+                echo $_POST['submit'];
             }
-
-            include "view/cart/checkout.php";
             break;
+        case 'orderDetail':
+            if(isset($_GET['orderid'])){
+                $orderId = $_GET['orderid'];
+                $result = loadone_bill($_GET['orderid']);
+                $order = $result[0];
+                $orderItems = loadall_detail_bill($_GET['orderid']);
+            }
+            include "view/account/orderDetail.php";
+            break;    
         case 'checkout_success':
+            if(isset($_GET['orderId'])){
+                $result = loadone_bill($_GET['orderId']);
+                $order = $result[0];
+                $products= loadall_detail_bill($order['order_id']);
+            }
             include "view/camon.php";
             break;
+        case 'cancelOrder':
+            if(isset($_POST['orderId'])){
+                $orderId = $_POST['orderId'];
+                update_bill($orderId, 5);
+                header("location: index.php?act=orderDetail&orderid=$orderId");
+            }
+            break;
+
         default:
-            include "view/home.php";
+            include "view/404.php";
             break;
     }
-
 } else {
     include "view/home.php";
 }

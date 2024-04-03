@@ -36,13 +36,18 @@
     //     $listsanpham = pdo_query($sql);
     //     return $listsanpham;
     // }
-    function loadall_sanpham($kyw,$iddm){
+    function loadall_sanpham($kyw,$iddm, $minPrice = 0, $maxPrice){
         $sql = "select * from sanpham where 1";
         if($kyw != ""){
-            $sql.= " and name like '%". $kyw. "%'";
+            $sql.= " and LOWER(CONVERT(name USING utf8mb4)) REGEXP LOWER(CONVERT('$kyw' USING utf8mb4))";
         }
         if($iddm > 0){
             $sql.= " and iddm = ".$iddm;
+        }
+        if($minPrice !== '' && $maxPrice !== '') {
+            $min = intval($minPrice);
+            $max = intval($maxPrice);
+            $sql .=" and price between '$min' AND '$max'";
         }
         $sql.= " order by id desc";
         $listsanpham = pdo_query($sql);
@@ -60,6 +65,7 @@
         $listsanpham = pdo_query($sql);
         return $listsanpham;
     }
+
     function tong_sanpham($iddm = null ){
         $sql= "SELECT COUNT(*) FROM sanpham where 1";
         if($iddm !== null){
@@ -89,6 +95,11 @@
         $newview = $view + 1;
         $sql = "update sanpham set view = '$newview' where id= '$id'";
         pdo_query($sql);
+    }
+    function get_stock_quantity($id){
+        $sql = "select stock_quantity from sanpham where id = '$id'";
+        $stock_quantity = pdo_query_one($sql);
+        return $stock_quantity;
     }
 
 ?>

@@ -52,4 +52,9 @@
         $user = pdo_query($sql);
         return $user;
     }
+    function count_taikhoan(){
+        $sql ="SELECT COUNT(*) AS total_records FROM taikhoan";
+        $result = pdo_query($sql);
+        return $result;
+    }
 ?>

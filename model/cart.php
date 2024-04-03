@@ -28,12 +28,19 @@
         $cartItems = pdo_query($sql);
         return $cartItems;
     }
-    function delete_cartItem($cartItemId){
-        if($cartItemId !== ''){
-            $sql = "delete from cart_item where id ='$cartItemId'";
-        }
-        $sql = "delete from cart_item";
+    function update_cartItems($id,$cartId,$quantity, $total_price ){
+        echo $total_price;
+        $sql = "update cart_item set quantity = '$quantity', total_price = '$total_price' where cart_id = '$cartId' and id = '$id'";
         pdo_execute($sql);
+    }
+    function delete_cartItem($cart_id, $product_id){
+        if($product_id !== ''){
+            $sql = "delete from cart_item where product_id = '$product_id' and cart_id ='$cart_id'";
+            pdo_execute($sql);
+        } else {
+            $sql = "delete from cart_item where cart_id = '$cart_id'";
+            pdo_execute($sql);
+        }
     }
     
     function loadall_thongke(){

@@ -20,6 +20,7 @@
                     <thead>  
                        <th> <h1> Mã Loại </h1></th>
                         <th> <h1>Tên Loại </h1></th>
+                        <th> <h1>Số lượng </h1></th>
                         <th> <h1> Chức Năng</h1></th>
 
                     </thead>
@@ -27,11 +28,13 @@
                     <?php 
                     foreach ($listdanhmuc as $danhmuc) {
                         extract($danhmuc);
+                        $tongsanpham= tong_sanpham($danhmuc['iddm']);
                         $suadm="index.php?act=suadm&id=".$iddm;
                         $xoadm="index.php?act=xoadm&id=".$iddm;
                         echo '<tr>
                                 <td>' . $iddm . '</td>
                                 <td>' . $tendanhmuc . '</td>
+                                <td>' . $tongsanpham[0][0] . '</td>
                                 <td> 
                                 <a class="url-edit" href="'. $suadm.'"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a class="url-delete" href="'. $xoadm.'"><i class="fa-solid fa-trash"></i></a></td>

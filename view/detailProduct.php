@@ -80,23 +80,14 @@
 							<span class="availability">Availability: <span>
 									<?= $sanpham['stock_quantity'] > 0 ? 'In Stock' : 'Out Of Stock' ?>
 								</span></span>
-							<input type="hidden" name="stock_quantity" value="<?= $sanpham['stock_quantity'] ?>">
+							<input type="hidden" id="stock_quantity" name="stock_quantity" value="<?= $sanpham['stock_quantity'] ?>">
 
 							<div class="quantity-colors">
 
 								<div class="quantity">
 									<h5>Quantity:</h5>
-									<div class="pro-qty"><input type="number" name="quantity" min='1' value="1"></div>
+									<div class="pro-qty"><input  id="quantity" type="number" name="quantity" min='1' value="1"></div>
 								</div>
-
-								<!-- <div class="colors">
-									<h5>Color:</h5>
-									<div class="color-options">
-										<button style="background-color: #ff502e"></button>
-										<button style="background-color: #fff600"></button>
-										<button style="background-color: #1b2436"></button>
-									</div>
-								</div> -->
 
 							</div>
 
@@ -354,12 +345,18 @@
 						</div>
 
 					</div>
-
-
-
-
-
 				</div>
 			<?php } ?>
 		</div>
 	</div><!-- Related Product Section End -->
+<script>
+	// const  quantityElement = document.getElementById('quantity');
+	
+	// function checkStockQuantity(){
+	// 	const stock_quantity = quantityElement.value;
+	// 	console.log(quantity);
+	// 	console.log(stock_quantity); 
+	// 	console.log('test');
+	// }
+	// quantityElement.addEventListener('change', checkStockQuantity )
+</script>	

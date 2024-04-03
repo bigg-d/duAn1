@@ -36,6 +36,20 @@
           box-sizing: border-box;
 }
 
+/* Loading online banking  */
+.loader {
+  border: 3px solid #f3f3f3; /* Light grey */
+  border-top: 3px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 svg{
   float: left;
@@ -4606,6 +4620,14 @@ img.mfp-img {
   border-radius: 50px;
   margin: auto;
 }
+.cart-table table tbody tr td.pro-quantity .pro-qty1 {
+  width: 100px;
+  padding: 0 30px;
+  border: 1px solid #cccccc;
+  position: relative;
+  border-radius: 50px;
+  margin: auto;
+}
 .cart-table table tbody tr td.pro-quantity .pro-qty .qtybtn {
   position: absolute;
   top: 0;
@@ -4630,6 +4652,9 @@ img.mfp-img {
   border-width: 0 1px;
   height: 34px;
   text-align: center;
+}
+.cart-table table tbody tr td.pro-quantity .textErr{
+  display: none;
 }
 .cart-table table tbody tr td.pro-subtotal {
   width: 120px;
@@ -4685,6 +4710,12 @@ img.mfp-img {
   margin-right: 15px;
   padding: 8px 25px;
   text-transform: uppercase;
+}
+.cart-buttons input, .cart-buttons #deleteAllBtn:hover{
+  background-color: red;
+}
+.cart-buttons input, .cart-buttons #updateCartBtn:hover {
+  background-color: rgb(41, 111, 41);
 }
 .cart-buttons input:hover, .cart-buttons a:hover {
   background-color: #ff708a;
@@ -6636,4 +6667,75 @@ img.mfp-img {
   color: #ff708a;
   margin: 0 4px;
   font-size: 13px;
+}
+
+
+/* popup check out banking  */
+.contain-overlay-product-detail{
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 12;
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+}
+.contain-product-detail{
+  width: 55%;
+  margin: 150px auto 0;
+display: flex;
+  background-color: var(--white);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.sideBar_pay{
+  height: 600px;
+  background-color: #0054a5;
+  width: 33%;
+  padding-top: 20px ;
+  padding-left: 10px;
+}
+.contain_QR_code{
+  background-color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 15px 20px;
+  padding-top: 5px;
+  
+}
+.contain_logo_MBbank{
+  display: flex;
+  justify-content: space-between;
+}
+.line_pay{
+  width: 100%;
+  height: 1px;
+  background-color: #e3e3e3;
+  margin-top: 10px;
+}
+.blockPayment{
+  display: flex;
+  flex-direction: column;
+  color: var(--white);
+  padding: 18px 15px;
+  box-sizing: border-box;
+}
+.timeRestPay{
+  font-size: 2.8rem;
+}
+.notePay{
+  margin-top: 12%;
+}
+.button-back-pay{
+  padding: 10px 0px;
+  display: none;
+}
+.button-back-pay:hover{
+opacity: 0.9;
+cursor: pointer;
 }

@@ -145,7 +145,14 @@ $popular_products = loadall_sanpham_popular();
                     </ul>
                 </div>
 
-
+                <form action="index.php?act=shop" method="post" class="sidebar">
+                    <h4 class="sidebar-title">Price</h4>
+                    <div style="display:flex; gap:14px; margin-bottom:12px">
+                        <input style="padding:4px 8px; width:35%;" name='min_price' type="number" placeholder="Từ">
+                        <input style="padding:4px 8px; width:35%;" name='max_price' type="number" placeholder="Đến">
+                    </div>
+                    <button style="color:white;font-weight: 500;width:100%;background-color:#94B7EC; border:none; padding:4px 6px; border-radius:12px">Tìm kiếm</button>
+                </form>
                 <div class="sidebar">
                     <h4 class="sidebar-title">Popular Product</h4>
                     <div class="sidebar-product-wrap">
@@ -155,7 +162,7 @@ $popular_products = loadall_sanpham_popular();
                                 <a href="single-product.html" class="image"><img src="upload/<?= $product['img'] ?>"
                                         alt=""></a>
                                 <div class="content">
-                                    <a href="single-product.html" class="title">
+                                    <a href="index.php?act=detailProduct&id=<?=$product['id']?>" class="title">
                                         <?= $product['name'] ?>
                                     </a>
                                     <span class="price">$
