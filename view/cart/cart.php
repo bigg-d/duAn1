@@ -35,7 +35,6 @@ $emptyCart = '<h1 style="font-size: 36px;
 <!-- Page Section Start -->
 <div class="page-section section section-padding">
     <div class="container">
-
         <?php if (!isset($cartItems) || empty($cartItems)) { ?>
             <h1 style="font-size: 36px;
     line-height: 1.25;
@@ -158,7 +157,6 @@ $emptyCart = '<h1 style="font-size: 36px;
                     </div>
                 </div>
             </form>
-        <?php } ?>
 
     </div>
 </div>

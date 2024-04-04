@@ -90,7 +90,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     $loiemail = 'Không được bỏ trống !';
                 } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 } else if (is_array($checkemail)) {
-                    $loiemail = "Email không đã được đăng ký";
+                    $loiemail = "Email đã được đăng ký";
                 }
                 if (empty($password)) {
                     $loimk1 = 'Không được bỏ trống !';
@@ -146,6 +146,61 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 include "view/account/register-login.php";
             }
             break;
+        case 'reset': 
+            
+            if(isset($_POST['submit'])){
+                $name_reset =$_POST['user_name'];
+                $sql ="SELECT * FROM `taikhoan`  WHERE email = '$name_reset'";
+                $row =pdo_query_one($sql);
+                // var_dump($row);
+                if($name_reset == ''){
+                    $error='Không được bỏ trống';
+                }
+                elseif(!$name_reset == $row){
+                    $error='Không tìm thấy tài khoản';
+                }
+                if(!isset($error)){
+                    $_SESSION['id'] =$row['id'];
+                    $_SESSION['code'] = rand(100000, 999999);
+                    include "Mail/send_mail.php";
+                    header("Location: index.php?act=verification_code&id=$_SESSION[id]");
+                }
+            }
+            include "view/account/reset_password.php";
+            break;
+            case 'verification_code':
+                // echo $_SESSION['code'];
+                // echo phpversion();
+                if(isset($_POST['submit'])){
+                    $code = $_POST['code'];
+                    if($code == ''){
+                        $error ='Vui lòng nhập mã';
+                    }
+                    elseif($code == $_SESSION['code']){
+                        $id=$_SESSION['id'];
+                        $_SESSION['check_code'] = true;
+                        unset($_SESSION['code']);
+                        header("Location: index.php?act=show_pass&id=$id");
+                    }else{ 
+                        $error='Mã không đúng';
+                    }
+                }
+                if($_GET['id'] == $_SESSION['id'] || empty($_GET['id'])){
+                    include "view/account/verification_code.php";
+                    }else{include "404.php";}
+            break;
+            case 'show_pass':
+                $id_user = $_GET['id'];
+                if($id_user== $_SESSION['id'] && isset($_SESSION['check_code'])){
+                $sql ="SELECT * FROM `taikhoan`  WHERE id = '$id_user'";
+                $row =pdo_query_one($sql);
+                $my_pass = $row['pass'];
+                include "view/account/show_pass.php";
+                }
+                else{
+                    include "404.php";
+                }
+                break;
         // case 'edit_taikhoan':
         //     if (isset ($_POST['submit']) && $_POST['submit']) {
         //         $id = $_POST['id'];
