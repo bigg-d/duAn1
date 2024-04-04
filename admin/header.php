@@ -67,14 +67,14 @@
                     </div>
                   </a>
                 </li>
-                <li>
+                <!-- <li>
                   <a href="index.php?act=orderhistory">
                     <div>
                       <i class="fa-regular fa-circle"></i>
                       <span>Lịch sử đơn hàng</span>
                     </div>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </li>
            

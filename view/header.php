@@ -13,6 +13,10 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <!-- CSS
     ============================================ -->
 
@@ -104,8 +108,8 @@
                                             alt="Search Toggle"><img class="toggle-close"
                                             src="assets/images/icons/close.png" alt="Search Toggle"></button>
                                     <div class="header-search-wrap">
-                                        <form action="#">
-                                            <input type="text" placeholder="Type and hit enter">
+                                        <form action="index.php?act=shop" method="post">
+                                            <input name="kyw" type="text" placeholder="Type and hit enter">
                                             <button><img src="assets/images/icons/search.png" alt="Search"></button>
                                         </form>
                                     </div>

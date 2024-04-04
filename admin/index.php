@@ -7,7 +7,7 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
     include_once "../model/sanpham.php";
     include "../model/binhluan.php";
     include "../model/taikhoan.php";
-    // include "../model/cart.php";
+    include "../model/checkout.php";
     include "../model/thongke.php";
     // include "../model/bill.php";
 // include "../model/convert.php";
@@ -75,29 +75,47 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                     $filename = $_FILES["hinh"]["name"];
                     $target_dir = "../upload/";
                     $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
-
-
+                    
+                    if(empty($tensp)){
+                        $error_ten = 'Không được bỏ trống !';
+                    }
+                    elseif(strlen($tensp) > 255){
+                        $error_ten ='Tên quá dài';
+                    }
+                    if(empty($giasp)){
+                        $error_gia = 'Không được bỏ trống !';
+                    }elseif(strlen($giasp) > 10){$error_gia='Giá phải <= 10';}
+                    if(empty($mota)){
+                        $error_mota = 'Vui lòng nhập mô tả';
+                    }
                     $images = [];
                     // Lặp qua từng file được tải lên
+                    
+                    if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+    
+                    } else {
+                        $error_img_1 ='Vui Lòng chọn file ảnh';
+                    }
                     foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
                         $filename = $_FILES['images']['name'][$key];
                         $targetPath = $target_dir . $filename;
-                        echo $filename;
+                        // echo $filename;
                         // Di chuyển và lưu trữ ảnh vào thư mục đích
                         if (move_uploaded_file($tmp_name, $targetPath)) {
                             array_push($images, $filename);
                         }
+                        else{
+                            $error_img_2 ='Vui Lòng chọn file ảnh';
+                        }
+                        
+                        
                     }
                     $filenames = join(",", $images);
-                    echo $filenames;
-                    if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-                        // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-                    } else {
-                        echo "Sorry, there was an error uploading your file.";
+                    if(!isset($error_ten) && !isset($error_mota) && !isset($error_gia) && !isset($error_img_1) && !isset($error_img_2) ){
+                        insert_sanpham($tensp, $giasp, $filename, $filenames, $mota, $iddm);
+                        $thongbao = "Thêm Thành Công.";
                     }
-
-                    insert_sanpham($tensp, $giasp, $filename, $filenames, $mota, $iddm);
-                    $thongbao = "them thnah cong";
+    
                 }
                 $listdanhmuc = loadall_danhmuc();
                 include "sanpham/add.php";
@@ -112,7 +130,7 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                 }
     
                 $listdanhmuc = loadall_danhmuc();
-                $listsanpham = loadall_sanpham($kyw, $iddm);
+                $listsanpham = loadall_sanpham($kyw, $iddm, '','');
                 include "sanpham/list.php";
                 break;
             case 'xoasp':
@@ -145,15 +163,6 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                     $target_dir = "../upload/";
                     $images = [];
                     $old_images = $_POST['images'];
-
-                    // if(isset($_FILES['images'])){
-                    //     echo '<pre>';
-                    //     var_dump($_FILES['images']);
-                    //     echo '</prev>';
-                    //     echo 'co anh moi';
-                    // } else{
-                    //     echo 'khong co anh moi';
-                    // }
 
                     if ($_FILES['images']['size'][0] > 0) {
                         // Lặp qua từng file được tải lên
@@ -300,13 +309,7 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
 
                 include "binhluan/list.php";
                 break;
-            // case 'xoabl':
-            //         if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-            //             delete_binhluan($_GET['id']);
-            //         }
-            //         $listbinhluan = loadall_binhluan(0,0);
-            //     include "binhluan/list.php";
-            //     break;
+            
             case 'thongke':
             case 'listtk':
                 if (isset ($_POST['listok']) && ($_POST['listok'])) {
@@ -322,40 +325,41 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                 $listthongke = loadall_thongke();
                 include "thongke/bieudo.php";
                 break;
-            // case 'listbill':
-            //     // if(isset($_POST['kyw'])&&($_POST['kyw']!="")) {
-            //     //     $kyw=$_POST['kyw'];
-            //     // }else{
-            //     //     $kyw="";
-            //     // }
-            //     $listbill= loadall_bill(0);
-            //     include "bill/listbill.php";
-            //     break;
-            // case 'xoabill':
-            //     if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-            //         delete_bill($_GET['id']);
-            //     }
-            //     $listbill=loadall_bill("",0);
-            //     include "bill/listbill.php";
-            // break;
-            // case 'suabill':
-            //     if (isset($_GET['id']) && ($_GET['id'] > 0)) {
-            //         $bill= loadone_bill($_GET['id']);
-            //     }
-            //     $listbill=loadall_bill(0);
-            //     include "bill/update.php";
-            //     break;
-            // case 'updatebill':
-            //     if (isset($_POST['capnhap']) && ($_POST['capnhap'])) {
-            //         $ttdh = isset($_POST["ttdh"]) ? $_POST["ttdh"] : 0 ;
-            //         $id = $_POST["id"];
-            //         update_bill($id, $ttdh);
-            //         $thongbao = "Cập nhật thành công";
-            //     }
-            //     $listbill=loadall_bill(0);
-            //     // include "bill/listbill.php";
-            //     header("Location: index.php?act=listbill");
-            //     break;  
+            case 'listbill':
+                if(isset($_POST['submit'])&&($_POST['email']!="")) {
+                    $kyw=$_POST['email'];
+                    $listbill= loadall_bill_admin($kyw);
+                }else{
+                    $kyw="";
+                    $listbill= loadall_bill_admin('');
+                }
+                include "bill/listbill.php";
+                break;
+            case 'xoabill':
+                // if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                //     delete_bill($_GET['id']);
+                // }
+                $listbill=loadall_bill('');
+                include "bill/listbill.php";
+            break;
+            case 'suabill':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    $bill= loadone_bill($_GET['id']);
+                }
+                $listbill=loadall_bill('');
+                include "bill/update.php";
+                break;
+            case 'updatebill':
+                if (isset($_POST['capnhap']) && ($_POST['capnhap'])) {
+                    $ttdh = isset($_POST["ttdh"]) ? $_POST["ttdh"] : 0 ;
+                    $id = $_POST["id"];
+                    update_bill($id, $ttdh);
+                    $thongbao = "Cập nhật thành công";
+                }
+                $listbill=loadall_bill('');
+                // include "bill/listbill.php";
+                header("Location: index.php?act=listbill");
+                break;  
             // case 'lienhe':
             //     $listlienhe = loadall_lienhe();
             //     include "lienhe/listLienHe.php";
@@ -383,6 +387,11 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                 break;
         }
     } else {
+        $result = tongsanphamdaban();
+        $sanphamdaban = $result[0]['tong_so_san_pham'];
+        $tongdoanhthu = tongdoanhthu();
+        $tongkhachhang = count_taikhoan();
+        $date = date("m");
         include "home.php";
     }
 

@@ -1,14 +1,21 @@
 <?php
-    // echo "<pre>";
-    // var_dump($_SESSION['mycart']);
-    // echo "</pre>";
+// echo "<pre>";
+// var_dump($_SESSION['mycart']);
+// echo "</pre>";
+if (isset($_SESSION['user'])) {
+    $user = $_SESSION['user'];
+    $cartId = isset(get_cartId($user['id'])[0]['id']) ? get_cartId($user['id'])[0]['id'] : '';
+
+    $cartItems = get_all_cartItem($cartId);
+    // var_dump($cartItems);
+}
 ?>
 <!-- Page Banner Section Start -->
 <div class="page-banner-section section" style="background-image: url(assets/images/hero/hero-1.jpg)">
     <div class="container">
         <div class="row">
             <div class="page-banner-content col">
-            
+
                 <h1>Cart</h1>
                 <ul class="page-breadcrumb">
                     <li><a href="index.php">Home</a></li>
@@ -28,13 +35,7 @@ $emptyCart = '<h1 style="font-size: 36px;
 <!-- Page Section Start -->
 <div class="page-section section section-padding">
     <div class="container">
-
-<<<<<<< HEAD
-=======
-    
-
->>>>>>> 0c9a68dbe6c23c1feeb0f985214b392c0ae4329c
-        <?php if (!isset ($_SESSION['mycart']) || empty ($_SESSION['mycart'])) { ?>
+        <?php if (!isset($cartItems) || empty($cartItems)) { ?>
             <h1 style="font-size: 36px;
     line-height: 1.25;
     margin-bottom: 24px;
@@ -72,29 +73,40 @@ $emptyCart = '<h1 style="font-size: 36px;
                                 </thead>
                                 <tbody id="mycart">
                                     <?php
-                                    if (isset ($_SESSION['mycart'])) {
-                                        foreach ($_SESSION['mycart'] as $key => $product) {
+                                    if (isset($cartItems)) {
+                                        $total_price = 0;
+                                        foreach ($cartItems as $key => $product) {
+                                            $result= get_stock_quantity($product['product_id']);
+                                            $stock_quantity = $result['stock_quantity'];
+                                            $total_price += ($product['product_price'] * $product['quantity'] );
                                             ?>
                                             <tr>
-                                                <td class="pro-thumbnail"><a href="#"><img src="./upload/<?= $product[2] ?>"
-                                                            alt="" /></a></td>
-                                                <input type="hidden" name="id[]" value="<?= $product[0] ?>">
-                                                <td class="pro-title"><a href="index.php?act=detailProduct&id=<?=$product[0]?>">
-                                                        <?= $product[1] ?>
+                                                <td class="pro-thumbnail"><a href="#"><img
+                                                            src="./upload/<?= $product['product_img'] ?>" alt="" /></a></td>
+                                                <input type="hidden" name="id[]" value="<?= $product['product_id'] ?>">
+                                                <td class="pro-title"><a
+                                                        href="index.php?act=detailProduct&id=<?= $product['product_id'] ?>">
+                                                        <?= $product['product_name'] ?>
                                                     </a></td>
                                                 <td class="pro-price"><span id="amount" class="amount">
-                                                        <?php echo number_format(($product[3] / 26000), 1) ?>
+                                                        <?php echo number_format(($product['product_price'] / 26000), 1) ?>
                                                     </span></td>
                                                 <input type="hidden" name="price[]"
-                                                    value="<?php echo number_format(($product[3] / 26000), 1) ?>">
+                                                    value="<?php echo number_format(($product['product_price'] / 26000), 1) ?>">
                                                 <td class="pro-quantity">
                                                     <div class="pro-qty"><input name="quantity[]" onchange="updateTotal(this)"
-                                                            onload="updateTotal(this)" type="number" min='1' value="<?=isset($product[4]) ? $product[4] : 1 ?>"></div>
+                                                            onload="updateTotal(this)" type="number" min='1'
+                                                            value="<?= isset($product['quantity']) ? $product['quantity'] : 1 ?>">
+                                                            <p style="display:none" class= "stock_quantity"><?=$stock_quantity?></p>
+                                                    </div>
+                                                    <strong class="textErr" style="color:red">Số lượng tối đa: <?=$stock_quantity?></strong>
+
                                                 </td>
                                                 <td id="total" class="pro-subtotal">
-                                                    <?= number_format(($product[5] / 26000) * $product[4], 1)   ?>
+                                                    <?= number_format(($product['total_price'] / 26000), 1) ?>
                                                 </td>
-                                                <td class="pro-remove"><a href="index.php?act=deletecart&idcart=<?= $key ?>">×</a>
+                                                <td class="pro-remove"><a
+                                                        href="index.php?act=deletecart&id=<?= $product['product_id'] ?>">×</a>
                                                 </td>
                                             </tr>
                                         <?php }
@@ -105,8 +117,11 @@ $emptyCart = '<h1 style="font-size: 36px;
                     </div>
                     <div class="col-lg-8 col-md-7 col-12 mb-40">
                         <div class="cart-buttons mb-30">
-                            <a style="color:white" href="index.php?act=deletecart">Delete All</a>
                             <a href="index.php?act=shop">Continue Shopping</a>
+                            <input id="updateCartBtn" style="background-color:black" type="submit" name='submit'
+                                value="update cart">
+
+                            <a id="deleteAllBtn" style="color:white" href="index.php?act=deletecart">Delete All</a>
                         </div>
                         <div class="cart-coupon">
                             <h4>Coupon</h4>
@@ -136,14 +151,13 @@ $emptyCart = '<h1 style="font-size: 36px;
                             </table>
                             <div class="proceed-to-checkout section mt-30">
                                 <input type="submit" value="Proceed to Checkout" name="submit">
+
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
-        <?php } ?>
 
     </div>
 </div>
 <!-- Page Section End -->
-

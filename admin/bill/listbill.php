@@ -6,16 +6,18 @@
               <!-- ----------------------------------- Form hiển thị giỏ hàng ----v--------------------- -->
               <section class="contain-form-submit-cart w-100 d-f f-d al-c">
               <div class="search_list-product-admin w-100">
-              <form action="" class="d-f form-search">
+              <form action="index.php?act=listbill" method="post" class="d-f form-search">
               <input
-                type="text"
-                placeholder="Tìm kiếm theo tên sản phẩm..."
+                type="email"
+                placeholder="Tìm kiếm theo email..."
                 class="input-search"
+                name="email"
               />
               <input
                 type="submit"
                 class="submit-search-form"
                 value="Tìm kiếm"
+                name="submit"
               />
             </form>  
               <form action="index.php?act=listbill" class="form-submit-cart w-100">         
@@ -23,9 +25,11 @@
       
                 <thead>
                   <tr>
-                    <th>Check</th>                   
+                    <!-- <th>Check</th>                    -->
                     <th>ID</th>
                     <th>Khách hàng</th>
+                    <th>Email</th>
+                    <th>Địa chỉ</th>
                     <th>Số lượng</th>
                     <th>Giá trị đơn </th>
                     <th>Tình trạng đơn </th>
@@ -37,22 +41,24 @@
                 <?php
                     foreach($listbill as $bill){
                       extract($bill);
-                      $suabill="index.php?act=suabill&id=".$id;
-                      $xoabill="index.php?act=xoabill&id=".$id;
-                        $kh=$bill["bill_name"].'
-                        <br> '.$bill["bill_address"].'
-                        <br>'.$bill["bill_tel"];
-                        $ttdh= getStatus($bill["bill_status"],1);
-                        $countsp=loadall_cart_count($bill["id"]);
+                      $suabill="index.php?act=suabill&id=".$order_id;
+                      $xoabill="index.php?act=xoabill&id=".$order_id;
+                        // $kh=$order_id.
+                      '
+                        <br>'.$recipient_phone;
+                        $ttdh= getStatus($process);
+                        $countsp=countItemInOrder($order_id);
+                        $total_product = $countsp[0]['TotalQuantity'];
                         
                         echo '<tr>
-                        <td><input type="checkbox"></td>                        
-                        <td class="td_sp">'.$bill['id'].'</td>
-                        <td class="td_sp">'.$kh.'</td>
-                        <td class="td_sp">'.$countsp.'</td>
-                        <td class="td_sp"><strong>'.number_format($bill["tatal"]).'</strong> VNĐ</td>
+                        <td class="td_sp">'.$order_id.'</td>
+                        <td class="td_sp">'.$recipient_name.'</td>
+                        <td class="td_sp">'.$recipient_email.'</td>
+                        <td class="td_sp">'.$recipient_address.'</td>
+                        <td class="td_sp">'.$total_product.'</td>
+                        <td class="td_sp"><strong>'.number_format(($total_amount + $shipping_fee) * 26000).'</strong> VNĐ</td>
                         <td class="td_sp">'.$ttdh.'</td>
-                        <td style="width:70px;" class="td_sp">'.$bill['ngaydathang'].'</td>
+                        <td style="width:70px;" class="td_sp">'.$order_date.'</td>
                         <td class="td_sp"> 
                                   <a class="url-edit" href="'. $suabill.'">
                                     <i class="fa-solid fa-pen-to-square"></i>

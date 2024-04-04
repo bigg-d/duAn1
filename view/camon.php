@@ -1,3 +1,6 @@
+<?php
+    
+?>
 <div class="container">
         <div class="mg-t row">
             <div class="box-left">
@@ -11,35 +14,33 @@
                 <h3 class="section__title"><strong>Cảm Ơn Bạn Đã Đặt Hàng</strong></h3>
                 
                 <p class="section__text">
-                    Một email xác nhận đã được gửi tới tvan77630@gmail.com. <br/>
+                    Một email xác nhận đã được gửi tới <?= $order['recipient_email']?>. <br/>
                     Xin vui lòng kiểm tra email của bạn
                 </p>
             
                 <div class="buil3">
                     <div class="thongtinmua1">
                         <h2>Thông tin mua hàng</h2>
-                        <p>ÉTRTYUHIJO</p>
+                        <p><?=$order['recipient_name']?></p>
                         
-                        <p>tvan77630@gmail.com</p>
+                        <p><?=$order["recipient_email"]?></p>
                     
-                        <p>+84989898998</p>                       
+                        <p><?=$order['recipient_phone']?></p>                       
                     </div>
                     <div class="thongtinmua1">
                         <h2>Địa chỉ nhận hàng</h2>
-                        <p>ÉTRTYUHIJO</p>
-                        
-                        <p>VHB JNK</p>
                         
                         
                         
-                        <p>Phường Quang Trung, Thị xã Sơn Tây, Hà Nội</p>
+                        
+                        <p><?=$order['recipient_address']?></p>
                         
                         
-                        <p>+84989898998</p>
+                        <p><?=$order['recipient_phone']?></p>
                     </div>
                     <div class="thongtinmua">
                         <h2>Phương thức thanh toán</h2>
-                        <p>Thanh toán khi giao hàng (COD)</p>
+                        <p><?=($order['payment_method'] == 1) ? 'Thanh toán khi nhận hàng' : 'Chuyển khoản ngân hàng'?></p>
                     </div>
                     <div class="thongtinmua">
                         <h2>Phương thức vận chuyển</h2>
@@ -51,23 +52,28 @@
             
                 <div class="buil">
                     <div class="buil_sp"><strong >Mã</strong></div>
+                    <?php foreach ($products as $key => $product) {
+                        $detailProduct = loadone_sanpham($product['product_id']);    
+                    ?>
+                    
                     <div class="buil_sp">
-                        <img src="assets/images/product/product-zoom-5.jpg" width="70px" alt="">
-                        <p>tên san ohaamr</p>
-                        <p>x1</p>
-                        <p>giá</p>
+                        <img src="upload/<?=$detailProduct['img']?>" width="70px" alt="">
+                        <p><?=$detailProduct['name']?></p>
+                        <p>x<?=$product['quantity']?></p>
+                        <p><?=number_format($detailProduct['price'] / 26000, 1)?>$</p>
                     </div>
+                    <?php }?>
                     <div style="border: none;" class="buil_sp" >
                         <p>Tạm tính </p>
-                        <p>1000$</p>
+                        <p><?=$order['total_amount']?>$</p>
                     </div>
                     <div class="buil_sp">
                         <p>Phí vận chuyển</p>
-                        <p>1000$</p>
+                        <p><?=$order['shipping_fee']?>$</p>
                     </div>
                     <div style="border: none;" class="buil_sp">
                         <p>Tổng</p>
-                        <strong style="color:rgb(66, 107, 183);">999.99$</strong>
+                        <strong style="color:rgb(66, 107, 183);"><?=$order['total_amount'] + $order['shipping_fee']?>$</strong>
                     </div>
             </div>
             
