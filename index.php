@@ -148,7 +148,7 @@ if (isset ($_GET['act']) && ($_GET['act'] != "")) {
                 }
                 if(!isset($error)){
                     $_SESSION['id'] =$row['id'];
-                    $_SESSION['code'] = rand(0000,9999);
+                    $_SESSION['code'] = rand(100000, 999999);
                     include "Mail/send_mail.php";
                     header("Location: index.php?act=verification_code&id=$_SESSION[id]");
                 }

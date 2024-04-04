@@ -43,8 +43,5 @@ $mail = new PHPMailer(true);
     
         $mail->send();
         
-    
-function(){
 
-}
 ?>

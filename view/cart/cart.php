@@ -29,6 +29,11 @@ $emptyCart = '<h1 style="font-size: 36px;
 <div class="page-section section section-padding">
     <div class="container">
 
+<<<<<<< HEAD
+=======
+    
+
+>>>>>>> 0c9a68dbe6c23c1feeb0f985214b392c0ae4329c
         <?php if (!isset ($_SESSION['mycart']) || empty ($_SESSION['mycart'])) { ?>
             <h1 style="font-size: 36px;
     line-height: 1.25;
