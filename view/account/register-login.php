@@ -38,6 +38,7 @@
                                 <span><?php echo isset($loi_dn) ? $loi_dn : ""; ?></span>
                                 </div>
                                 <div class="col-12 mb-15"><input name="password" type="password" placeholder="Password"></div>
+                                <a style="margin: 0 0 10px 20px ;" href="index.php?act=reset">Forgot password</a>
                                 <div class="col-12"><input name="submit" type="submit" value="Login"></div>
                             </div>
                         </form>
