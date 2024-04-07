@@ -20,7 +20,7 @@
         <form style="line-height: 60px;" action="index.php?act=reset" method="post">
             <input type="email" name="user_name" placeholder="Email" id="" value="<?php echo isset($name_reset)? $name_reset : '' ?>">
             <span><?php echo isset($error)? $error : '' ?></span>
-            <input  style="width:100%;" type="submit" name="submit" value="Reset" id="">
+            <input  style="width:100%; margin-top:10px;" type="submit" name="submit" value="Reset" id="">
             
         </form>
     </div>

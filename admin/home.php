@@ -100,3 +100,15 @@
     }
   });
 </script>
+  <div style="margin:10px;">
+        <button style="padding:15px;background:rgb(9, 158, 196);border: none;border-radius:4px;"
+
+        ><a style="color:white;" href="index.php?act=sp_ban_chay">Sản phẩm bán chạy</a></button>
+        <button style="padding:15px;background:rgb(0, 157, 0); border: none;border-radius:4px;"
+
+        ><a style="color:white;" href="">Tổng doanh thu</a></button>
+        <button style="padding:15px;background:orange;border: none;border-radius:4px;"
+
+        ><a style="color:white;" href="">Danh mục</a></button>
+
+  </div>

@@ -23,7 +23,7 @@
             <input type="number" name="code" placeholder="Code" id="">
             
             <span><?php echo isset($error)? $error : '' ?></span>
-            <input  style="width:100%;" type="submit" name="submit" value="Submit" id="">
+            <input  style="width:100%;margin-top:10px;" type="submit" name="submit" value="Submit" id="">
             
         </form>
     </div>

@@ -57,4 +57,10 @@
         $result = pdo_query($sql);
         return $result;
     }
+    function check_username_register($user_name)
+    {
+        $sql = "select * from taikhoan where username = '$user_name'";
+        $user = pdo_query_one($sql);
+        return $user;
+    }
 ?>

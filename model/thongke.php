@@ -35,5 +35,58 @@ function tongdoanhthu(){
   $result = pdo_query($sql);
   return $result;
 }
+// function loc_ngay_truoc_sp(){
+
+// }
+function loc_date_sp($a){
+  $sql ="SELECT sanpham.name
+                    ,sanpham.price,
+                    danhmuc.tendanhmuc,
+                    orders_detail.quantity,
+                    (orders_detail.quantity * sanpham.price) AS tongtien,
+                    order_date
+    From sanpham JOIN orders_detail 
+    ON sanpham.id = orders_detail.id JOIN orders 
+    ON orders_detail.order_id = orders.order_id JOIN danhmuc
+    ON sanpham.iddm = danhmuc.iddm
+    WHERE process = 4 AND orders.order_id =  orders_detail.order_id  and orders.order_date = '$a' 
+    ORDER BY orders_detail.quantity DESC ;";
+    $result = pdo_query($sql);
+    return $result;
+}
+function loc_sp_theo_ngay($a){
+  $sql ="SELECT sanpham.name
+                    ,sanpham.price,
+                    danhmuc.tendanhmuc,
+                    orders_detail.quantity,
+                    (orders_detail.quantity * sanpham.price) AS tongtien,
+                    order_date
+    From sanpham JOIN orders_detail 
+    ON sanpham.id = orders_detail.id JOIN orders 
+    ON orders_detail.order_id = orders.order_id JOIN danhmuc
+    ON sanpham.iddm = danhmuc.iddm
+    WHERE process = 4 AND orders.order_id =  orders_detail.order_id  and orders.order_date < ( CURRENT_DATE - INTERVAL $a DAY)  
+    ORDER BY orders_detail.quantity DESC ;";
+    $result = pdo_query($sql);
+    return $result;
+}
+function  sp_ban_chay(){
+  $sql ="SELECT sanpham.name
+                    ,sanpham.price,
+                    danhmuc.tendanhmuc,
+                    orders_detail.quantity,
+                    (orders_detail.quantity * sanpham.price) AS tongtien,
+                    order_date
+    From sanpham JOIN orders_detail 
+    ON sanpham.id = orders_detail.id JOIN orders 
+    ON orders_detail.order_id = orders.order_id JOIN danhmuc
+    ON sanpham.iddm = danhmuc.iddm
+    WHERE process = 4 AND orders.order_id =  orders_detail.order_id 
+    ORDER BY orders_detail.quantity DESC
+    ;"; 
+    
+    $result = pdo_query($sql);
+    return $result;
+}
 
 ?>

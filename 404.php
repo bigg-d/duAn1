@@ -14,7 +14,7 @@
 								<i class="fa fa-search"></i>
 							</button>
 						</form>
-						<a href="index.html" class="back-btn">Back to home page</a>
+						<a href="index.php" class="back-btn">Back to home page</a>
 					</div>
                </div>
 
