@@ -211,21 +211,38 @@
               <!-- --------------- menu con --------------------- -->
 
               <ul class="sub-menu">
-                <li>
-                  <a href="index.php?act=thongke">
-                    <div>
-                      <i class="fa-regular fa-circle"></i>
-                      <span>Thống kê</span>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a href="index.php?act=bieudo">
-                    <div>
-                      <i class="fa-regular fa-circle"></i>
-                      <span>Biểu đồ</span>
-                    </div>
-                  </a>
+                              <a href="index.php?act=thongke">
+                            <div>
+                              <i class="fa-regular fa-circle"></i>
+                              <span>Loại sản phẩm</span>
+                            </div>
+                          </a>
+                          </li>
+                          <li>
+                              <a href="index.php?act=sp_ban_chay">
+                            <div>
+                              <i class="fa-regular fa-circle"></i>
+                              <span>Sản phẩm bán chạy</span>
+                            </div>
+                          </a>
+                          </li>
+                                <a href="index.php?act=tk_don_hang">
+                              <div>
+                                <i class="fa-regular fa-circle"></i>
+                                <span>Đơn hàng</span>
+                              </div>
+                            </a>
+                            </li>
+                          <li>
+                            <li>
+                                <a href="index.php?act=bieudo">
+                                  <div>
+                                    <i class="fa-regular fa-circle"></i>
+                                    <span>Biểu đồ</span>
+                                  </div>
+                                </a>
+                              </li>
+                        </ul>
                 </li>
               </ul>
             </li>

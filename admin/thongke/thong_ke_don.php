@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="row formtitle ">
-        <h1>THỐNG KÊ SẢN PHẨM Bán Chạy</h1>
+        <h1>THỐNG KÊ Đơn Hàng - <?php  echo isset($_trang_thai) ? $lua_chon=sw_chon($_trang_thai) : 'Tất Cả' ?></h1>
     </div>
     
     <div class="search_list-product-admin w-100">
@@ -20,19 +20,21 @@
                 name="listok"
               />
     </form>  
-    <form style="line-height:30px; display:flex;padding:12px;margin-bottom: 20px;" action="index.php?act=sp_ban_chay" method="post">
+    <form style="line-height:30px; display:flex;padding:12px;margin-bottom: 20px;" action="index.php?act=tk_don_hang" method="post">
             <div style="margin-right: 10px;">
-                <label for="">Thời Gian</label><br>
+                <label for="">Trạng Thái Đơn Hàng</label><br>
                 <select name="chon_ngay" id="">
-                <option value="0"><?php echo isset($_chon_ngay)? $_chon_ngay: '' ?> Ngày Trước</option>
-                <option value="7">7 Ngày Trước</option>
-                <option value="14">14 Ngày Trước</option>
-                <option value="60">60 Ngày Trước</option>
-                <option value="90">90 Ngày Trước</option>
+                <option value="6"><?php  echo isset($_trang_thai) ? $lua_chon=sw_chon($_trang_thai) : 'Tất Cả' ?></option>
+                <option value="0">Tiếp Nhận Đơn</option>
+                <option value="1">Đang Xử Lý</option>
+                <option value="2">Đang Giao Hàng</option>
+                <option value="3">Giao Hàng Thành Công</option>
+                <option value="4">Đã Hủy(admin)</option>
+                <option value="5">Đã Hủy(khách hàng)</option>
             </select>
             </div>
             <div style="margin-right: 10px;">
-                <label for="">Ngày cụ thể</label><br>
+                <label for="">Đơn Hàng Theo Ngày</label><br>
                 <input type="text" name="start_date"  placeholder="yyyy-mm-dd" >
             </div>
             <!-- <label for="">Ngày Kết Thúc</label><br>
@@ -45,26 +47,25 @@
             <table class="w-100 table_bill-admin">
                 <thead>
                 <tr class="maloai">
-                    <th class="th_sp">STT</th>
-                    <th class="th_sp">TÊN SẢN PHẨM</th>
-                    <th class="th_sp">TÊN DANH MỤC</th>
-                    <th class="th_sp">GIÁ BÁN</th>
-                    <th class="th_sp">SỐ LƯỢNG BÁN</th>
-                    <th class="th_sp">TỔNG TIỀN</th>
-                    <th class="th_sp">NGÀY</th>
-                  </tr>
+                    
+                    <th class="th_sp">STT</th>   
+                    <th class="th_sp">Mã Đơn</th> 
+                    <th class="th_sp">Người Đặt</th>
+                    <th class="th_sp">Ngày Tạo Đơn</th>
+                    <th class="th_sp">Trang Thái</th>
+                    <th class="th_sp">Tổng Tiền</th>
+                </tr>
                 </thead>
                 <?php $count = 1;
-                 foreach($_sp_ban_chay as $value){
+                 foreach($_tk_don as $value){
                     ?>
                     <tr>
                     <td><?php echo $count ?></td>
-                    <td><?php echo $value['name'] ?></td>
-                    <td><?php echo $value['tendanhmuc'] ?></td>
-                    <td><?php echo $value['price'] ?></td>
-                    <td><?php echo $value['quantity'] ?></td>
-                    <td><?php echo $value['tongtien'] ?></td>
+                    <td><?php echo $value['order_id'] ?></td>
+                    <td><?php echo $value['username'] ?></td>
                     <td><?php echo $value['order_date'] ?></td>
+                    <td><?php echo $trang_thai= sw_chon($value['process']);?></td>
+                    <td><?php echo $value['total_amount'] ?></td>
                     </tr>
                     <?php
                     $count++;
@@ -73,7 +74,20 @@
                
             </table>
         </div>
-        
+        <table class="w-100 table_bill-admin">
+        <thead>
+                <tr class="maloai">
+                    
+                    <th class="th_sp">Tổng Đơn</th>
+                    <th class="th_sp">Tổng Tiền Nhận</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td><?php  echo isset($tong_don)? $tong_don : ''; ?></td>
+                    <td><?php  echo isset($tong_tien)? $tong_tien : ''; ?></td>
+                </tr>
+            </table>
+            <hr>
     <!-- </div> -->
 
 </div> 

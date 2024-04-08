@@ -1,5 +1,4 @@
 <main class="w-100 d-f f-d">
-
 <div class="row">
     <div class="row formtitle ">
         <h1>THỐNG KÊ SẢN PHẨM THEO LOẠI</h1>
@@ -23,6 +22,7 @@
             <table class="w-100 table_bill-admin">
                 <thead>
                 <tr class="maloai">
+                    <th class="th_sp">STT</th>
                     <th class="th_sp">MÃ DANH MỤC</th>
                     <th class="th_sp">TÊN DANH MỤC</th>
                     <th class="th_sp">SỐ LƯỢNG</th>
@@ -32,11 +32,12 @@
                     <th class="th_sp">TỔNG TIỀN</th>
                 </tr>
                 </thead>
-                <?php
+                <?php $count = 1;
                     foreach ($listthongke as $thongke) {
                         extract($thongke);
                         echo '<tr>
-                                <td class="td_sp">'.$madm.'</td>
+                            <td class="td_sp">'.$count.'</td>
+                            <td class="td_sp">'.$madm.'</td>
                                 <td class="td_sp">'.$tendm.'</td>
                                 <td class="td_sp">'.$countsp.'</td>
                                 <td class="td_sp">'.number_format($maxprice).'</td>
@@ -44,6 +45,7 @@
                                 <td class="td_sp">'.number_format($avgprice).'</td>
                                 <td class="td_sp">'.number_format($sumprice).'</td>
                             </tr>';
+                            $count++;
                     }
 
                 ?>    
