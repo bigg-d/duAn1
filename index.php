@@ -70,6 +70,8 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $confirm = $_POST['confirm'];
                 $email = $_POST['email'];
                 $checkemail = checkemail($email);
+                $check_username =check_username_register($username);
+                // var_dump($check_username);
                 /*                    */
                 if (empty($firstname)) {
                     $loiten1 = 'Không được bỏ trống !';
@@ -81,10 +83,11 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 }
                 if (empty($username)) {
                     $loiten3 = 'Không được bỏ trống !';
-                } else if (strlen($username) >= 6 && strlen($username) <= 24) {
-
-                } else {
+                } else if (strlen($username) <= 6 && strlen($username) >= 24) {
                     $loiten3 = 'Tên phải >= 6 && <= 24';
+
+                } elseif(is_array($check_username)){
+                    $loiten3 = 'Tên tài khoản đã tồn tại!';
                 }
                 if (empty($email)) {
                     $loiemail = 'Không được bỏ trống !';
@@ -115,7 +118,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     pdo_execute($sql);
 
                     header('Location: index.php?act=login');
-                    $thongbao = "Đăng kí thành công";
                 }
                 /*                    */
             }

@@ -35,5 +35,122 @@ function tongdoanhthu(){
   $result = pdo_query($sql);
   return $result;
 }
+// function loc_ngay_truoc_sp(){
 
+// }
+function loc_date_sp($a){
+  $sql ="SELECT sanpham.name
+                    ,sanpham.price,
+                    danhmuc.tendanhmuc,
+                    orders_detail.quantity,
+                    (orders_detail.quantity * sanpham.price) AS tongtien,
+                    order_date
+    From sanpham JOIN orders_detail 
+    ON sanpham.id = orders_detail.id JOIN orders 
+    ON orders_detail.order_id = orders.order_id JOIN danhmuc
+    ON sanpham.iddm = danhmuc.iddm
+    WHERE process = 3 AND orders.order_id =  orders_detail.order_id  AND order_date BETWEEN '$a 00:00' AND '$a 24:00'
+    ORDER BY orders_detail.quantity DESC ;";
+    $result = pdo_query($sql);
+    return $result;
+}
+function loc_sp_theo_ngay($a){
+  $sql ="SELECT sanpham.name
+                    ,sanpham.price,
+                    danhmuc.tendanhmuc,
+                    orders_detail.quantity,
+                    (orders_detail.quantity * sanpham.price) AS tongtien,
+                    order_date
+    From sanpham JOIN orders_detail 
+    ON sanpham.id = orders_detail.id JOIN orders 
+    ON orders_detail.order_id = orders.order_id JOIN danhmuc
+    ON sanpham.iddm = danhmuc.iddm
+    WHERE process = 3 AND orders.order_id =  orders_detail.order_id  and orders.order_date < ( CURRENT_DATE - INTERVAL $a DAY)  
+    ORDER BY orders_detail.quantity DESC ;";
+    $result = pdo_query($sql);
+    return $result;
+}
+function  sp_ban_chay(){
+  $sql ="SELECT sanpham.name
+                    ,sanpham.price,
+                    danhmuc.tendanhmuc,
+                    orders_detail.quantity,
+                    (orders_detail.quantity * sanpham.price) AS tongtien,
+                    order_date
+    From sanpham JOIN orders_detail 
+    ON sanpham.id = orders_detail.id JOIN orders 
+    ON orders_detail.order_id = orders.order_id JOIN danhmuc
+    ON sanpham.iddm = danhmuc.iddm
+    WHERE process = 3 AND orders.order_id =  orders_detail.order_id 
+    ORDER BY orders_detail.quantity DESC
+    ;"; 
+    
+    $result = pdo_query($sql);
+    return $result;
+}
+function tk_don(){ 
+    $sql="SELECT order_id,username,order_date,process,total_amount,
+    (SELECT COUNT(*) FROM orders ) as tong_don_6 ,(SELECT SUM(total_amount) FROM orders ) as tong_tien_6,
+    (SELECT COUNT(process) FROM orders WHERE process  =0 ) as tong_don_0 ,(SELECT SUM(total_amount) FROM orders WHERE process  =0 ) as tong_tien_0,
+    (SELECT COUNT(process) FROM orders WHERE process  =1 ) as tong_don_1 ,(SELECT SUM(total_amount) FROM orders WHERE process  =1 ) as tong_tien_1,
+    (SELECT COUNT(process) FROM orders WHERE process  =2 ) as tong_don_2 ,(SELECT SUM(total_amount) FROM orders WHERE process  =2 ) as tong_tien_2,
+    (SELECT COUNT(process) FROM orders WHERE process  =3 ) as tong_don_3 ,(SELECT SUM(total_amount) FROM orders WHERE process  =3 ) as tong_tien_3,
+    (SELECT COUNT(process) FROM orders WHERE process  =4 ) as tong_don_4 ,(SELECT SUM(total_amount) FROM orders WHERE process  =4 ) as tong_tien_4,
+    (SELECT COUNT(process) FROM orders WHERE process  =5 ) as tong_don_0 ,(SELECT SUM(total_amount) FROM orders WHERE process  =5 ) as tong_tien_5
+       FROM orders JOIN taikhoan 
+       WHERE id = customer_id
+       ORDER BY total_amount DESC";
+    $result = pdo_query($sql);
+    return $result;
+}
+function trang_thai_don($a){ 
+    $sql="SELECT order_id,username,order_date,process,total_amount
+          FROM orders JOIN taikhoan
+          WHERE id = customer_id AND process = $a
+    	    ORDER BY total_amount DESC";
+    $result = pdo_query($sql);
+    return $result;
+}
+function loc_don_ngay($a){ 
+    $sql="SELECT order_id,username,order_date,process,total_amount
+          FROM orders JOIN taikhoan
+          WHERE id = customer_id 
+          AND order_date BETWEEN '$a 00:00' AND '$a 24:00' 
+    	    ORDER BY total_amount DESC";
+    $result = pdo_query($sql);
+    return $result;
+}
+function sw_chon($a){
+  switch ($a) {
+    case 0:
+        $trang_thai = 'Tiếp Nhận Đơn';
+        break;
+    case 1:
+        $trang_thai = 'Đang Xử Lý';
+        break;
+    case 2:
+        $trang_thai = 'Đang Giao Hàng';
+        break;
+    case 3:
+        $trang_thai = 'Giao Hàng Thành Công';
+        break;
+    case 4:
+        $trang_thai = 'Đã Hủy Đơn (admin)';
+        break;
+    case 4:
+        $trang_thai = 'Đã Hủy Đơn (khách hàng)';
+        break;
+    case 5  :
+        $trang_thai = 'Đã Hủy Đơn (khách hàng)';
+        break;
+    case 6  :
+        $trang_thai = 'Tất Cả';
+        break;
+    
+    default:
+        # code...
+        break;
+      }
+      return $trang_thai;
+}
 ?>

@@ -335,6 +335,47 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                 }
                 include "bill/listbill.php";
                 break;
+            case 'sp_ban_chay':
+                                    
+                if(isset($_POST['done_date'])){
+                    $_date = $_POST['start_date'];   
+                    $_chon_ngay = $_POST['chon_ngay'];
+                    if($_date != '' && $_chon_ngay == 0){
+                        $_sp_ban_chay = loc_date_sp($_date);    
+                    }else{
+                        $_sp_ban_chay = loc_sp_theo_ngay($_chon_ngay);
+                    }
+                }
+                else{
+                    $_sp_ban_chay=sp_ban_chay();
+                }
+
+                include "thongke/sp_ban_chay.php";
+                break;
+            case 'tk_don_hang' :
+                if(isset($_POST['done_date'])){
+                    $_date = $_POST['start_date'];   
+                    $_trang_thai = $_POST['chon_ngay'];
+                    if($_date != '' && $_trang_thai == 6){
+                        $_tk_don = loc_don_ngay($_date);    
+                    }else{
+                         for ($i=0; $i <=6 ; $i++) { 
+                            if($_trang_thai==$i){
+                                $_tk_don = tk_don();
+                                $tong_don = $_tk_don[1]['tong_don_'.$i.''];
+                                $tong_tien = $_tk_don[1]['tong_tien_'.$i.''];
+                            }else{$_tk_don = trang_thai_don($_trang_thai);}
+                         }
+                    }
+                }else{
+                    $_tk_don = tk_don();
+                    // var_dump($_tk_don);
+                    $tong_don = $_tk_don[1]['tong_don_6'];
+                    $tong_tien = $_tk_don[1]['tong_tien_6'];
+
+                }
+                include "thongke/thong_ke_don.php";
+                break;
             case 'xoabill':
                 // if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 //     delete_bill($_GET['id']);
