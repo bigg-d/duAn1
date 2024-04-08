@@ -34,16 +34,21 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                 include "danhmuc/add.php";
                 break;
             case 'listdm':
+                if(isset($_POST['tendanhmuc'])){
+                    $tendanhmuc = $_POST['tendanhmuc'];
 
-                $listdanhmuc = loadall_danhmuc();
+                }else{
+                    $tendanhmuc = '';
+                }
+                $listdanhmuc = loadall_danhmuc($tendanhmuc);
                 include "danhmuc/list.php";
                 break;
             case 'xoadm':
                 if (isset ($_GET['id']) && ($_GET['id'] > 0)) {
                     delete_danhmuc($_GET['id']);
                 }
-                $listdanhmuc = loadall_danhmuc();
-                include "danhmuc/list.php";
+                $listdanhmuc = loadall_danhmuc('');
+                header("location: index.php?act=listdm");
                 break;
             case 'suadm':
                 if (isset ($_GET['id']) && ($_GET['id'] > 0)) {
@@ -59,7 +64,7 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                     $thongbao = "cap nhat thnah cong";
                 }
 
-                $listdanhmuc = loadall_danhmuc();
+                $listdanhmuc = loadall_danhmuc('');
                 include "danhmuc/list.php";
                 break;
 
@@ -117,7 +122,7 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                     }
     
                 }
-                $listdanhmuc = loadall_danhmuc();
+                $listdanhmuc = loadall_danhmuc('');
                 include "sanpham/add.php";
                 break;
             case 'listsp':
@@ -129,7 +134,7 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                     $iddm = 0;
                 }
     
-                $listdanhmuc = loadall_danhmuc();
+                $listdanhmuc = loadall_danhmuc('');
                 $listsanpham = loadall_sanpham($kyw, $iddm, '','');
                 include "sanpham/list.php";
                 break;
@@ -145,7 +150,7 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                 if (isset ($_GET['id']) && ($_GET['id'] > 0)) {
                     $sanpham = loadone_sanpham($_GET['id']);
                 }
-                $listdanhmuc = loadall_danhmuc();
+                $listdanhmuc = loadall_danhmuc('');
                 include "sanpham/update.php";
                 break;
             case 'updatesp':

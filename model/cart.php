@@ -28,8 +28,14 @@
         $cartItems = pdo_query($sql);
         return $cartItems;
     }
+    function count_cart_items($cartId){
+        $sql = "SELECT COUNT(*) AS TotalFields
+        FROM cart_item
+        WHERE cart_id = '$cartId'";
+        $result = pdo_query($sql);
+        return $result;
+    }
     function update_cartItems($id,$cartId,$quantity, $total_price ){
-        echo $total_price;
         $sql = "update cart_item set quantity = '$quantity', total_price = '$total_price' where cart_id = '$cartId' and id = '$id'";
         pdo_execute($sql);
     }

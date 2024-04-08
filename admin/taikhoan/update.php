@@ -1,8 +1,5 @@
 <?php
-    if(is_array($taikhoan)){
-        var_dump($taikhoan);
-      } 
-   
+    
 ?>
 <main class="w-100 d-f f-d">
           <h3>Update Khách Hàng</h3>

@@ -69,7 +69,7 @@
                                   <a class="url-edit" href="' . $suasp . '">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                   </a> 
-                                  <a class="url-delete" href="' . $xoasp . '">
+                                  <a class="url-delete" href="' . $xoasp . '" onclick="return confirm(\'Xác nhận xóa\')">
                                     <i class="fa-solid fa-trash"></i>
                                   </a> 
                                 </td>

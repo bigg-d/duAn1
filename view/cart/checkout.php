@@ -19,7 +19,7 @@
 	<div class="container">
 
 		<!-- Checkout Form s-->
-		<form action="index.php?act=checkout" method="post" class="checkout-form" enctype="multipart/form-data">
+		<form id="checkout_form" action="index.php?act=checkout" method="post" class="checkout-form" enctype="multipart/form-data">
 			<div class="row row-50 mbn-40">
 
 				<div class="col-lg-7">
@@ -33,7 +33,8 @@
 							<div class="col-md-6 col-12 mb-5">
 								<label>First Name*</label>
 								<input type="text" name="firstName" id="first-name"
-									value='<?= isset($recipient_name) ? $recipient_name : '' ?>' placeholder="First Name">
+									value='<?= isset($recipient_name) ? $recipient_name : '' ?>'
+									placeholder="First Name">
 								<input type="hidden" name="currentFirstName" id="currentFirstName"
 									value="<?= isset($_SESSION['user']['firstname']) ? $_SESSION['user']['firstname'] : '' ?>">
 								<p id="first-name_err" style="color:red">
@@ -107,14 +108,13 @@
 
 
 							<div class="single-method">
-								<input id="opener" type="radio" id="payment_bank" name="payment-method" value="bank">
-								<label for="payment_bank">Direct Bank Transfer</label>
+								<input type="radio" id="payment_bank" name="payment-method" value="bank">
+								<label id='payment_bank' for="payment_bank">Direct Bank Transfer</label>
 								<p data-method="bank">Please send a Check to Store name with Store Street, Store
 									Town, Store State, Store Postcode, Store Country.</p>
 							</div>
 
 							<div class="single-method">
-								<button name="redirect">VNPAY</button>
 								<input type="radio" id="payment_cash" name="payment-method" value="cash">
 								<label for="payment_cash">Cash on Delivery</label>
 								<p data-method="cash">Please send a Check to Store name with Store Street, Store
@@ -253,6 +253,7 @@
 					  <span><i class="fa-solid fa-id-card-clip"></i> Mã đơn hàng</span>
 					  <span > <?= $orderId ?></span>
 					</div> -->
+			<input type="hidden" value="<?=$orderId?>" id="orderId">		
 			<div class="timePay blockPayment">
 				<button class="button-back-pay">
 					<i class="fa-solid fa-arrow-left"></i> Quay lại
@@ -275,7 +276,7 @@
 					<img width="120px" src="img/logo/mbbank.png" alt="">
 				</div>
 			</div>
-			<div id="opener" style="text-align:right; font-size:22px" id="closeQrBtn">x</div>
+			<div style="text-align:right; font-size:22px;cursor:pointer" id="closeQrBtn">x</div>
 			<div class="line_pay"></div>
 			<div class="qr_code w-100 d-f al-c f-d" style="text-align:center">
 				<h4 class="m-t-b10" style="font-weight:700">Quét mã để thanh toán</h4>
@@ -286,12 +287,23 @@
 					Sử dụng app MBBank để quét mã
 				</p>
 				<div style="display:flex; justify-content:center; gap:10px">
-					<span class="loading-pay ">
+					<!-- CHECK ICON  -->
+					<svg style="width:30px" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+						<circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10"
+							cx="65.1" cy="65.1" r="62.1" />
+						<polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6"
+							stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
+					</svg>
+					<span class="processing-pay" id="success" style="display:none">
+						Thanh toán thành công
+					</span>
+					<span id="loading-pay">
 						<div class="loader"></div>
 					</span>
-					<span class="processing-pay">
+					<span class="processing-pay" id="loading">
 						Đang chờ quét mã
 					</span>
+
 				</div>
 			</div>
 			<div class="notePay">
@@ -332,23 +344,34 @@
 	updateCountdown();
 
 
+	var closeQrBtn = document.getElementById('closeQrBtn')
+	var openBtn = document.getElementById('payment_bank');
+	var dialog = document.getElementById('dialog');
 
+	openBtn.addEventListener('click', function () {
+		// var form = document.getElementById('checkout_form')
 
-	$( function() {
-    $( "#dialog" ).dialog({
-      autoOpen: false,
-      show: {
-        effect: "blind",
-        duration: 1000
-      },
-      hide: {
-        effect: "explode",
-        duration: 1000
-      }
-    });
- 
-    $( "#opener" ).on( "click", function() {
-      $( "#dialog" ).dialog( "open" );
-    });
-  } );
+		dialog.style.display = 'block';
+		var svg = document.querySelector('svg');
+  		var successSpan = document.getElementById('success');
+  		var loadingSpan = document.getElementById('loading');
+		  var loadingPay = document.getElementById('loading-pay');
+
+			setTimeout( function() {
+				svg.style.display = 'block';
+				successSpan.style.display = 'block';
+				loadingSpan.style.display = 'none';
+				loadingPay.style.display = 'none';
+			}, 5000);
+			setTimeout(function(){
+				dialog.style.display = 'none';
+				// document.getElementById('checkout_form').submit();
+				// window.location.href ="index.php?act=checkout_success"
+			},6000)
+
+	});
+	closeQrBtn.addEventListener('click', function () {
+		dialog.style.display = 'none';
+	});
+
 </script>

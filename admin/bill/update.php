@@ -21,7 +21,7 @@ $arr = [
     <form action="index.php?act=updatebill" class="general-form" method="post" enctype="multipart/form-data">
       <div class="block_form d-f f-d">
         <label for="">TÌNH TRẠNG ĐƠN HÀNG</label>
-        <?php if ($process >= 0 && $process <= 3) { ?>
+        <?php if ($process >= 0 && $process < 3) { ?>
           <select name="ttdh" id="">
             <?php for ($i = 0; $i < count($arr); $i++) { ?>
 

@@ -1,3 +1,10 @@
+<?php
+    if(isset($_SESSION['user'])){
+        $cartId = get_cartId($_SESSION['user']['id']);
+        $result = count_cart_items($cartId[0][0]);
+        $total_cart_item = $result[0]['TotalFields'];
+    }
+?>
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -28,7 +35,7 @@
 
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="assets/css/plugins.css">
-`
+
     <!-- Helper CSS -->
     <link rel="stylesheet" href="assets/css/helper.css">
 
@@ -45,7 +52,7 @@
 </head>
 
 <body>
-
+  
     <div class="main-wrapper">
 
         <!-- Header Section Start -->
@@ -121,7 +128,7 @@
 
                                 <div class="header-mini-cart">
                                     <a href="index.php?act=cart"><img src="assets/images/icons/cart.png" alt="Cart">
-                                        <span>02</span></a>
+                                        <span><?=isset($total_cart_item) ? $total_cart_item : 0?></span></a>
                                 </div>
 
                             </div><!-- Header Advance Search End -->

@@ -15,8 +15,7 @@ include_once "fuc.php";
 include "view/header.php";
 
 
-// $cartId = get_cartId($_SESSION['user']['id']);
-// $cartItems = get_all_cartItem($cartId[0]['id']);
+
 
 
 if (isset($_GET['act']) && ($_GET['act'] != "")) {
@@ -45,7 +44,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
 
             $listsanpham = loadall_sanpham($kyw, $iddm, $min, $max);
 
-            $listdanhmuc = loadall_danhmuc();
+            $listdanhmuc = loadall_danhmuc('');
             include "view/shop.php";
             break;
         case 'detailProduct':
@@ -300,11 +299,11 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                                 $ttien = $soluong * intval($price);
                                 insert_cartItem($cartId[0]['id'], $id, $name, $img, $price, $soluong, $ttien);
                                 update_cart($cartId[0]['id'], date('Y-m-d H:i:s'));
+                                // header('location: index.php');
                             }
     
                         } else {
                             $cartId = insert_cart($_SESSION['user']['id'], $lastModifiedDate);
-                            var_dump($cartId);
                             $cartItems = get_all_cartItem($cartId);
                             if (findElementInArray($cartItems, $id)) {
                                 echo "<script>alert('Đã có trong giỏ hàng');</script>";
@@ -386,7 +385,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     $currentDate = date('Y-m-d H:i:s');
                     $grandTotal = $_POST['grandTotal'];
                     $shippingFee = $_POST['shippingFee'];
-                    echo $shippingFee;
 
                     $orderId = insert_bill($idUser, $recipient_name . ' ' . $recipient_lastname, $recipient_email, $recipient_phone, $recipient_address, $payment_method, $currentDate, $grandTotal, $shippingFee);
 
@@ -409,7 +407,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $prices = $_POST['price'];
                 $cartId = get_cartId($_SESSION['user']['id']);
                 $cartItems = get_all_cartItem($cartId[0]['id']);
-                var_dump($prices);
                 $ids = $_POST['id'];
                 if($_POST['submit'] === 'Proceed to Checkout'){
                     include "view/cart/checkout.php";
@@ -422,7 +419,6 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
 
                     include "view/cart/cart.php";
                 }
-                echo $_POST['submit'];
             }
             break;
         case 'orderDetail':

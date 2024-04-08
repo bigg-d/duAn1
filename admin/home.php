@@ -75,8 +75,8 @@
   </div>
 </main>
 <script>
-  var xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
-  var yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+  var xValues = [50, 60, 70, 80, 90, 100, 110];
+  var yValues = [1, 2, 3, 4, 9, 9, 10, 11, 14, 14, 15];
   var zValues = [6, 6, 8, 13, 9, 9, 13, 16, 14, 14, 15];
 
   new Chart("myChart", {
@@ -95,7 +95,7 @@
     options: {
       legend: { display: false },
       scales: {
-        yAxes: [{ ticks: { min: 6, max: 16 } }],
+        yAxes: [{ ticks: { min: 1 , max: 12 } }],
       }
     }
   });

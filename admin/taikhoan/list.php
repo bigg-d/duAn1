@@ -58,10 +58,17 @@
                                 <td> 
                                   <a class="url-edit" href="<?= $suatk ?>">
                                     <i class="fa-solid fa-pen-to-square"></i>
-                                  </a> 
-                                  <a  class="url-delete" href="<?= $xoatk ?>" onclick='return confirm("Delete entry?")'>
+                                  </a>
+                                  <?php 
+                                      if($_SESSION['user']['id'] !== $id) {
+                                        echo "<a  class='url-delete' href='$xoatk' onclick='return confirm(\"Xác nhận xóa\")'>
+                                        <i class='fa-solid fa-trash'></i>
+                                      </a> ";
+                                      }
+                                  ?> 
+                                  <!-- <a  class="url-delete" href="<?= $xoatk ?>" onclick='return confirm("Delete entry?")'>
                                     <i class="fa-solid fa-trash"></i>
-                                  </a> 
+                                  </a>  -->
                                 </td>
                             </tr>
                    <?php } ?>
