@@ -82,8 +82,8 @@ $popular_products = loadall_sanpham_popular();
                                                     href="index.php?act=detailProduct&id=<?= $product['id'] ?>">
                                                     <?= $product['name'] ?>
                                                 </a></h4>
-                                    <input name="name" type="hidden" value="<?php echo $product['name'] ?>">
-                                                
+                                            <input name="name" type="hidden" value="<?php echo $product['name'] ?>">
+
 
                                             <div class="ratting">
                                                 <i class="fa fa-star"></i>
@@ -107,7 +107,7 @@ $popular_products = loadall_sanpham_popular();
                                                 <?= number_format(($product['price'] / 26000), 1) ?>
                                             </span>
                                         </div>
-                                    <input name="price" type="hidden" value="<?php echo $product['price'] ?>">
+                                        <input name="price" type="hidden" value="<?php echo $product['price'] ?>">
 
 
                                     </div>
@@ -133,15 +133,20 @@ $popular_products = loadall_sanpham_popular();
                 <div class="sidebar">
                     <h4 class="sidebar-title">Category</h4>
                     <ul class="sidebar-list">
+                        <li><a href="index.php?act=shop">Tất cả</a></li>
                         <?php foreach ($listdanhmuc as $key => $danhmuc) {
+
                             $total_product = tong_sanpham($danhmuc['iddm']);
-                            ?>
-                            <li><a href="index.php?act=shop&iddm=<?= $danhmuc['iddm'] ?>">
-                                    <?= $danhmuc['tendanhmuc'] ?> <span class="num">
-                                        <?= $total_product[0][0] ?>
-                                    </span>
-                                </a></li>
-                        <?php } ?>
+                            if ($danhmuc['trangthai'] !== 0) {
+                                echo '
+    <li><a href="index.php?act=shop&iddm=' . $danhmuc['iddm'] . '">
+        ' . $danhmuc['tendanhmuc'] . ' <span class="num">' . $total_product[0][0] . '</span>
+    </a></li>
+';
+                            }
+                        }
+                        ?>
+
                     </ul>
                 </div>
 
@@ -151,7 +156,9 @@ $popular_products = loadall_sanpham_popular();
                         <input style="padding:4px 8px; width:35%;" name='min_price' type="number" placeholder="Từ">
                         <input style="padding:4px 8px; width:35%;" name='max_price' type="number" placeholder="Đến">
                     </div>
-                    <button style="color:white;font-weight: 500;width:100%;background-color:#94B7EC; border:none; padding:4px 6px; border-radius:12px">Tìm kiếm</button>
+                    <button
+                        style="color:white;font-weight: 500;width:100%;background-color:#94B7EC; border:none; padding:4px 6px; border-radius:12px">Tìm
+                        kiếm</button>
                 </form>
                 <div class="sidebar">
                     <h4 class="sidebar-title">Popular Product</h4>
@@ -162,7 +169,7 @@ $popular_products = loadall_sanpham_popular();
                                 <a href="single-product.html" class="image"><img src="upload/<?= $product['img'] ?>"
                                         alt=""></a>
                                 <div class="content">
-                                    <a href="index.php?act=detailProduct&id=<?=$product['id']?>" class="title">
+                                    <a href="index.php?act=detailProduct&id=<?= $product['id'] ?>" class="title">
                                         <?= $product['name'] ?>
                                     </a>
                                     <span class="price">$

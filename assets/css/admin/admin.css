@@ -309,9 +309,8 @@ background-color: orange;
 
 /* -------------------- Form thêm sửa sản phẩm---------------------- */
 .general-form{
-    padding: 0px 28%;
     padding-bottom: 20px;
-    width: 100%;
+    width: 30%;
     font-size: 1.4rem;
 }
 .general-form label{

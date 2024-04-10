@@ -6,20 +6,7 @@
     </div>
     
     <div class="search_list-product-admin w-100">
-    <form action="" class="d-f form-search" method="post">
-              <input
-                type="text"
-                placeholder="Tìm kiếm theo tên danh mục..."
-                class="input-search"
-                name="kyw"
-              />
-              <input
-                type="submit"
-                class="submit-search-form"
-                value="Tìm kiếm"
-                name="listok"
-              />
-    </form>  
+    
     <form style="line-height:30px; display:flex;padding:12px;margin-bottom: 20px;" action="index.php?act=sp_ban_chay" method="post">
             <div style="margin-right: 10px;">
                 <label for="">Thời Gian</label><br>
@@ -66,9 +53,9 @@
                     <td><?php echo $count ?></td>
                     <td><?php echo $value['name'] ?></td>
                     <td><?php echo $value['tendanhmuc'] ?></td>
-                    <td><?php echo $value['price'] ?></td>
+                    <td><?php echo number_format($value['price']) ?></td>
                     <td><?php echo $value['quantity'] ?></td>
-                    <td><?php echo $value['tongtien'] ?></td>
+                    <td><?php echo number_format($value['tongtien']) ?></td>
                     <td><?php echo $value['order_date'] ?></td>
                     </tr>
                     <?php

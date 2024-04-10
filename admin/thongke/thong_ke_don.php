@@ -6,20 +6,7 @@
     </div>
     
     <div class="search_list-product-admin w-100">
-    <form action="" class="d-f form-search" method="post">
-              <input
-                type="text"
-                placeholder="Tìm kiếm theo tên danh mục..."
-                class="input-search"
-                name="kyw"
-              />
-              <input
-                type="submit"
-                class="submit-search-form"
-                value="Tìm kiếm"
-                name="listok"
-              />
-    </form>  
+    
     <form style="line-height:30px; display:flex;padding:12px;margin-bottom: 20px;" action="index.php?act=tk_don_hang" method="post">
             <div style="margin-right: 10px;">
                 <label for="">Trạng Thái Đơn Hàng</label><br>
@@ -69,7 +56,7 @@
                     <td><?php echo $value['username'] ?></td>
                     <td><?php echo $value['order_date'] ?></td>
                     <td><?php echo $trang_thai= sw_chon($value['process']);?></td>
-                    <td><?php echo $value['total_amount'] *26000 ?></td>
+                    <td><?php echo number_format($value['total_amount'] * 26000) ?></td>
                     </tr>
                     <?php
                     $count++;
@@ -87,8 +74,8 @@
                 </tr>
                 </thead>
                 <tr>
-                    <td><?php  echo isset($tong_don)? $tong_don : ''?> </td>
-                    <td><?php  echo isset($tong_tien)? $tong_tien*26000 : ''; ?></td>
+                    <td><?php  echo isset($tong_don)? $tong_don : ''; ?></td>
+                    <td><?php  echo isset($tong_tien)? $tong_tien : ''; ?></td>
                 </tr>
             </table>
             <hr>

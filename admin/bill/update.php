@@ -1,6 +1,7 @@
 <?php
 if (is_array($bill)) {
   extract($bill[0]);
+  $listbill = loadall_detail_bill($order_id);
   //  $idBill = $bill["bill_status"];
   //  echo $bill["bill_status"];
 
@@ -17,9 +18,30 @@ $arr = [
 
 <main class="w-100 d-f f-d">
   <h3>Update Bill</h3>
-  <div class="search_list-product-admin w-100 d-f jf-c">
+  <div class="search_list-product-admin w-100 d-f">
+    <table style="display:block; padding: 20px 100px; border-collapse:collapse; border:1px" border='1'>
+      <tr>
+        <th style="padding:10px">Image</th>
+        <th style="padding:10px">Product</th>
+        <th style="padding:10px">Price</th>
+        <th style="padding:10px">Quantity</th>
+        <th style="padding:10px">Total</th>
+      </tr>
+      <?php foreach ($listbill as $key => $bill) {
+        $product = loadone_sanpham($bill['product_id']);  
+      ?>
+      <tr>
+        <td style="padding:16px"><img src="../upload/<?= $product['img']?>" style="width:100px" alt=""></td>
+        <td style="padding:16px"><?= $product['name']?></td>
+        <td style="padding:16px"><?= number_format($product['price'])?></td>
+        <td style="padding:16px"><?=$bill['quantity']?></td>
+        <td style="padding:16px"><?= number_format($product['price'] * $bill['quantity'])?></td>
+      </tr>
+      <?php }?>
+    </table> 
     <form action="index.php?act=updatebill" class="general-form" method="post" enctype="multipart/form-data">
       <div class="block_form d-f f-d">
+        <h2 style="margin-bottom: 14px">Tổng giá trị đơn hàng:   <?= number_format($total_amount * 26000)?></h2>
         <label for="">TÌNH TRẠNG ĐƠN HÀNG</label>
         <?php if ($process >= 0 && $process < 3) { ?>
           <select name="ttdh" id="">
