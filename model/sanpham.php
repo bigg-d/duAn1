@@ -36,7 +36,7 @@
     //     $listsanpham = pdo_query($sql);
     //     return $listsanpham;
     // }
-    function loadall_sanpham($kyw,$iddm, $minPrice = 0, $maxPrice){
+    function loadall_sanpham($kyw,$iddm, $minPrice , $maxPrice){
         $sql = "select * from sanpham where 1";
         if($kyw != ""){
             $sql.= " and LOWER(CONVERT(name USING utf8mb4)) REGEXP LOWER(CONVERT('$kyw' USING utf8mb4))";

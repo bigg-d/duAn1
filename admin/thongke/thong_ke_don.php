@@ -34,8 +34,12 @@
             </select>
             </div>
             <div style="margin-right: 10px;">
-                <label for="">Đơn Hàng Theo Ngày</label><br>
+                <label for="">Ngày Bắt Đầu</label><br>
                 <input type="text" name="start_date"  placeholder="yyyy-mm-dd" >
+            </div>
+            <div style="margin-right: 10px;">
+                <label for="">Ngày Kết Thúc</label><br>
+                <input type="text" name="end_date"  placeholder="yyyy-mm-dd" >
             </div>
             <!-- <label for="">Ngày Kết Thúc</label><br>
             <input type="text" name="end_date" placeholder="yyyy-mm-dd" ><br><br> -->
@@ -65,7 +69,7 @@
                     <td><?php echo $value['username'] ?></td>
                     <td><?php echo $value['order_date'] ?></td>
                     <td><?php echo $trang_thai= sw_chon($value['process']);?></td>
-                    <td><?php echo $value['total_amount'] ?></td>
+                    <td><?php echo $value['total_amount'] *26000 ?></td>
                     </tr>
                     <?php
                     $count++;
@@ -83,8 +87,8 @@
                 </tr>
                 </thead>
                 <tr>
-                    <td><?php  echo isset($tong_don)? $tong_don : ''; ?></td>
-                    <td><?php  echo isset($tong_tien)? $tong_tien : ''; ?></td>
+                    <td><?php  echo isset($tong_don)? $tong_don : ''?> </td>
+                    <td><?php  echo isset($tong_tien)? $tong_tien*26000 : ''; ?></td>
                 </tr>
             </table>
             <hr>
