@@ -32,8 +32,12 @@
             </select>
             </div>
             <div style="margin-right: 10px;">
-                <label for="">Ngày cụ thể</label><br>
-                <input type="text" name="start_date"  placeholder="yyyy-mm-dd" >
+                <label for="">Ngày bắt đầu</label><br>
+                <input type="text" name="start_date"  placeholder="yyyy-mm-dd" >    
+            </div>
+            <div style="margin-right: 10px;">
+                <label for="">Ngày kết thúc</label><br>
+                <input type="text" name="end_date" placeholder="yyyy-mm-dd" id="">
             </div>
             <!-- <label for="">Ngày Kết Thúc</label><br>
             <input type="text" name="end_date" placeholder="yyyy-mm-dd" ><br><br> -->
@@ -54,6 +58,7 @@
                     <th class="th_sp">NGÀY</th>
                   </tr>
                 </thead>
+                
                 <?php $count = 1;
                  foreach($_sp_ban_chay as $value){
                     ?>
@@ -72,11 +77,25 @@
             ?>
                
             </table>
-        </div>
-        
-    <!-- </div> -->
-
-</div> 
+          </div>
+          
+          <!-- </div> -->
+          
+        </div> 
+        <table>
+        <thead>
+            <tr class="maloai">
+                
+                <th class="th_sp">Tổng Sản Phẩm Bán Được</th>
+                <th class="th_sp">Tổng Tiền Nhận</th>
+            </tr>
+            </thead>
+            <tr>
+                <td><?php  echo isset($tong_don)? $tong_don : ''?> </td>
+                <td><?php  echo isset($tong_tien)? $tong_tien*26000 : ''; ?></td>
+            </tr>
+        </table>
+        <hr>
 <!-- ---------------------Biểu đồ----------------------- -->
 <div class="canvas-chart" style="margin-top: 100px;">
     <canvas id="myChart" style="width:100%;max-width: 80%;height: 350px;"></canvas>

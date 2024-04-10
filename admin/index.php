@@ -343,10 +343,11 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
             case 'sp_ban_chay':
                                     
                 if(isset($_POST['done_date'])){
-                    $_date = $_POST['start_date'];   
+                    $start_date = $_POST['start_date'];   
+                    $end_date = $_POST['end_date'];   
                     $_chon_ngay = $_POST['chon_ngay'];
-                    if($_date != '' && $_chon_ngay == 0){
-                        $_sp_ban_chay = loc_date_sp($_date);    
+                    if($start_date != '' && $end_date != '' && $_chon_ngay == 0){
+                        $_sp_ban_chay = loc_date_sp($start_date,$end_date);    
                     }else{
                         $_sp_ban_chay = loc_sp_theo_ngay($_chon_ngay);
                     }
@@ -359,10 +360,11 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                 break;
             case 'tk_don_hang' :
                 if(isset($_POST['done_date'])){
-                    $_date = $_POST['start_date'];   
+                    $start_date = $_POST['start_date'];   
+                    $end_date = $_POST['end_date'];  
                     $_trang_thai = $_POST['chon_ngay'];
-                    if($_date != '' && $_trang_thai == 6){
-                        $_tk_don = loc_don_ngay($_date);    
+                    if($start_date != '' && $end_date != '' && $_trang_thai == 6){
+                        $_tk_don = loc_don_ngay($start_date,$end_date,);
                     }else{
                          for ($i=0; $i <=6 ; $i++) { 
                             if($_trang_thai==$i){

@@ -38,7 +38,7 @@ function tongdoanhthu(){
 // function loc_ngay_truoc_sp(){
 
 // }
-function loc_date_sp($a){
+function loc_date_sp($a,$b){
   $sql ="SELECT sanpham.name
                     ,sanpham.price,
                     danhmuc.tendanhmuc,
@@ -49,7 +49,7 @@ function loc_date_sp($a){
     ON sanpham.id = orders_detail.id JOIN orders 
     ON orders_detail.order_id = orders.order_id JOIN danhmuc
     ON sanpham.iddm = danhmuc.iddm
-    WHERE process = 3 AND orders.order_id =  orders_detail.order_id  AND order_date BETWEEN '$a 00:00' AND '$a 24:00'
+    WHERE process = 3 AND orders.order_id =  orders_detail.order_id  AND order_date BETWEEN '$a 00:00' AND '$b 24:00'
     ORDER BY orders_detail.quantity DESC ;";
     $result = pdo_query($sql);
     return $result;
@@ -111,12 +111,12 @@ function trang_thai_don($a){
     $result = pdo_query($sql);
     return $result;
 }
-function loc_don_ngay($a){ 
-    $sql="SELECT order_id,username,order_date,process,total_amount
-          FROM orders JOIN taikhoan
-          WHERE id = customer_id 
-          AND order_date BETWEEN '$a 00:00' AND '$a 24:00' 
-    	    ORDER BY total_amount DESC";
+function loc_don_ngay($a,$b){ 
+    $sql="SELECT order_id,username,order_date,process,total_amount,(SELECT COUNT(order_id) FROM orders WHERE order_date BETWEEN '$a 00:00' AND '$b 24:00') AS tong_don, (SELECT SUM(total_amount) FROM orders WHERE order_date BETWEEN '$a 00:00' AND '$b 24:00') as tong_tien
+    FROM orders JOIN taikhoan
+    WHERE id = customer_id 
+    AND order_date BETWEEN '$a 00:00' AND '$b 24:00' 
+    ORDER BY total_amount DESC";
     $result = pdo_query($sql);
     return $result;
 }

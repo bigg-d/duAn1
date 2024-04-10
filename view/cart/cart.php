@@ -157,7 +157,7 @@ $emptyCart = '<h1 style="font-size: 36px;
                     </div>
                 </div>
             </form>
-
+        <?php }?>
     </div>
 </div>
 <!-- Page Section End -->
