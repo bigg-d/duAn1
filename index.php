@@ -141,6 +141,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             if (isset($_SESSION['user']) && $_SESSION['user']) {
                 $user = $_SESSION['user']['username'];
                 $role = $_SESSION['user']['role'];
+                $user_info = loadone_taikhoan($_SESSION['user']['id']);
                 $orders = loadall_bill($_SESSION['user']['id']);
                 include "view/account/account.php";
             } else {
@@ -356,7 +357,8 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     $recipient_email = $_POST['email'];
                     $recipient_phone = $_POST['phone'];
                 }
-                $payment_method = isset($_POST['payment-method']) ? $_POST['payment-method'] : '';
+                $payment_method_bank = isset($_POST['payment-method-bank']) ? $_POST['payment-method-bank'] : '';
+                $payment_method_cash = isset($_POST['payment-method-cash']) ? $_POST['payment-method-cash'] : '';
 
                 $firstname_err = $lastname_err = $email_err = $phone_err = $address_err = $payments_err = "";
 
@@ -376,24 +378,31 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 } elseif (!preg_match('/^(0[2-9]|01[2|6|8|9])+([0-9]{8})$/', $recipient_phone)) {
                     $phone_err = "Số điện thoại sai định dạng";
                 }
-                if (empty($payment_method)) {
+                if (empty($payment_method_cash) && empty($payment_method_bank)) {
                     $payments_err = "Vui lòng chọn phương thức thanh toán";
                 }
-               
+                if($payment_method_cash == 'cash'){
+                    $payment_method = 1;
+                }else{
+                    $payment_method =2;
+                }
                 if (empty($firstname_err) && empty($address_err) && empty($email_err) && empty($phone_err) && empty($payments_err)) {
                     $idUser = $_SESSION['user']['id'];
                     $currentDate = date('Y-m-d H:i:s');
                     $grandTotal = $_POST['grandTotal'];
                     $shippingFee = $_POST['shippingFee'];
-
-                    $orderId = insert_bill($idUser, $recipient_name . ' ' . $recipient_lastname, $recipient_email, $recipient_phone, $recipient_address, $payment_method, $currentDate, $grandTotal, $shippingFee);
-
-                    foreach ($cartItems as $key => $product) {
-                        insert_detail_bill($orderId, $product['product_id'], $product['quantity']);
+                    if($payment_method == 1){
+                        $orderId = insert_bill($idUser, $recipient_name . ' ' . $recipient_lastname, $recipient_email, $recipient_phone, $recipient_address, $payment_method, $currentDate, $grandTotal, $shippingFee);
+                        foreach ($cartItems as $key => $product) {
+                            insert_detail_bill($orderId, $product['product_id'], $product['quantity']);
+                        }
+                        unset($_SESSION['mycart']);
+    
+                        delete_cartItem($cartId[0]['id'],'');
                     }
-                    unset($_SESSION['mycart']);
-
-                    delete_cartItem($cartId[0]['id'],'');
+                    else{
+                        include "vnpay_php/vnpay_create_payment.php";
+                    }
                     header("location: index.php?act=checkout_success&orderId=$orderId");
                     exit;
                 }

@@ -29,7 +29,16 @@
         echo $sql;
         pdo_execute($sql);
     }
-
+    function  edit_pass($id, $new_pass){
+        $sql ="UPDATE `taikhoan` SET `pass`= '$new_pass' WHERE id = '$id'";
+        $ketqua = pdo_execute($sql);
+        return $ketqua;
+    }
+    function update_address($id,$address,$phone){
+        $sql =" UPDATE `taikhoan` SET `address` = '$address',`phone`='$phone' WHERE `id` ='$id'";
+        $ketqua = pdo_execute($sql);
+        return $ketqua;
+    }
     // function loadall_taikhoan(){
     //     $sql = "select * from taikhoan order by id desc";
     //     $listuser = pdo_query($sql);
