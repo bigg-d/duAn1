@@ -39,6 +39,15 @@
         $sql = "update cart_item set quantity = '$quantity', total_price = '$total_price' where cart_id = '$cartId' and id = '$id'";
         pdo_execute($sql);
     }
+    function update_cartItem_quantity($cart_id, $product_id, $quantity){
+        $sql="update cart_item set quantity = '$quantity' where cart_id = '$cart_id' and product_id = '$product_id'";
+        pdo_execute($sql);
+    }
+    function get_oldQty_item($cartId, $product_id){
+        $sql = "select quantity from cart_item where cart_id = '$cartId' and product_id = '$product_id'";
+        $oldQty = pdo_query($sql);
+        return $oldQty;
+    }
     function delete_cartItem($cart_id, $product_id){
         if($product_id !== ''){
             $sql = "delete from cart_item where product_id = '$product_id' and cart_id ='$cart_id'";

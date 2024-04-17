@@ -104,10 +104,16 @@ $emptyCart = '<h1 style="font-size: 36px;
                                     
                                 </tbody>
                             </table>
-                            <div class="proceed-to-checkout section mt-30">
-                                <input type="submit" value="Cancel the order" name="submit">
-
-                            </div>
+                            <?php
+                                if($order['process'] == 0 || $order['process'] == 1){
+                                    echo "
+                                        <div class='proceed-to-checkout section mt-30'>
+                                            <input type='submit' value='Cancel the order' name='submit'>
+            
+                                        </div>
+                                    ";
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@
     </div>
     
     <div class="search_list-product-admin w-100">
-    <form action="" class="d-f form-search" method="post">
+    <!-- <form action="" class="d-f form-search" method="post">
               <input
                 type="text"
                 placeholder="Tìm kiếm theo tên danh mục..."
@@ -18,7 +18,7 @@
                 value="Tìm kiếm"
                 name="listok"
               />
-            </form>  
+            </form>   -->
             <table class="w-100 table_bill-admin">
                 <thead>
                 <tr class="maloai">

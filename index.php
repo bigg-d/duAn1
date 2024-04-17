@@ -33,10 +33,10 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             } else {
                 $kyw = "";
             }
-            if(isset($_POST["min_price"]) && isset($_POST["max_price"])){
-                $min = $_POST['min_price'] *26000;
-                $max = $_POST['max_price'] * 26000;
-            }else{
+            if (isset($_POST["min_price"]) && isset($_POST["max_price"])) {
+                $min = intval($_POST['min_price']) * 26000;
+                $max = intval($_POST['max_price']) * 26000;
+            } else {
                 $min = '';
                 $max = '';
             }
@@ -69,7 +69,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $confirm = $_POST['confirm'];
                 $email = $_POST['email'];
                 $checkemail = checkemail($email);
-                $check_username =check_username_register($username);
+                $check_username = check_username_register($username);
                 // var_dump($check_username);
                 /*                    */
                 if (empty($firstname)) {
@@ -85,7 +85,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 } else if (strlen($username) <= 6 && strlen($username) >= 24) {
                     $loiten3 = 'Tên phải >= 6 && <= 24';
 
-                } elseif(is_array($check_username)){
+                } elseif (is_array($check_username)) {
                     $loiten3 = 'Tên tài khoản đã tồn tại!';
                 }
                 if (empty($email)) {
@@ -148,21 +148,20 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 include "view/account/register-login.php";
             }
             break;
-        case 'reset': 
-            
-            if(isset($_POST['submit'])){
-                $name_reset =$_POST['user_name'];
-                $sql ="SELECT * FROM `taikhoan`  WHERE email = '$name_reset'";
-                $row =pdo_query_one($sql);
+        case 'reset':
+
+            if (isset($_POST['submit'])) {
+                $name_reset = $_POST['user_name'];
+                $sql = "SELECT * FROM `taikhoan`  WHERE email = '$name_reset'";
+                $row = pdo_query_one($sql);
                 // var_dump($row);
-                if($name_reset == ''){
-                    $error='Không được bỏ trống';
+                if ($name_reset == '') {
+                    $error = 'Không được bỏ trống';
+                } elseif (!$name_reset == $row) {
+                    $error = 'Không tìm thấy tài khoản';
                 }
-                elseif(!$name_reset == $row){
-                    $error='Không tìm thấy tài khoản';
-                }
-                if(!isset($error)){
-                    $_SESSION['id'] =$row['id'];
+                if (!isset($error)) {
+                    $_SESSION['id'] = $row['id'];
                     $_SESSION['code'] = rand(100000, 999999);
                     include "Mail/send_mail.php";
                     header("Location: index.php?act=verification_code&id=$_SESSION[id]");
@@ -170,39 +169,39 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             }
             include "view/account/reset_password.php";
             break;
-            case 'verification_code':
-                // echo $_SESSION['code'];
-                // echo phpversion();
-                if(isset($_POST['submit'])){
-                    $code = $_POST['code'];
-                    if($code == ''){
-                        $error ='Vui lòng nhập mã';
-                    }
-                    elseif($code == $_SESSION['code']){
-                        $id=$_SESSION['id'];
-                        $_SESSION['check_code'] = true;
-                        unset($_SESSION['code']);
-                        header("Location: index.php?act=show_pass&id=$id");
-                    }else{ 
-                        $error='Mã không đúng';
-                    }
+        case 'verification_code':
+            // echo $_SESSION['code'];
+            // echo phpversion();
+            if (isset($_POST['submit'])) {
+                $code = $_POST['code'];
+                if ($code == '') {
+                    $error = 'Vui lòng nhập mã';
+                } elseif ($code == $_SESSION['code']) {
+                    $id = $_SESSION['id'];
+                    $_SESSION['check_code'] = true;
+                    unset($_SESSION['code']);
+                    header("Location: index.php?act=show_pass&id=$id");
+                } else {
+                    $error = 'Mã không đúng';
                 }
-                if($_GET['id'] == $_SESSION['id'] || empty($_GET['id'])){
-                    include "view/account/verification_code.php";
-                    }else{include "404.php";}
+            }
+            if ($_GET['id'] == $_SESSION['id'] || empty($_GET['id'])) {
+                include "view/account/verification_code.php";
+            } else {
+                include "404.php";
+            }
             break;
-            case 'show_pass':
-                $id_user = $_GET['id'];
-                if($id_user== $_SESSION['id'] && isset($_SESSION['check_code'])){
-                $sql ="SELECT * FROM `taikhoan`  WHERE id = '$id_user'";
-                $row =pdo_query_one($sql);
+        case 'show_pass':
+            $id_user = $_GET['id'];
+            if ($id_user == $_SESSION['id'] && isset($_SESSION['check_code'])) {
+                $sql = "SELECT * FROM `taikhoan`  WHERE id = '$id_user'";
+                $row = pdo_query_one($sql);
                 $my_pass = $row['pass'];
                 include "view/account/show_pass.php";
-                }
-                else{
-                    include "404.php";
-                }
-                break;
+            } else {
+                include "404.php";
+            }
+            break;
         // case 'edit_taikhoan':
         //     if (isset ($_POST['submit']) && $_POST['submit']) {
         //         $id = $_POST['id'];
@@ -262,7 +261,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
         case 'deletecart':
             $cartId = get_cartId($_SESSION['user']['id']);
             if (isset($_GET['id'])) {
-                delete_cartItem($cartId[0]['id'], $_GET['id'],);
+                delete_cartItem($cartId[0]['id'], $_GET['id'], );
                 update_cart($cartId[0]['id'], date('Y-m-d H:i:s'));
             } else {
                 delete_cartItem($cartId[0]['id'], '');
@@ -271,13 +270,13 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             break;
         case "cart":
             include "view/cart/cart.php";
-            break;    
+            break;
         case 'addtocart':
             if (isset($_POST['addtocart']) && ($_POST['addtocart'])) {
                 $id = $_POST['id'];
                 $soluong = isset($_POST['quantity']) ? $_POST['quantity'] : 1;
                 $stock_quantity = $_POST['stock_quantity'];
-                if($soluong <= $stock_quantity){
+                if ($soluong <= $stock_quantity) {  
                     if (isset($_SESSION['user'])) {
                         $name = $_POST['name'];
                         $img = $_POST['img'];
@@ -288,8 +287,29 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                         if (findCartId($listcart, $_SESSION['user']['id'])) {
                             $cartId = get_cartId($_SESSION['user']['id']);
                             $cartItems = get_all_cartItem($cartId[0]['id']);
+                            $stockQuantity = get_stock_quantity($id);
+
                             if (findItemInCart($cartItems, intval($id))) {
-                                echo "<script>alert('Đã có trong giỏ hàng');</script>";
+                                if (isset($_POST['quantity'])) {
+                                    $sl = $_POST['quantity'];
+                                } else {
+                                    $sl = 1;
+                                }
+                                
+                                $result = get_oldQty_item($cartId[0]['id'], $id);
+                                $oldQty = $result[0]['quantity'];
+                                $newQty = $sl + $oldQty;
+                                
+                                // Kiểm tra số lượng còn lại trong kho
+                                if ($newQty <= $stockQuantity['stock_quantity']) {
+                                    echo $newQty;
+                                    update_cartItem_quantity($cartId[0]['id'], $id, $newQty);
+                                    update_cart($cartId[0]['id'], date('Y-m-d H:i:s'));
+                                    echo "<script>alert('Đã cập nhật số lượng trong giỏ hàng');</script>";
+                                } else {
+                                    echo "<script>alert('Đã đạt số lượng tối đa trong giỏ hàng: $stock_quantity');</script>";
+                                    
+                                }
                             } else {
                                 if (isset($_POST['quantity'])) {
                                     // $soluong = $_POST['quantity'];
@@ -302,7 +322,7 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                                 update_cart($cartId[0]['id'], date('Y-m-d H:i:s'));
                                 // header('location: index.php');
                             }
-    
+
                         } else {
                             $cartId = insert_cart($_SESSION['user']['id'], $lastModifiedDate);
                             $cartItems = get_all_cartItem($cartId);
@@ -321,13 +341,13 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                             }
                             // insert_cartItem($cartId, $id, $name, $img, $price, $soluong, $ttien);
                         }
-    
+
                         // }
                     } else {
                         echo "<script>alert('Vui lòng đăng nhập để mua hàng');</script>";
-                        header("location:index.php?act=login");
+                        // header("location:index.php?act=login");
                     }
-                } else{
+                } else {
                     echo "
                     <script>
                         alert('Số lượng còn lại trong kho: $stock_quantity');
@@ -403,10 +423,13 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                     else{
                         include "vnpay_php/vnpay_create_payment.php";
                     }
+                    unset($_SESSION['mycart']);
+
+                    delete_cartItem($cartId[0]['id'], '');
                     header("location: index.php?act=checkout_success&orderId=$orderId");
                     exit;
                 }
-                
+
             }
             include "view/cart/checkout.php";
             break;
@@ -417,38 +440,38 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
                 $cartId = get_cartId($_SESSION['user']['id']);
                 $cartItems = get_all_cartItem($cartId[0]['id']);
                 $ids = $_POST['id'];
-                if($_POST['submit'] === 'Proceed to Checkout'){
+                if ($_POST['submit'] === 'Proceed to Checkout') {
                     include "view/cart/checkout.php";
-                }else{ 
+                } else {
                     //update cart
                     foreach ($ids as $key => $id) {
-                        update_cartItems($cartItems[$key]['id'],$cartId[0]['id'],$quantities[$key], ($quantities[$key] * $prices[$key]) * 26000);
+                        update_cartItems($cartItems[$key]['id'], $cartId[0]['id'], $quantities[$key], ($quantities[$key] * $prices[$key]) * 26000);
                     }
-                    update_cart($cartId[0]['id'],date('Y-m-d H:i:s'));
+                    update_cart($cartId[0]['id'], date('Y-m-d H:i:s'));
 
                     include "view/cart/cart.php";
                 }
             }
             break;
         case 'orderDetail':
-            if(isset($_GET['orderid'])){
+            if (isset($_GET['orderid'])) {
                 $orderId = $_GET['orderid'];
                 $result = loadone_bill($_GET['orderid']);
                 $order = $result[0];
                 $orderItems = loadall_detail_bill($_GET['orderid']);
             }
             include "view/account/orderDetail.php";
-            break;    
+            break;
         case 'checkout_success':
-            if(isset($_GET['orderId'])){
+            if (isset($_GET['orderId'])) {
                 $result = loadone_bill($_GET['orderId']);
                 $order = $result[0];
-                $products= loadall_detail_bill($order['order_id']);
+                $products = loadall_detail_bill($order['order_id']);
             }
             include "view/camon.php";
             break;
         case 'cancelOrder':
-            if(isset($_POST['orderId'])){
+            if (isset($_POST['orderId'])) {
                 $orderId = $_POST['orderId'];
                 update_bill($orderId, 5);
                 header("location: index.php?act=orderDetail&orderid=$orderId");

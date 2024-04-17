@@ -369,16 +369,16 @@ if (isset ($_SESSION['user']) && ($_SESSION['user']['role'] == 1)) {
                          for ($i=0; $i <=6 ; $i++) { 
                             if($_trang_thai==$i){
                                 $_tk_don = tk_don();
-                                $tong_don = $_tk_don[1]['tong_don_'.$i.''];
-                                $tong_tien = $_tk_don[1]['tong_tien_'.$i.''];
+                                $tong_don = $_tk_don[0]['tong_don_'.$i.''];
+                                $tong_tien = $_tk_don[0]['tong_tien_'.$i.''];
                             }else{$_tk_don = trang_thai_don($_trang_thai);}
                          }
                     }
                 }else{
                     $_tk_don = tk_don();
                     // var_dump($_tk_don);
-                    $tong_don = $_tk_don[1]['tong_don_6'];
-                    $tong_tien = $_tk_don[1]['tong_tien_6'];
+                    $tong_don = $_tk_don[0]['tong_don_6'];
+                    $tong_tien = $_tk_don[0]['tong_tien_6'];
 
                 }
                 include "thongke/thong_ke_don.php";
