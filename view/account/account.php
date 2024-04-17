@@ -202,15 +202,27 @@
 						<div class="myaccount-content">
 							<h3>Billing Address</h3>
 
-							<address>
-								<p><strong>Alex Tuntuni</strong></p>
-								<p>1355 Market St, Suite 900 <br>
-									San Francisco, CA 94103</p>
-								<p>Mobile: (123) 456-7890</p>
-							</address>
+							<div class="account-details-form">
+								<form id="edit_address">
+									<div class="row">
+										<div class="col-lg-6 col-12 mb-30">
+											Address
+											<input id="address"value="<?php echo $user_info[0]['address'] ?>" type="text" name="address"  >
+										</div>
 
-							<a href="#" class="btn btn-dark btn-round d-inline-block"><i class="fa fa-edit"></i>Edit
-								Address</a>
+										<div class="col-lg-6 col-12 mb-30">
+												Phone
+											<input id="phone" value="<?php echo $user_info[0]['phone'] ?>" type="text" name="phone" >
+										</div>
+										
+										
+										<div class="col-12">
+											<span id="notify" style="color:red"></span><br>
+											<button type="submit" class="btn btn-dark btn-round btn-lg">Save Changes</button>
+										</div>
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
 					<!-- Single Tab Content End -->
@@ -221,22 +233,23 @@
 							<h3>Account Details</h3>
 
 							<div class="account-details-form">
-								<form action="#">
+								<form id="edit_pass">
 									<div class="row">
 										<div class="col-lg-6 col-12 mb-30">
-											<input id="first-name" placeholder="First Name" type="text">
+											
+											<input id="first-name"value="<?php echo $user_info[0]['firstname'] ?>" type="text" disabled >
 										</div>
 
 										<div class="col-lg-6 col-12 mb-30">
-											<input id="last-name" placeholder="Last Name" type="text">
+											<input id="last-name" value="<?php echo $user_info[0]['lastname'] ?>" type="text" disabled>
 										</div>
 
 										<div class="col-12 mb-30">
-											<input id="display-name" placeholder="Display Name" type="text">
+											<input id="display-name"  value="<?php echo $user_info[0]['username'] ?>" type="text" disabled>
 										</div>
 
 										<div class="col-12 mb-30">
-											<input id="email" placeholder="Email Address" type="email">
+											<input id="email" value="<?php echo $user_info[0]['email'] ?>" type="email" disabled>
 										</div>
 
 										<div class="col-12 mb-30">
@@ -244,21 +257,23 @@
 										</div>
 
 										<div class="col-12 mb-30">
-											<input id="current-pwd" placeholder="Current Password" type="password">
+											<input id="currentpwd" placeholder="Current Password" name="current_pwd" type="password" >
 										</div>
 
 										<div class="col-lg-6 col-12 mb-30">
-											<input id="new-pwd" placeholder="New Password" type="password">
+											<input id="new-pwd" placeholder="New Password"  name="new_pwd" type="password">
 										</div>
 
 										<div class="col-lg-6 col-12 mb-30">
-											<input id="confirm-pwd" placeholder="Confirm Password" type="password">
+											<input id="confirm-pwd" placeholder="Confirm Password" name="confirm_pwd" type="password">
+											<span style="color: red;" id="noidung1" > </span>		
 										</div>
 
 										<div class="col-12">
-											<button class="btn btn-dark btn-round btn-lg">Save Changes</button>
+											<button type="submit" class="btn btn-dark btn-round btn-lg">Save Changes</button>
 										</div>
 
+										<span style="color: red;" id="noidung" > </span>
 									</div>
 								</form>
 							</div>
@@ -272,3 +287,77 @@
 		</div>
 	</div>
 </div><!-- Page Section End -->
+<script>
+$(document).ready(function() {
+		$("#edit_pass").submit(function(event) {
+			event.preventDefault();
+			
+			
+			var current_pwd = $('#currentpwd').val();
+			var new_pwd = $('#new-pwd').val();
+			var confirm_pwd = $('#confirm-pwd').val();							
+					
+					$.ajax({
+					url: "view/account/xuly_pass.php", 
+					method: "POST", 
+					data: {
+						currentpwd:current_pwd,
+						new_pwd:new_pwd,
+						confirm_pwd:confirm_pwd
+					},
+					dataType: 'html',
+					success: function(response) {
+
+						response = JSON.parse(response);
+						if(new_pwd =='' &&  confirm_pwd == ''){
+							$('#noidung1').html('Không bỏ trống');
+						}
+						else if(new_pwd != confirm_pwd){
+							$('#noidung1').html('Mật khẩu không khớp');
+						}else{
+							$('#noidung1').html('');
+							
+						}
+                        if(response.status == 0){
+							// $('#noidung').html(response.message);
+							if(new_pwd != '' &&  confirm_pwd !=''){
+								if(new_pwd == confirm_pwd){
+									$('#noidung').html('Đăng ký thành công');
+								}
+							}			
+						}else{
+							$('#noidung').html(response.message);
+						}
+					}
+					});
+            });
+  });
+$(document).ready(function() {
+		$("#edit_address").submit(function(event) {
+			event.preventDefault();
+			
+			
+			var address = $('#address').val();
+			var phone = $('#phone').val();					
+					$.ajax({
+					url: "view/account/xuly_address.php", 
+					method: "POST", 
+					data: {
+						address:address,
+						phone:phone,
+					},
+					dataType: 'html',
+					success: function(response) {
+
+						// response = JSON.parse(response);
+						if(address =='' &&  phone == ''){
+							$('#notify').html('Không bỏ trống');
+						}else{
+							$('#notify').html('Cập nhật thành công');
+						}
+                        
+					}
+					});
+            });
+  });
+</script>

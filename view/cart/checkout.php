@@ -108,14 +108,14 @@
 
 
 							<div class="single-method">
-								<input type="radio" id="payment_bank" name="payment-method" value="bank">
+								<input type="radio" id="payment_bank" name="payment-method-bank" value="bank">
 								<label id='payment_bank' for="payment_bank">Direct Bank Transfer</label>
 								<p data-method="bank">Please send a Check to Store name with Store Street, Store
 									Town, Store State, Store Postcode, Store Country.</p>
 							</div>
 
 							<div class="single-method">
-								<input type="radio" id="payment_cash" name="payment-method" value="cash">
+								<input type="radio" id="payment_cash" name="payment-method-cash" value="cash">
 								<label for="payment_cash">Cash on Delivery</label>
 								<p data-method="cash">Please send a Check to Store name with Store Street, Store
 									Town, Store State, Store Postcode, Store Country.</p>
@@ -172,13 +172,13 @@
 									<input type="hidden" name="grandTotal"
 										value="<?= number_format($grandTotal / 26000, 1) ?>">
 								</p>
+								<input name="shippingFee" type="hidden" value="<?= ($grandTotal > 300000) ? $tranpost_fee = 0 : $tranpost_fee= 2.5?>">
 								<p>Shipping Fee <span>$
-										<?= ($grandTotal > 300000) ? 0.00 : 2.5 ?>
+										<?= ($grandTotal > 300000) ? $tranpost_fee = 0 : $tranpost_fee= 2.5 ?>
 									</span></p>
-								<input name="shippingFee" type="hidden" value="<?= ($grandTotal > 300000) ? 0 : 2.5 ?>">
 
-								<h4>Grand Total <span>$
-										<?= number_format($grandTotal / 26000, 1) ?>
+								<h4>Grand Total <span style="color:rgb(66, 107, 183);">$
+										<?php echo $total_amount = number_format($grandTotal / 26000, 1) + $tranpost_fee?>
 									</span></h4>
 
 							</div>
@@ -225,95 +225,8 @@
 </div><!-- Page Section End -->
 
 
-<div id="dialog" class="contain-overlay-product-detail">
-	<div class="contain-product-detail">
 
-		<!-- ------------------------------ -->
-		<div class="sideBar_pay" style="color:white">
-			<div class="timePay blockPayment">
-				<span style="margin-bottom:12px">Đơn hàng hết hạn sau</span>
-				<span id="countdown" class="timeRestPay">10:00</span>
-			</div>
-			<div class="timePay blockPayment">
-				<span><i class="fa-solid fa-shop"></i> Nhà cung cấp</span>
-				<span>Shop</span>
-			</div>
-			<div class="timePay blockPayment">
-				<span><i class="fa-solid fa-money-bill"></i> Số tiền</span>
-				<span>
-					<?= number_format($grandTotal) ?> đ
-				</span>
-			</div>
-			<div class="timePay blockPayment">
-				<span><i class="fa-solid fa-circle-info"></i> Thông tin</span>
-				<span>Thanh toán bằng MBbank</span>
-				<span>STK : 123456789</span>
-			</div>
-			<!-- <div class="timePay blockPayment">
-					  <span><i class="fa-solid fa-id-card-clip"></i> Mã đơn hàng</span>
-					  <span > <?= $orderId ?></span>
-					</div> -->
-			<input type="hidden" value="<?=$orderId?>" id="orderId">		
-			<div class="timePay blockPayment">
-				<button class="button-back-pay">
-					<i class="fa-solid fa-arrow-left"></i> Quay lại
-				</button>
-			</div>
-		</div>
-		<!-- ------------------------------ -->
-		<div class="contain_QR_code">
-			<div class="w-100 d-f jf-e">
-				<div class="close_show">
-					<i class="fa-solid fa-xmark"></i>
-				</div>
-			</div>
-
-			<div class="contain_logo_MBbank">
-				<div class="logo_MBbank">
-					<img width="120px" src="img/logo/mbbank.png" alt="">
-				</div>
-				<div class="logo_MBbank">
-					<img width="120px" src="img/logo/mbbank.png" alt="">
-				</div>
-			</div>
-			<div style="text-align:right; font-size:22px;cursor:pointer" id="closeQrBtn">x</div>
-			<div class="line_pay"></div>
-			<div class="qr_code w-100 d-f al-c f-d" style="text-align:center">
-				<h4 class="m-t-b10" style="font-weight:700">Quét mã để thanh toán</h4>
-				<div style="margin:0 auto; text-align:center" class="img_QR_code">
-					<img src="upload/qrcode.jpg" width="230px" alt="">
-				</div>
-				<p>
-					Sử dụng app MBBank để quét mã
-				</p>
-				<div style="display:flex; justify-content:center; gap:10px">
-					<!-- CHECK ICON  -->
-					<svg style="width:30px" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
-						<circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10"
-							cx="65.1" cy="65.1" r="62.1" />
-						<polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6"
-							stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
-					</svg>
-					<span class="processing-pay" id="success" style="display:none">
-						Thanh toán thành công
-					</span>
-					<span id="loading-pay">
-						<div class="loader"></div>
-					</span>
-					<span class="processing-pay" id="loading">
-						Đang chờ quét mã
-					</span>
-
-				</div>
-			</div>
-			<div class="notePay">
-				* Sau khi chuyển khoản hãy chờ để ngân hàng xác nhận
-			</div>
-
-		</div>
-	</div>
-</div>
-<script>
+<!-- <script>
 	// Lấy phần tử đồng hồ đếm ngược
 	var countdownElement = document.getElementById("countdown");
 
@@ -374,4 +287,4 @@
 		dialog.style.display = 'none';
 	});
 
-</script>
+</script> -->
